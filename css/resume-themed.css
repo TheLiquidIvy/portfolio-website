@@ -1,0 +1,1010 @@
+/* ==================== VARIABLES ==================== */
+:root {
+    /* Primary Colors - Matching Portfolio Theme */
+    --primary-color: #00f3ff;
+    --secondary-color: #ff00ff;
+    --accent-color: #7b00ff;
+    --neon-green: #00ff41;
+    
+    /* Background Colors */
+    --bg-dark: #0a0a0a;
+    --bg-darker: #050508;
+    --bg-section: rgba(10, 10, 20, 0.8);
+    
+    /* Text Colors */
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0b0;
+    --text-dim: #6a6a7a;
+    
+    /* Effects */
+    --glow-cyan: rgba(0, 243, 255, 0.5);
+    --glow-magenta: rgba(255, 0, 255, 0.5);
+    --glow-purple: rgba(123, 0, 255, 0.5);
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* ==================== BASE STYLES ==================== */
+
+/* Reset for resume container */
+.resume-container {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.resume-container *,
+.resume-container *::before,
+.resume-container *::after {
+    box-sizing: inherit;
+}
+
+/* Main Resume Container */
+.resume-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--spacing-xl) var(--spacing-lg);
+    background: var(--bg-darker);
+    color: var(--text-primary);
+    font-family: 'Rajdhani', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    position: relative;
+}
+
+/* Background Grid Effect */
+.resume-container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(90deg, transparent 49.5%, rgba(0, 243, 255, 0.05) 50%, transparent 50.5%),
+        linear-gradient(0deg, transparent 49.5%, rgba(0, 243, 255, 0.05) 50%, transparent 50.5%);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: -1;
+    animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
+
+/* Typography */
+.resume-container h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 20px var(--glow-cyan);
+}
+
+.resume-container h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    position: relative;
+    padding-bottom: var(--spacing-sm);
+}
+
+.resume-container h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 0 10px var(--glow-magenta);
+}
+
+.resume-container h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+.resume-container h4 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.resume-container p {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.resume-container ul {
+    margin-left: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+.resume-container li {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+    position: relative;
+    padding-left: var(--spacing-sm);
+}
+
+.resume-container li::marker {
+    color: var(--primary-color);
+}
+
+/* ==================== HEADER STYLES ==================== */
+.resume-header {
+    text-align: center;
+    padding: var(--spacing-lg) 0 var(--spacing-xl);
+    border-bottom: 2px solid rgba(0, 243, 255, 0.3);
+    margin-bottom: var(--spacing-xl);
+    position: relative;
+}
+
+.resume-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    box-shadow: 0 0 15px var(--glow-cyan);
+}
+
+.resume-name {
+    position: relative;
+    display: inline-block;
+}
+
+/* Optional subtle glitch effect on name */
+.resume-name::before,
+.resume-name::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.resume-name::before {
+    animation: glitchTop 3s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    text-shadow: 2px 0 var(--secondary-color);
+}
+
+.resume-name::after {
+    animation: glitchBottom 3s infinite;
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    text-shadow: -2px 0 var(--primary-color);
+}
+
+@keyframes glitchTop {
+    0%, 90%, 100% { transform: translate(0); }
+    92% { transform: translate(-2px, 1px); }
+    94% { transform: translate(2px, -1px); }
+}
+
+@keyframes glitchBottom {
+    0%, 90%, 100% { transform: translate(0); }
+    92% { transform: translate(2px, -1px); }
+    94% { transform: translate(-2px, 1px); }
+}
+
+.resume-title {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-bottom: var(--spacing-md);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.resume-contact {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    margin-top: var(--spacing-md);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-normal);
+}
+
+.contact-item:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px var(--glow-cyan);
+    transform: translateY(-2px);
+}
+
+.contact-item svg,
+.contact-item .icon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* ==================== SECTION STYLES ==================== */
+.resume-section {
+    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background: var(--bg-section);
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    border-radius: var(--radius-lg);
+    position: relative;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Glassmorphism effect */
+.resume-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.05) 0%, rgba(255, 0, 255, 0.05) 100%);
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.resume-section:hover::before {
+    opacity: 1;
+}
+
+/* Neon border accent on hover */
+.resume-section::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    border-radius: inherit;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity var(--transition-normal);
+}
+
+.resume-section:hover::after {
+    opacity: 0.3;
+}
+
+/* Professional Summary */
+.summary-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+    text-align: justify;
+}
+
+/* Skills Section */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.skill-category {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    transition: all var(--transition-normal);
+}
+
+.skill-category:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px var(--glow-cyan);
+    transform: translateY(-3px);
+}
+
+.skill-category h4 {
+    color: var(--secondary-color);
+    margin-bottom: var(--spacing-sm);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.skill-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.skill-list li {
+    padding: var(--spacing-xs) 0;
+    padding-left: 0;
+    margin: 0;
+    color: var(--text-primary);
+    position: relative;
+}
+
+.skill-list li::before {
+    content: '▸';
+    color: var(--primary-color);
+    margin-right: var(--spacing-xs);
+    font-size: 0.9em;
+}
+
+/* Experience Section */
+.experience-item,
+.education-item {
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: rgba(0, 0, 0, 0.3);
+    border-left: 3px solid var(--primary-color);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-normal);
+}
+
+.experience-item:hover,
+.education-item:hover {
+    background: rgba(0, 0, 0, 0.5);
+    border-left-color: var(--secondary-color);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.experience-item:last-child,
+.education-item:last-child {
+    margin-bottom: 0;
+}
+
+.experience-header,
+.education-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-sm);
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.experience-company,
+.education-institution {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.experience-date,
+.education-date {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    font-style: italic;
+}
+
+.experience-role,
+.education-degree {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-bottom: var(--spacing-sm);
+}
+
+.experience-achievements {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.experience-achievements li {
+    padding: var(--spacing-xs) 0;
+    padding-left: var(--spacing-md);
+    color: var(--text-secondary);
+    position: relative;
+}
+
+.experience-achievements li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+/* Certifications & Awards */
+.certifications-list,
+.awards-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.certification-item,
+.award-item {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(123, 0, 255, 0.3);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+}
+
+.certification-item:hover,
+.award-item:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px var(--glow-purple);
+    transform: scale(1.02);
+}
+
+.certification-name,
+.award-name {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
+
+.certification-issuer,
+.award-issuer {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+}
+
+/* Projects Section */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.project-item {
+    padding: var(--spacing-md);
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+}
+
+.project-item:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px var(--glow-cyan);
+    transform: translateY(-5px);
+}
+
+.project-name {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.project-description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.tech-tag {
+    padding: 0.3rem 0.6rem;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    color: var(--primary-color);
+}
+
+/* ==================== DOWNLOAD BUTTONS ==================== */
+.resume-download-options {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin: var(--spacing-xl) 0;
+    flex-wrap: wrap;
+}
+
+/* Base button styles */
+.btn-download-themed,
+.btn-download-ats {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 1rem 2rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Themed Download Button - Cyberpunk Aesthetic */
+.btn-download-themed {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--bg-dark);
+    border: 2px solid transparent;
+    box-shadow: 
+        0 0 20px var(--glow-cyan),
+        0 0 40px var(--glow-magenta),
+        0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-download-themed::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left var(--transition-slow);
+}
+
+.btn-download-themed:hover::before {
+    left: 100%;
+}
+
+.btn-download-themed:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 0 30px var(--glow-cyan),
+        0 0 60px var(--glow-magenta),
+        0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.btn-download-themed:active {
+    transform: translateY(-1px);
+}
+
+.btn-download-themed .icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+/* ATS Download Button - Professional & System-Friendly */
+.btn-download-ats {
+    background: rgba(0, 255, 65, 0.1);
+    color: var(--neon-green);
+    border: 2px solid var(--neon-green);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+}
+
+.btn-download-ats::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(0, 255, 65, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width var(--transition-normal), height var(--transition-normal);
+}
+
+.btn-download-ats:hover::after {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-download-ats:hover {
+    background: var(--neon-green);
+    color: var(--bg-dark);
+    border-color: var(--neon-green);
+    box-shadow: 
+        0 0 25px rgba(0, 255, 65, 0.6),
+        0 4px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+}
+
+.btn-download-ats:active {
+    transform: translateY(-1px);
+}
+
+.btn-download-ats .icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    position: relative;
+    z-index: 2;
+}
+
+/* Button text positioning */
+.btn-download-themed span,
+.btn-download-ats span {
+    position: relative;
+    z-index: 2;
+}
+
+/* Loading state for buttons */
+.btn-download-themed.loading,
+.btn-download-ats.loading {
+    opacity: 0.7;
+    cursor: wait;
+    pointer-events: none;
+}
+
+.btn-download-themed.loading .icon,
+.btn-download-ats.loading .icon {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ==================== PRINT STYLES (ATS-FRIENDLY) ==================== */
+@media print {
+    /* Remove all decorative elements */
+    .resume-container::before,
+    .resume-section::before,
+    .resume-section::after,
+    .resume-header::after {
+        display: none !important;
+    }
+    
+    /* Reset to simple black and white */
+    * {
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        border-color: black !important;
+    }
+    
+    .resume-container {
+        max-width: 100%;
+        padding: 0.5in;
+        background: white !important;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        color: black !important;
+        text-shadow: none !important;
+        page-break-after: avoid;
+    }
+    
+    h1 {
+        font-size: 24pt;
+        margin-bottom: 6pt;
+    }
+    
+    h2 {
+        font-size: 16pt;
+        margin-top: 12pt;
+        margin-bottom: 6pt;
+        border-bottom: 1pt solid black;
+        padding-bottom: 3pt;
+    }
+    
+    h3 {
+        font-size: 12pt;
+        margin-bottom: 3pt;
+    }
+    
+    h4 {
+        font-size: 11pt;
+        margin-bottom: 3pt;
+    }
+    
+    p, li {
+        font-size: 10pt;
+        line-height: 1.4;
+        color: black !important;
+    }
+    
+    /* Remove all visual effects */
+    .resume-section {
+        border: 1pt solid black;
+        border-radius: 0;
+        padding: 8pt;
+        margin-bottom: 12pt;
+        page-break-inside: avoid;
+        background: white !important;
+        backdrop-filter: none;
+    }
+    
+    .resume-header {
+        text-align: center;
+        border-bottom: 2pt solid black;
+        padding-bottom: 8pt;
+        margin-bottom: 12pt;
+    }
+    
+    .contact-item {
+        border: none;
+        padding: 0;
+        margin: 0 8pt;
+    }
+    
+    /* Hide download buttons in print */
+    .resume-download-options,
+    .btn-download-themed,
+    .btn-download-ats {
+        display: none !important;
+    }
+    
+    /* Simplify lists */
+    ul {
+        margin-left: 0.25in;
+    }
+    
+    li::marker {
+        color: black !important;
+    }
+    
+    /* Simplify experience/education items */
+    .experience-item,
+    .education-item,
+    .skill-category,
+    .project-item,
+    .certification-item,
+    .award-item {
+        background: white !important;
+        border: none !important;
+        border-left: 2pt solid black !important;
+        padding: 6pt 0 6pt 8pt;
+        margin-bottom: 8pt;
+    }
+    
+    /* Ensure proper page breaks */
+    .experience-item,
+    .education-item,
+    .project-item {
+        page-break-inside: avoid;
+    }
+    
+    /* Simplify grids for linear layout */
+    .skills-grid,
+    .projects-grid,
+    .certifications-list,
+    .awards-list {
+        display: block;
+    }
+    
+    .skill-category,
+    .project-item,
+    .certification-item,
+    .award-item {
+        margin-bottom: 8pt;
+    }
+    
+    /* Remove hover effects and transitions */
+    * {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+    
+    /* Clean contact layout */
+    .resume-contact {
+        display: block;
+        text-align: center;
+    }
+    
+    .contact-item {
+        display: inline;
+        margin: 0 6pt;
+    }
+    
+    /* Tech tags simplified */
+    .tech-tag {
+        display: inline-block;
+        border: 1pt solid black;
+        border-radius: 0;
+        padding: 1pt 4pt;
+        margin: 0 2pt 2pt 0;
+        background: white !important;
+    }
+}
+
+/* ==================== RESPONSIVE STYLES ==================== */
+
+/* Tablet (768px and below) */
+@media (max-width: 768px) {
+    .resume-container {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+    
+    .resume-container h1 {
+        font-size: 2.2rem;
+    }
+    
+    .resume-container h2 {
+        font-size: 1.5rem;
+        margin-top: var(--spacing-lg);
+    }
+    
+    .resume-container h3 {
+        font-size: 1.1rem;
+    }
+    
+    .resume-header {
+        padding: var(--spacing-md) 0 var(--spacing-lg);
+    }
+    
+    .resume-contact {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+    
+    .experience-header,
+    .education-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .certifications-list,
+    .awards-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .resume-download-options {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .btn-download-themed,
+    .btn-download-ats {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+    .resume-container {
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+    
+    .resume-container h1 {
+        font-size: 1.8rem;
+    }
+    
+    .resume-container h2 {
+        font-size: 1.3rem;
+    }
+    
+    .resume-section {
+        padding: var(--spacing-md);
+    }
+    
+    .btn-download-themed,
+    .btn-download-ats {
+        padding: 0.9rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Stack contact items */
+    .resume-contact {
+        gap: var(--spacing-xs);
+    }
+    
+    .contact-item {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+
+/* Focus states for keyboard navigation */
+.btn-download-themed:focus,
+.btn-download-ats:focus,
+.contact-item:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 3px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .resume-container::before {
+        animation: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .resume-container {
+        background: #000;
+        color: #fff;
+    }
+    
+    .resume-section {
+        border-width: 2px;
+    }
+    
+    h1, h2, h3 {
+        color: #0ff !important;
+    }
+    
+    .btn-download-themed,
+    .btn-download-ats {
+        border-width: 3px;
+    }
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
