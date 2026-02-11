@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
     <style>
         .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
         .game-card { background: rgba(10, 10, 15, 0.8); border: 1px solid rgba(0, 255, 255, 0.2); border-radius: 12px; overflow: hidden; transition: all 0.3s; cursor: pointer; position: relative; }
@@ -72,76 +73,135 @@
                 <div class="project-detail-card"><h3>Source</h3><ul><li>Scene manager and physics engine.</li><li>Lobby UI and chat components.</li><li>Matchmaking API and WebSocket server.</li></ul></div>
             </div>
             <div id="demo" class="project-demo">
-                <h2 class="section-title glitch" data-text="GAME LOBBY">GAME LOBBY</h2>
-                <div class="status-bar">
-                    <div class="status-item"><span class="status-dot"></span><span>1,247 Players Online</span></div>
-                    <div class="status-item"><span style="color: var(--primary);">●</span><span>32 Active Matches</span></div>
-                    <div class="status-item"><span style="color: var(--secondary);">●</span><span>Server: US-EAST-1</span></div>
+                <h2 class="section-title glitch" data-text="GAME ARCADE">GAME ARCADE</h2>
+                
+                <!-- Game Selection Grid -->
+                <div id="game-grid" class="game-grid">
+                    <div class="game-card" data-game="snake">
+                        <div class="game-thumbnail" style="background: linear-gradient(135deg, #00ffff, #0088ff);">
+                            🐍
+                        </div>
+                        <div class="game-info">
+                            <div class="game-title">Neural Snake</div>
+                            <div class="game-description">Classic snake with cyberpunk twist. Eat, grow, don't crash!</div>
+                            <div class="game-stats">
+                                <div class="game-highscore">High: <span id="snake-high">0</span></div>
+                                <button class="play-btn">PLAY</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="game-card" data-game="tetris">
+                        <div class="game-thumbnail" style="background: linear-gradient(135deg, #ff00ff, #ff0088);">
+                            🎮
+                        </div>
+                        <div class="game-info">
+                            <div class="game-title">Cyber Tetris</div>
+                            <div class="game-description">Stack blocks perfectly. Clear lines to score big!</div>
+                            <div class="game-stats">
+                                <div class="game-highscore">High: <span id="tetris-high">0</span></div>
+                                <button class="play-btn">PLAY</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="game-card" data-game="memory">
+                        <div class="game-thumbnail" style="background: linear-gradient(135deg, #00ff41, #00aa28);">
+                            🧩
+                        </div>
+                        <div class="game-info">
+                            <div class="game-title">Memory Matrix</div>
+                            <div class="game-description">Match pairs of cards. Test your memory skills!</div>
+                            <div class="game-stats">
+                                <div class="game-highscore">High: <span id="memory-high">0</span></div>
+                                <button class="play-btn">PLAY</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="game-grid">
-                    <div class="game-card">
-                        <div class="game-thumbnail" style="background: linear-gradient(135deg, #00ffff, #0088ff);">🎯</div>
-                        <div class="game-info">
-                            <div class="game-title">Neon Blitz</div>
-                            <div class="game-players">🟢 124 players</div>
-                            <div class="game-tags"><span class="game-tag">FPS</span><span class="game-tag">Ranked</span></div>
+
+                <!-- Snake Game Container -->
+                <div id="snake-game" class="game-container">
+                    <div class="game-header">
+                        <div class="game-header-title">🐍 Neural Snake</div>
+                        <div class="game-controls">
+                            <div class="game-score">Score: <span id="snake-score">0</span></div>
+                            <button id="snake-start" class="game-btn">Start</button>
+                            <button id="snake-reset" class="game-btn">Reset</button>
+                            <button id="snake-back" class="game-btn back-btn">Back</button>
                         </div>
                     </div>
-                    <div class="game-card">
-                        <div class="game-thumbnail" style="background: linear-gradient(135deg, #ff00ff, #ff0088);">⚡</div>
-                        <div class="game-info">
-                            <div class="game-title">Cyber Rally</div>
-                            <div class="game-players">🟢 89 players</div>
-                            <div class="game-tags"><span class="game-tag">Racing</span><span class="game-tag">Casual</span></div>
-                        </div>
+                    <div class="game-canvas-wrapper">
+                        <canvas id="snake-canvas" class="game-canvas" width="400" height="400"></canvas>
                     </div>
-                    <div class="game-card">
-                        <div class="game-thumbnail" style="background: linear-gradient(135deg, #00ff41, #00aa28);">🧩</div>
-                        <div class="game-info">
-                            <div class="game-title">Quantum Puzzle</div>
-                            <div class="game-players">🟢 56 players</div>
-                            <div class="game-tags"><span class="game-tag">Puzzle</span><span class="game-tag">Co-op</span></div>
-                        </div>
-                    </div>
-                    <div class="game-card">
-                        <div class="game-thumbnail" style="background: linear-gradient(135deg, #ffa502, #ff6348);">🔥</div>
-                        <div class="game-info">
-                            <div class="game-title">Arena Legends</div>
-                            <div class="game-players">🟢 203 players</div>
-                            <div class="game-tags"><span class="game-tag">MOBA</span><span class="game-tag">Competitive</span></div>
-                        </div>
+                    <div class="game-instructions">
+                        <div class="instructions-title">Controls</div>
+                        <div class="instructions-text">Use Arrow Keys or WASD to move. Eat green food to grow. Don't hit walls or yourself!</div>
                     </div>
                 </div>
-                <div class="leaderboard">
-                    <div class="leaderboard-title">🏆 Global Leaderboard</div>
-                    <ul class="leaderboard-list">
-                        <li class="leaderboard-item">
-                            <span class="leaderboard-rank">#1</span>
-                            <div class="leaderboard-avatar">NX</div>
-                            <span class="leaderboard-name">NeonXtreme</span>
-                            <span class="leaderboard-score">12,480</span>
-                        </li>
-                        <li class="leaderboard-item">
-                            <span class="leaderboard-rank">#2</span>
-                            <div class="leaderboard-avatar">CP</div>
-                            <span class="leaderboard-name">CyberPunk99</span>
-                            <span class="leaderboard-score">11,250</span>
-                        </li>
-                        <li class="leaderboard-item">
-                            <span class="leaderboard-rank">#3</span>
-                            <div class="leaderboard-avatar">QM</div>
-                            <span class="leaderboard-name">QuantumMaster</span>
-                            <span class="leaderboard-score">10,890</span>
-                        </li>
-                        <li class="leaderboard-item">
-                            <span class="leaderboard-rank">#4</span>
-                            <div class="leaderboard-avatar">VX</div>
-                            <span class="leaderboard-name">VortexRider</span>
-                            <span class="leaderboard-score">9,720</span>
-                        </li>
-                    </ul>
+
+                <!-- Tetris Game Container -->
+                <div id="tetris-game" class="game-container">
+                    <div class="game-header">
+                        <div class="game-header-title">🎮 Cyber Tetris</div>
+                        <div class="game-controls">
+                            <div class="game-score">Score: <span id="tetris-score">0</span></div>
+                            <button id="tetris-start" class="game-btn">Start</button>
+                            <button id="tetris-reset" class="game-btn">Reset</button>
+                            <button id="tetris-back" class="game-btn back-btn">Back</button>
+                        </div>
+                    </div>
+                    <div class="game-canvas-wrapper">
+                        <canvas id="tetris-canvas" class="game-canvas" width="200" height="400"></canvas>
+                    </div>
+                    <div class="game-instructions">
+                        <div class="instructions-title">Controls</div>
+                        <div class="instructions-text">Stack falling blocks to clear lines. More lines = higher score!</div>
+                    </div>
+                </div>
+
+                <!-- Memory Game Container -->
+                <div id="memory-game" class="game-container">
+                    <div class="game-header">
+                        <div class="game-header-title">🧩 Memory Matrix</div>
+                        <div class="game-controls">
+                            <div class="game-score">Score: <span id="memory-score">0</span></div>
+                            <button id="memory-reset" class="game-btn">Reset</button>
+                            <button id="memory-back" class="game-btn back-btn">Back</button>
+                        </div>
+                    </div>
+                    <div id="memory-grid"></div>
+                    <div class="game-instructions">
+                        <div class="instructions-title">How to Play</div>
+                        <div class="instructions-text">Click cards to flip them. Match all pairs to win. Fewer moves = better score!</div>
+                    </div>
+                </div>
+
+                <!-- Leaderboard -->
+                <div id="leaderboard" class="leaderboard">
+                    <div class="leaderboard-header">
+                        <div class="leaderboard-title">🏆 Leaderboards</div>
+                        <div class="leaderboard-subtitle">Top Players Across All Games</div>
+                    </div>
+                    <div class="leaderboard-grid">
+                        <div class="leaderboard-section">
+                            <div class="leaderboard-section-title">🐍 Neural Snake</div>
+                            <ul id="snake-leaderboard" class="leaderboard-list"></ul>
+                        </div>
+                        <div class="leaderboard-section">
+                            <div class="leaderboard-section-title">🎮 Cyber Tetris</div>
+                            <ul id="tetris-leaderboard" class="leaderboard-list"></ul>
+                        </div>
+                        <div class="leaderboard-section">
+                            <div class="leaderboard-section-title">🧩 Memory Matrix</div>
+                            <ul id="memory-leaderboard" class="leaderboard-list"></ul>
+                        </div>
+                    </div>
+                    
+                    <div class="achievements" id="achievements"></div>
                 </div>
             </div>
+
             <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
@@ -156,5 +216,6 @@
         </div>
     </section>
     <script src="../../../js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

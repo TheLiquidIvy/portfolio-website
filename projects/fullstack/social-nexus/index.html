@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social Nexus | Full Stack Project</title>
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -83,54 +84,90 @@
             </div>
 
             <div id="demo" class="project-demo">
-                <h2 class="section-title glitch" data-text="COMMUNITY PREVIEW">COMMUNITY PREVIEW</h2>
-                <div class="demo-grid">
-                    <div class="demo-panel">
-                        <h4>Activity Feed</h4>
-                        <div class="demo-list">
-                            <div class="demo-list-item">
-                                <span>Nova liked your post</span>
-                                <span class="demo-chip positive">Now</span>
+                <h2 class="section-title glitch" data-text="LIVE DEMO">LIVE DEMO</h2>
+                
+                <!-- Auth Section -->
+                <div id="auth-section" class="auth-container">
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-tab="login">Login</button>
+                        <button class="auth-tab" data-tab="signup">Sign Up</button>
+                    </div>
+                    <div id="login-form" class="auth-form active">
+                        <input type="text" id="login-username" placeholder="Username" class="cyber-input">
+                        <input type="password" id="login-password" placeholder="Password" class="cyber-input">
+                        <button id="login-btn" class="btn btn-primary">Login</button>
+                    </div>
+                    <div id="signup-form" class="auth-form">
+                        <input type="text" id="signup-username" placeholder="Username" class="cyber-input">
+                        <input type="email" id="signup-email" placeholder="Email" class="cyber-input">
+                        <input type="password" id="signup-password" placeholder="Password" class="cyber-input">
+                        <button id="signup-btn" class="btn btn-primary">Sign Up</button>
+                    </div>
+                </div>
+
+                <!-- Main App -->
+                <div id="main-app" class="main-app hidden">
+                    <div class="app-header">
+                        <h3>Welcome, <span id="current-user"></span>!</h3>
+                        <button id="logout-btn" class="btn btn-secondary">Logout</button>
+                    </div>
+
+                    <div class="app-tabs">
+                        <button class="app-tab active" data-view="feed">Feed</button>
+                        <button class="app-tab" data-view="messages">Messages</button>
+                        <button class="app-tab" data-view="profile">Profile</button>
+                    </div>
+
+                    <!-- Feed View -->
+                    <div id="feed-view" class="app-view active">
+                        <div class="create-post">
+                            <textarea id="post-text" placeholder="What's on your mind?" class="cyber-input"></textarea>
+                            <div class="post-actions">
+                                <div class="emoji-picker">
+                                    <button class="emoji-btn">😀</button>
+                                    <button class="emoji-btn">❤️</button>
+                                    <button class="emoji-btn">🔥</button>
+                                    <button class="emoji-btn">👍</button>
+                                    <button class="emoji-btn">🚀</button>
+                                </div>
+                                <button id="create-post-btn" class="btn btn-primary">Post</button>
                             </div>
-                            <div class="demo-list-item">
-                                <span>Team Sync livestream</span>
-                                <span class="demo-chip secondary">Live</span>
+                        </div>
+                        <div id="posts-container" class="posts-container"></div>
+                    </div>
+
+                    <!-- Messages View -->
+                    <div id="messages-view" class="app-view">
+                        <div class="messages-layout">
+                            <div class="chat-list">
+                                <h4>Conversations</h4>
+                                <div id="conversations-list"></div>
                             </div>
-                            <div class="demo-list-item">
-                                <span>New follower: Kai</span>
-                                <span class="demo-chip">+1</span>
+                            <div class="chat-window">
+                                <div id="messages-container" class="messages-container"></div>
+                                <div class="message-input">
+                                    <input type="text" id="message-text" placeholder="Type a message..." class="cyber-input">
+                                    <button id="send-message-btn" class="btn btn-primary">Send</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="demo-panel">
-                        <h4>Realtime Chat</h4>
-                        <div class="demo-list">
-                            <div class="demo-list-item">
-                                <span>Ops Room</span>
-                                <span class="demo-chip positive">4 Online</span>
-                            </div>
-                            <div class="demo-list-item">
-                                <span>Design Guild</span>
-                                <span class="demo-chip secondary">2 Typing</span>
-                            </div>
-                            <div class="demo-list-item">
-                                <span>Launch Squad</span>
-                                <span class="demo-chip">Unread 3</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="demo-panel">
-                        <h4>Creator Stats</h4>
-                        <div class="kpi-grid">
-                            <div class="kpi-card">
-                                <span class="kpi-label">Reach</span>
-                                <span class="kpi-value">94.2k</span>
-                                <span class="kpi-change up">+8%</span>
-                            </div>
-                            <div class="kpi-card">
-                                <span class="kpi-label">Engagement</span>
-                                <span class="kpi-value">6.4%</span>
-                                <span class="kpi-change up">+0.6%</span>
+
+                    <!-- Profile View -->
+                    <div id="profile-view" class="app-view">
+                        <div class="profile-card">
+                            <div class="profile-avatar">👤</div>
+                            <h3 id="profile-username"></h3>
+                            <p id="profile-email"></p>
+                            <div class="profile-stats">
+                                <div class="stat">
+                                    <span class="stat-value" id="post-count">0</span>
+                                    <span class="stat-label">Posts</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value" id="like-count">0</span>
+                                    <span class="stat-label">Likes</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -194,5 +231,6 @@
     </section>
 
     <script src="../../js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

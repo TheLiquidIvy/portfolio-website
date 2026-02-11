@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
     <style>
         .kanban-toolbar {
             display: flex;
@@ -116,65 +117,75 @@
 
             <div id="demo" class="project-demo">
                 <h2 class="section-title glitch" data-text="KANBAN BOARD">KANBAN BOARD</h2>
-                <div class="kanban-toolbar">
-                    <div class="kanban-title">Sprint Planning</div>
-                    <div class="task-stats">
-                        <div class="stat-item"><span class="stat-label">Total:</span><span class="stat-value">12</span></div>
-                        <div class="stat-item"><span class="stat-label">In Progress:</span><span class="stat-value">4</span></div>
-                        <div class="stat-item"><span class="stat-label">Completed:</span><span class="stat-value">3</span></div>
+                
+                <!-- Toolbar -->
+                <div class="task-toolbar">
+                    <div class="toolbar-left">
+                        <div class="board-title">Sprint Board</div>
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="kanban">📋 Kanban</button>
+                            <button class="view-btn" data-view="list">📄 List</button>
+                        </div>
+                    </div>
+                    <div class="toolbar-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Total:</span>
+                            <span id="stat-total" class="stat-value">10</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">In Progress:</span>
+                            <span id="stat-progress" class="stat-value">3</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Completed:</span>
+                            <span id="stat-done" class="stat-value">3</span>
+                        </div>
+                    </div>
+                    <button id="add-task-btn" class="add-task-btn">+ Add Task</button>
+                </div>
+
+                <!-- Kanban View -->
+                <div id="kanban-view" class="kanban-board active">
+                    <div class="kanban-column" data-column="todo">
+                        <div class="column-header">
+                            <span class="column-title">To Do</span>
+                            <span class="column-count">0</span>
+                        </div>
+                        <div class="task-list"></div>
+                    </div>
+                    
+                    <div class="kanban-column" data-column="progress">
+                        <div class="column-header">
+                            <span class="column-title">In Progress</span>
+                            <span class="column-count">0</span>
+                        </div>
+                        <div class="task-list"></div>
+                    </div>
+                    
+                    <div class="kanban-column" data-column="done">
+                        <div class="column-header">
+                            <span class="column-title">Done</span>
+                            <span class="column-count">0</span>
+                        </div>
+                        <div class="task-list"></div>
                     </div>
                 </div>
-                <div class="kanban-board">
-                    <div class="kanban-column" data-column="todo">
-                        <div class="column-header"><span class="column-title">To Do</span><span class="column-count">5</span></div>
-                        <div class="task-list">
-                            <div class="task-card priority-high" draggable="true">
-                                <div class="task-header"><span class="task-title">Design system audit</span><span class="task-priority priority-high">High</span></div>
-                                <div class="task-description">Review and update design tokens for consistency</div>
-                                <div class="task-meta"><div class="task-tags"><span class="task-tag">Design</span><span class="task-tag">UX</span></div><div class="task-assignee">AM</div></div>
-                            </div>
-                            <div class="task-card priority-medium" draggable="true">
-                                <div class="task-header"><span class="task-title">API documentation</span><span class="task-priority priority-medium">Medium</span></div>
-                                <div class="task-description">Write comprehensive endpoint docs</div>
-                                <div class="task-meta"><div class="task-tags"><span class="task-tag">Docs</span></div><div class="task-assignee">JD</div></div>
-                            </div>
-                            <div class="task-card priority-low" draggable="true">
-                                <div class="task-header"><span class="task-title">Update dependencies</span><span class="task-priority priority-low">Low</span></div>
-                                <div class="task-description">Bump packages to latest versions</div>
-                                <div class="task-meta"><div class="task-tags"><span class="task-tag">Maintenance</span></div><div class="task-assignee">SK</div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="kanban-column" data-column="progress">
-                        <div class="column-header"><span class="column-title">In Progress</span><span class="column-count">4</span></div>
-                        <div class="task-list">
-                            <div class="task-card priority-high" draggable="true">
-                                <div class="task-header"><span class="task-title">Drag-and-drop polish</span><span class="task-priority priority-high">High</span></div>
-                                <div class="task-description">Improve visual feedback during drag operations</div>
-                                <div class="task-meta"><div class="task-tags"><span class="task-tag">Frontend</span><span class="task-tag">UX</span></div><div class="task-assignee">MS</div></div>
-                            </div>
-                            <div class="task-card priority-medium" draggable="true">
-                                <div class="task-header"><span class="task-title">Sprint retrospective</span><span class="task-priority priority-medium">Medium</span></div>
-                                <div class="task-description">Prepare slides and metrics</div>
-                                <div class="task-meta"><div class="task-tags"><span class="task-tag">Team</span></div><div class="task-assignee">RL</div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="kanban-column" data-column="done">
-                        <div class="column-header"><span class="column-title">Done</span><span class="column-count">3</span></div>
-                        <div class="task-list">
-                            <div class="task-card priority-high" draggable="true">
-                                <div class="task-header"><span class="task-title">Accessibility audit</span><span class="task-priority priority-high">High</span></div>
-                                <div class="task-description">WCAG 2.1 compliance check completed</div>
-                                <div class="task-meta"><div class="task-tags"><span class="task-tag">A11y</span><span class="task-tag">QA</span></div><div class="task-assignee">TK</div></div>
-                            </div>
-                            <div class="task-card priority-medium" draggable="true">
-                                <div class="task-header"><span class="task-title">Performance optimization</span><span class="task-priority priority-medium">Medium</span></div>
-                                <div class="task-description">Reduced bundle size by 30%</div>
-                                <div class="task-meta"><div class="task-tags"><span class="task-tag">Performance</span></div><div class="task-assignee">DW</div></div>
-                            </div>
-                        </div>
-                    </div>
+
+                <!-- List View -->
+                <div id="list-view" class="list-view">
+                    <table class="list-table">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Progress</th>
+                                <th>Tags</th>
+                                <th>Assignee</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
 
@@ -222,5 +233,6 @@
             });
         }
     </script>
+    <script src="js/main.js"></script>
 </body>
 </html>

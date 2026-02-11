@@ -83,54 +83,8 @@
             </div>
 
             <div id="demo" class="project-demo">
-                <h2 class="section-title glitch" data-text="OPS PREVIEW">OPS PREVIEW</h2>
-                <div class="demo-grid">
-                    <div class="demo-panel">
-                        <h4>Pipeline Status</h4>
-                        <div class="demo-list">
-                            <div class="demo-list-item">
-                                <span>API Deploy</span>
-                                <span class="demo-chip positive">Passing</span>
-                            </div>
-                            <div class="demo-list-item">
-                                <span>UI Build</span>
-                                <span class="demo-chip secondary">Running</span>
-                            </div>
-                            <div class="demo-list-item">
-                                <span>Infra Tests</span>
-                                <span class="demo-chip negative">Failed</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="demo-panel">
-                        <h4>Incident Log</h4>
-                        <table class="demo-table">
-                            <thead>
-                                <tr>
-                                    <th>Service</th>
-                                    <th>Severity</th>
-                                    <th>ETA</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Billing API</td>
-                                    <td><span class="demo-chip negative">P1</span></td>
-                                    <td>12m</td>
-                                </tr>
-                                <tr>
-                                    <td>Auth Service</td>
-                                    <td><span class="demo-chip secondary">P2</span></td>
-                                    <td>28m</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="demo-panel">
-                        <h4>Telemetry</h4>
-                        <div class="demo-chart">CPU / Memory / Latency</div>
-                    </div>
-                </div>
+                <h2 class="section-title glitch" data-text="DEVOPS DASHBOARD">DEVOPS DASHBOARD</h2>
+                <div id="devops-app"></div>
             </div>
 
             <div id="outline" class="project-demo project-outline">
@@ -189,6 +143,8 @@
         </div>
     </section>
 
+    <link rel="stylesheet" href="css/style.css">
     <script src="../../js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

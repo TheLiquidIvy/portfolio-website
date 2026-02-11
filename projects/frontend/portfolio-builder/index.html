@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
     <style>
         .builder-layout { display: grid; grid-template-columns: 250px 1fr 300px; gap: 1.5rem; margin: 2rem 0; min-height: 600px; }
         .builder-sidebar { background: rgba(10, 10, 15, 0.8); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 12px; padding: 1.5rem; }
@@ -65,70 +66,103 @@
                 <div class="project-detail-card"><h3>Source</h3><ul><li>Builder canvas and property panels.</li><li>Component registry and theme system.</li><li>Export logic for HTML/CSS/JS.</li></ul></div>
             </div>
             <div id="demo" class="project-demo">
-                <h2 class="section-title glitch" data-text="VISUAL EDITOR">VISUAL EDITOR</h2>
-                <div class="toolbar">
-                    <button class="tool-btn">💾 Save</button>
-                    <button class="tool-btn">👁️ Preview</button>
-                    <button class="tool-btn">📤 Export</button>
-                    <button class="tool-btn">🎨 Themes</button>
-                    <button class="tool-btn">⚙️ Settings</button>
-                </div>
-                <div class="builder-layout">
-                    <div class="builder-sidebar">
-                        <div class="sidebar-title">Components</div>
-                        <div class="block-list">
-                            <div class="block-item">📄 Hero Section</div>
-                            <div class="block-item">💼 Project Grid</div>
-                            <div class="block-item">📝 Text Block</div>
-                            <div class="block-item">🖼️ Image Gallery</div>
-                            <div class="block-item">📊 Stats Counter</div>
-                            <div class="block-item">📮 Contact Form</div>
-                        </div>
+                <h2 class="section-title glitch" data-text="PORTFOLIO BUILDER">PORTFOLIO BUILDER</h2>
+                
+                <!-- Toolbar -->
+                <div class="builder-toolbar">
+                    <div class="toolbar-title">💼 Visual Editor</div>
+                    <div class="toolbar-actions">
+                        <button id="btn-save" class="toolbar-btn">💾 Save</button>
+                        <button id="btn-preview" class="toolbar-btn">👁️ Preview</button>
+                        <button id="btn-export" class="toolbar-btn primary">📤 Export HTML</button>
+                        <button id="btn-clear" class="toolbar-btn">🗑️ Clear</button>
                     </div>
-                    <div class="canvas-area">
-                        <div class="canvas-block">
-                            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Hero Section</h3>
-                            <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Welcome to my portfolio. I'm a creative developer.</p>
-                        </div>
-                        <div class="canvas-block">
-                            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Project Grid</h3>
-                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;">
-                                <div style="aspect-ratio: 1; background: rgba(0,255,255,0.1); border-radius: 6px;"></div>
-                                <div style="aspect-ratio: 1; background: rgba(255,0,255,0.1); border-radius: 6px;"></div>
-                                <div style="aspect-ratio: 1; background: rgba(0,255,65,0.1); border-radius: 6px;"></div>
+                </div>
+
+                <!-- Builder Layout -->
+                <div class="builder-layout">
+                    <!-- Components Sidebar -->
+                    <div class="components-sidebar">
+                        <div class="sidebar-section">
+                            <div class="sidebar-title">Components</div>
+                            <div class="component-list">
+                                <div class="component-item" data-component="hero" draggable="true">
+                                    <span class="component-icon">🎯</span>
+                                    <span class="component-name">Hero Section</span>
+                                </div>
+                                <div class="component-item" data-component="about" draggable="true">
+                                    <span class="component-icon">👤</span>
+                                    <span class="component-name">About Section</span>
+                                </div>
+                                <div class="component-item" data-component="projects" draggable="true">
+                                    <span class="component-icon">💼</span>
+                                    <span class="component-name">Project Grid</span>
+                                </div>
+                                <div class="component-item" data-component="skills" draggable="true">
+                                    <span class="component-icon">⚡</span>
+                                    <span class="component-name">Skills List</span>
+                                </div>
+                                <div class="component-item" data-component="contact" draggable="true">
+                                    <span class="component-icon">📧</span>
+                                    <span class="component-name">Contact Form</span>
+                                </div>
+                                <div class="component-item" data-component="testimonial" draggable="true">
+                                    <span class="component-icon">💬</span>
+                                    <span class="component-name">Testimonial</span>
+                                </div>
+                                <div class="component-item" data-component="gallery" draggable="true">
+                                    <span class="component-icon">🖼️</span>
+                                    <span class="component-name">Image Gallery</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="canvas-block">
-                            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Contact Form</h3>
-                            <p style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">Name, Email, Message fields</p>
+                        
+                        <div class="sidebar-section">
+                            <div class="sidebar-title">Templates</div>
+                            <div class="templates-grid">
+                                <div class="template-item" data-template="minimal">
+                                    <div class="template-name">Minimal</div>
+                                    <div class="template-desc">Simple 3-section layout</div>
+                                </div>
+                                <div class="template-item" data-template="standard">
+                                    <div class="template-name">Standard</div>
+                                    <div class="template-desc">Full portfolio layout</div>
+                                </div>
+                                <div class="template-item" data-template="creative">
+                                    <div class="template-name">Creative</div>
+                                    <div class="template-desc">Visual-focused design</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="properties-panel">
-                        <div class="sidebar-title">Properties</div>
-                        <div class="property-group">
-                            <label class="property-label">Background</label>
-                            <input type="color" class="property-input" value="#0a0a0f">
+
+                    <!-- Canvas Area -->
+                    <div id="canvas-area" class="canvas-area">
+                        <div class="canvas-placeholder">
+                            <div class="canvas-placeholder-icon">📋</div>
+                            <div>Drag components here to start building</div>
                         </div>
-                        <div class="property-group">
-                            <label class="property-label">Text Color</label>
-                            <input type="color" class="property-input" value="#00ffff">
-                        </div>
-                        <div class="property-group">
-                            <label class="property-label">Padding</label>
-                            <input type="number" class="property-input" value="24" placeholder="px">
-                        </div>
-                        <div class="property-group">
-                            <label class="property-label">Animation</label>
-                            <select class="property-input">
-                                <option>Fade In</option>
-                                <option>Slide Up</option>
-                                <option>Scale</option>
-                                <option>None</option>
-                            </select>
-                        </div>
+                    </div>
+
+                    <!-- Properties Panel -->
+                    <div id="properties-panel" class="properties-panel">
+                        <div class="properties-title">Properties</div>
+                        <p style="color: var(--text-dim); text-align: center; padding: 2rem;">
+                            Select a block to edit its properties
+                        </p>
                     </div>
                 </div>
+
+                <!-- Preview Overlay -->
+                <div id="preview-overlay" class="preview-overlay">
+                    <div class="preview-header">
+                        <div class="preview-title">Portfolio Preview</div>
+                        <button id="close-preview" class="toolbar-btn">✕ Close</button>
+                    </div>
+                    <div id="preview-content" class="preview-content"></div>
+                </div>
             </div>
+
             <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
@@ -143,5 +177,6 @@
         </div>
     </section>
     <script src="../../../js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

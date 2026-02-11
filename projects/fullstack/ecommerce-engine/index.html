@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Commerce Engine | Full Stack Project</title>
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -83,68 +84,109 @@
             </div>
 
             <div id="demo" class="project-demo">
-                <h2 class="section-title glitch" data-text="STOREFRONT PREVIEW">STOREFRONT PREVIEW</h2>
-                <div class="demo-grid">
-                    <div class="demo-panel">
-                        <h4>Top Products</h4>
-                        <table class="demo-table">
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Stock</th>
-                                    <th>Sales</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Neon Runner</td>
-                                    <td>48</td>
-                                    <td><span class="demo-chip positive">+12%</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Pulse Jacket</td>
-                                    <td>19</td>
-                                    <td><span class="demo-chip secondary">Trending</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Quantum Pack</td>
-                                    <td>6</td>
-                                    <td><span class="demo-chip negative">Low</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <h2 class="section-title glitch" data-text="LIVE STORE">LIVE STORE</h2>
+                
+                <div class="store-header">
+                    <div class="view-tabs">
+                        <button class="view-tab active" data-view="shop">Shop</button>
+                        <button class="view-tab" data-view="cart">Cart (<span id="cart-count">0</span>)</button>
+                        <button class="view-tab" data-view="orders">Orders</button>
+                        <button class="view-tab" data-view="admin">Admin</button>
                     </div>
-                    <div class="demo-panel">
-                        <h4>Revenue</h4>
-                        <div class="kpi-grid">
-                            <div class="kpi-card">
-                                <span class="kpi-label">Monthly</span>
-                                <span class="kpi-value">$312k</span>
-                                <span class="kpi-change up">+14%</span>
-                            </div>
-                            <div class="kpi-card">
-                                <span class="kpi-label">Orders</span>
-                                <span class="kpi-value">1,284</span>
-                                <span class="kpi-change up">+9%</span>
-                            </div>
-                        </div>
+                </div>
+
+                <!-- Shop View -->
+                <div id="shop-view" class="store-view active">
+                    <div class="category-filters">
+                        <button class="category-btn active" data-category="all">All</button>
+                        <button class="category-btn" data-category="electronics">Electronics</button>
+                        <button class="category-btn" data-category="fashion">Fashion</button>
+                        <button class="category-btn" data-category="accessories">Accessories</button>
                     </div>
-                    <div class="demo-panel">
-                        <h4>Fulfillment</h4>
-                        <div class="demo-list">
-                            <div class="demo-list-item">
-                                <span>Orders to ship</span>
-                                <span class="demo-chip">46</span>
-                            </div>
-                            <div class="demo-list-item">
-                                <span>Returns</span>
-                                <span class="demo-chip negative">3</span>
-                            </div>
-                            <div class="demo-list-item">
-                                <span>VIP customers</span>
-                                <span class="demo-chip positive">18</span>
-                            </div>
+                    <div id="products-grid" class="products-grid"></div>
+                </div>
+
+                <!-- Cart View -->
+                <div id="cart-view" class="store-view">
+                    <div id="cart-items" class="cart-items"></div>
+                    <div class="cart-summary">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">$0.00</span>
                         </div>
+                        <div class="summary-row">
+                            <span>Tax (10%):</span>
+                            <span id="tax">$0.00</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span id="total">$0.00</span>
+                        </div>
+                        <button id="checkout-btn" class="btn btn-primary">Proceed to Checkout</button>
+                    </div>
+                </div>
+
+                <!-- Checkout Modal -->
+                <div id="checkout-modal" class="modal hidden">
+                    <div class="modal-content">
+                        <h3>Checkout</h3>
+                        <form id="checkout-form">
+                            <input type="text" placeholder="Full Name" class="cyber-input" required>
+                            <input type="email" placeholder="Email" class="cyber-input" required>
+                            <input type="text" placeholder="Address" class="cyber-input" required>
+                            <input type="text" placeholder="City" class="cyber-input" required>
+                            <input type="text" placeholder="Zip Code" class="cyber-input" required>
+                            
+                            <h4>Payment (Stripe Mock)</h4>
+                            <input type="text" placeholder="Card Number" class="cyber-input" pattern="[0-9]{16}" required>
+                            <div class="card-details">
+                                <input type="text" placeholder="MM/YY" class="cyber-input" required>
+                                <input type="text" placeholder="CVV" class="cyber-input" pattern="[0-9]{3}" required>
+                            </div>
+                            
+                            <div class="modal-actions">
+                                <button type="submit" class="btn btn-primary">Place Order</button>
+                                <button type="button" class="btn btn-secondary" onclick="app.closeCheckout()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Orders View -->
+                <div id="orders-view" class="store-view">
+                    <h3>Order History</h3>
+                    <div id="orders-list" class="orders-list"></div>
+                </div>
+
+                <!-- Admin View -->
+                <div id="admin-view" class="store-view">
+                    <h3>Admin Dashboard</h3>
+                    <div class="admin-actions">
+                        <button class="btn btn-primary" onclick="app.showAddProduct()">Add Product</button>
+                    </div>
+                    <div id="admin-products" class="admin-products"></div>
+                </div>
+
+                <!-- Add Product Modal -->
+                <div id="add-product-modal" class="modal hidden">
+                    <div class="modal-content">
+                        <h3>Add New Product</h3>
+                        <form id="add-product-form">
+                            <input type="text" id="new-product-name" placeholder="Product Name" class="cyber-input" required>
+                            <input type="number" id="new-product-price" placeholder="Price" class="cyber-input" step="0.01" required>
+                            <select id="new-product-category" class="cyber-input" required>
+                                <option value="">Select Category</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="fashion">Fashion</option>
+                                <option value="accessories">Accessories</option>
+                            </select>
+                            <textarea id="new-product-desc" placeholder="Description" class="cyber-input" required></textarea>
+                            
+                            <div class="modal-actions">
+                                <button type="submit" class="btn btn-primary">Add Product</button>
+                                <button type="button" class="btn btn-secondary" onclick="app.closeAddProduct()">Cancel</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -206,5 +248,6 @@
     </section>
 
     <script src="../../js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

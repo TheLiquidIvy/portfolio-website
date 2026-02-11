@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Content Generator | Full Stack Project</title>
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -83,54 +84,67 @@
             </div>
 
             <div id="demo" class="project-demo">
-                <h2 class="section-title glitch" data-text="GENERATOR PREVIEW">GENERATOR PREVIEW</h2>
-                <div class="demo-grid">
-                    <div class="demo-panel">
-                        <h4>Prompt Studio</h4>
-                        <div class="demo-list">
-                            <div class="demo-list-item">
-                                <span>Launch Campaign Brief</span>
-                                <span class="demo-chip secondary">Template</span>
+                <h2 class="section-title glitch" data-text="AI GENERATOR">AI GENERATOR</h2>
+                
+                <div class="generator-layout">
+                    <div class="sidebar">
+                        <h3>Templates</h3>
+                        <div class="template-list">
+                            <div class="template-item active" data-template="blog">
+                                📝 Blog Post
                             </div>
-                            <div class="demo-list-item">
-                                <span>Product Taglines</span>
-                                <span class="demo-chip">Drafting</span>
+                            <div class="template-item" data-template="social">
+                                📱 Social Media
                             </div>
-                            <div class="demo-list-item">
-                                <span>UX Microcopy</span>
-                                <span class="demo-chip positive">Approved</span>
+                            <div class="template-item" data-template="email">
+                                📧 Email
                             </div>
-                        </div>
-                    </div>
-                    <div class="demo-panel">
-                        <h4>Generation Queue</h4>
-                        <div class="demo-list">
-                            <div class="demo-list-item">
-                                <span>Brand story v3</span>
-                                <span class="demo-chip">Queued</span>
+                            <div class="template-item" data-template="product">
+                                🛍️ Product Description
                             </div>
-                            <div class="demo-list-item">
-                                <span>Social posts (10)</span>
-                                <span class="demo-chip secondary">Processing</span>
-                            </div>
-                            <div class="demo-list-item">
-                                <span>Product emails</span>
-                                <span class="demo-chip positive">Done</span>
+                            <div class="template-item" data-template="code">
+                                💻 Code Comment
                             </div>
                         </div>
+                        
+                        <div class="history-section">
+                            <h3>History</h3>
+                            <div id="history-list" class="history-list"></div>
+                        </div>
                     </div>
-                    <div class="demo-panel">
-                        <h4>Output Metrics</h4>
-                        <div class="kpi-grid">
-                            <div class="kpi-card">
-                                <span class="kpi-label">Credits</span>
-                                <span class="kpi-value">1,240</span>
-                                <span class="kpi-change">Remaining</span>
+                    
+                    <div class="main-content">
+                        <div class="input-section">
+                            <h3 id="template-title">Blog Post Generator</h3>
+                            <textarea id="prompt-input" class="cyber-input" placeholder="Enter your topic or description..."></textarea>
+                            
+                            <div class="input-controls">
+                                <div class="word-counter">
+                                    <span>Characters: <strong id="char-count">0</strong></span>
+                                    <span>Words: <strong id="word-count">0</strong></span>
+                                </div>
+                                <button id="generate-btn" class="btn btn-primary">
+                                    ✨ Generate Content
+                                </button>
                             </div>
-                            <div class="kpi-card">
-                                <span class="kpi-label">Avg Time</span>
-                                <span class="kpi-value">14s</span>
-                                <span class="kpi-change down">-3s</span>
+                        </div>
+                        
+                        <div class="output-section">
+                            <div class="output-header">
+                                <h3>Generated Content</h3>
+                                <div class="output-actions">
+                                    <button class="btn btn-secondary" onclick="app.copyToClipboard()">
+                                        📋 Copy
+                                    </button>
+                                    <button class="btn btn-secondary" onclick="app.downloadContent()">
+                                        ⬇️ Download
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="output-content" class="output-content">
+                                <div class="placeholder-text">
+                                    Your generated content will appear here...
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -194,5 +208,6 @@
     </section>
 
     <script src="../../js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
