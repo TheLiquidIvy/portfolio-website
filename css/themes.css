@@ -81,12 +81,12 @@
 }
 
 /* Smooth theme transitions */
-* {
+body, .navbar, .btn, .project-card, .terminal-window, .loading-screen {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Preserve animations during theme switch */
-* {
+body, .navbar, .btn, .project-card, .terminal-window, .loading-screen {
     transition-property: background-color, color, border-color, box-shadow, opacity;
 }
 

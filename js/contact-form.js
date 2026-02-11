@@ -265,50 +265,59 @@ class ContactFormHandler {
             animation: fadeIn 0.3s ease;
         `;
 
-        modal.innerHTML = `
-            <div class="modal-content" style="
-                background: var(--bg-dark);
-                border: 2px solid var(--neon-green);
-                border-radius: 8px;
-                padding: 40px;
-                max-width: 500px;
-                text-align: center;
-                box-shadow: 0 0 40px rgba(0, 255, 65, 0.5);
-                animation: modalBounceIn 0.5s ease;
-            ">
-                <div class="success-checkmark" style="
-                    width: 80px;
-                    height: 80px;
-                    border-radius: 50%;
-                    border: 4px solid var(--neon-green);
-                    margin: 0 auto 20px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 50px;
-                    color: var(--neon-green);
-                    animation: checkmarkPop 0.6s ease 0.3s backwards;
-                ">✓</div>
-                <h2 style="color: var(--neon-green); margin-bottom: 15px; font-size: 28px;">Message Sent Successfully!</h2>
-                <p style="color: var(--text); margin-bottom: 20px; font-size: 16px;">
-                    Thank you for reaching out, ${data.name}!<br>
-                    I'll get back to you at ${data.email} as soon as possible.
-                </p>
-                <button onclick="this.closest('.contact-modal').remove()" style="
-                    background: var(--neon-green);
-                    color: var(--bg-dark);
-                    border: none;
-                    padding: 12px 30px;
-                    border-radius: 4px;
-                    font-size: 16px;
-                    font-weight: bold;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                ">Close</button>
-            </div>
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = `
+            background: var(--bg-dark);
+            border: 2px solid var(--neon-green);
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.5);
+            animation: modalBounceIn 0.5s ease;
         `;
 
+        modalContent.innerHTML = `
+            <div class="success-checkmark" style="
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                border: 4px solid var(--neon-green);
+                margin: 0 auto 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 50px;
+                color: var(--neon-green);
+                animation: checkmarkPop 0.6s ease 0.3s backwards;
+            ">✓</div>
+            <h2 style="color: var(--neon-green); margin-bottom: 15px; font-size: 28px;">Message Sent Successfully!</h2>
+            <p style="color: var(--text); margin-bottom: 20px; font-size: 16px;">
+                Thank you for reaching out, ${data.name}!<br>
+                I'll get back to you at ${data.email} as soon as possible.
+            </p>
+            <button class="modal-close-btn" style="
+                background: var(--neon-green);
+                color: var(--bg-dark);
+                border: none;
+                padding: 12px 30px;
+                border-radius: 4px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            ">Close</button>
+        `;
+
+        modal.appendChild(modalContent);
         document.body.appendChild(modal);
+
+        // Add event listeners
+        const closeBtn = modalContent.querySelector('.modal-close-btn');
+        closeBtn.addEventListener('click', () => modal.remove());
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.remove();
+        });
 
         // Create confetti
         this.createConfetti();
@@ -337,59 +346,77 @@ class ContactFormHandler {
             animation: fadeIn 0.3s ease;
         `;
 
-        modal.innerHTML = `
-            <div class="modal-content" style="
-                background: var(--bg-dark);
-                border: 2px solid #ff0066;
-                border-radius: 8px;
-                padding: 40px;
-                max-width: 500px;
-                text-align: center;
-                box-shadow: 0 0 40px rgba(255, 0, 102, 0.5);
-            ">
-                <div class="error-icon" style="
-                    width: 80px;
-                    height: 80px;
-                    border-radius: 50%;
-                    border: 4px solid #ff0066;
-                    margin: 0 auto 20px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 50px;
-                    color: #ff0066;
-                ">✗</div>
-                <h2 style="color: #ff0066; margin-bottom: 15px; font-size: 28px;">Oops! Something went wrong</h2>
-                <p style="color: var(--text); margin-bottom: 20px; font-size: 16px;">
-                    ${message}
-                </p>
-                <div style="display: flex; gap: 10px; justify-content: center;">
-                    <button onclick="this.closest('.contact-modal').remove()" style="
-                        background: transparent;
-                        color: var(--text);
-                        border: 2px solid var(--text);
-                        padding: 12px 30px;
-                        border-radius: 4px;
-                        font-size: 16px;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-                    ">Cancel</button>
-                    <button onclick="this.closest('.contact-modal').remove(); document.querySelector('.contact-form').dispatchEvent(new Event('submit'))" style="
-                        background: #ff0066;
-                        color: white;
-                        border: none;
-                        padding: 12px 30px;
-                        border-radius: 4px;
-                        font-size: 16px;
-                        font-weight: bold;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-                    ">Retry</button>
-                </div>
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = `
+            background: var(--bg-dark);
+            border: 2px solid #ff0066;
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(255, 0, 102, 0.5);
+        `;
+
+        modalContent.innerHTML = `
+            <div class="error-icon" style="
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                border: 4px solid #ff0066;
+                margin: 0 auto 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 50px;
+                color: #ff0066;
+            ">✗</div>
+            <h2 style="color: #ff0066; margin-bottom: 15px; font-size: 28px;">Oops! Something went wrong</h2>
+            <p style="color: var(--text); margin-bottom: 20px; font-size: 16px;">
+                ${message}
+            </p>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button class="modal-cancel-btn" style="
+                    background: transparent;
+                    color: var(--text);
+                    border: 2px solid var(--text);
+                    padding: 12px 30px;
+                    border-radius: 4px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                ">Cancel</button>
+                <button class="modal-retry-btn" style="
+                    background: #ff0066;
+                    color: white;
+                    border: none;
+                    padding: 12px 30px;
+                    border-radius: 4px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                ">Retry</button>
             </div>
         `;
 
+        modal.appendChild(modalContent);
         document.body.appendChild(modal);
+
+        // Add event listeners
+        const cancelBtn = modalContent.querySelector('.modal-cancel-btn');
+        const retryBtn = modalContent.querySelector('.modal-retry-btn');
+        
+        cancelBtn.addEventListener('click', () => modal.remove());
+        retryBtn.addEventListener('click', () => {
+            modal.remove();
+            const form = document.querySelector('.contact-form');
+            if (form) {
+                form.dispatchEvent(new Event('submit'));
+            }
+        });
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.remove();
+        });
     }
 
     showNotification(message, type = 'info') {

@@ -143,6 +143,8 @@ class VisitorAnalytics {
     }
 
     updateWidget() {
+        // Note: Adding randomization for demo purposes to simulate multiple visitors
+        // In production, remove the seed addition and use actual visitor data
         const seed = parseInt(localStorage.getItem('visitor-seed') || '1000');
         
         // Add randomization for demo

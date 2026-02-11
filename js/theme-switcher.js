@@ -153,15 +153,21 @@ class ThemeSwitcher {
 
         dropdown.querySelectorAll('.theme-option').forEach(option => {
             const theme = option.dataset.theme;
+            const existingCheck = option.querySelector('.theme-check');
+            
             if (theme === this.currentTheme) {
                 option.classList.add('active');
-                if (!option.querySelector('.theme-check')) {
-                    option.innerHTML += '<span class="theme-check">✓</span>';
+                if (!existingCheck) {
+                    const checkSpan = document.createElement('span');
+                    checkSpan.className = 'theme-check';
+                    checkSpan.textContent = '✓';
+                    option.appendChild(checkSpan);
                 }
             } else {
                 option.classList.remove('active');
-                const check = option.querySelector('.theme-check');
-                if (check) check.remove();
+                if (existingCheck) {
+                    existingCheck.remove();
+                }
             }
         });
     }
