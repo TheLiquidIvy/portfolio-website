@@ -363,11 +363,15 @@ class AIContentGenerator {
         tempDiv.innerHTML = this.currentContent;
         const text = tempDiv.textContent || tempDiv.innerText;
         
-        navigator.clipboard.writeText(text).then(() => {
-            alert('Content copied to clipboard!');
-        }).catch(() => {
-            alert('Failed to copy content');
-        });
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Content copied to clipboard!');
+            }).catch(() => {
+                alert('Failed to copy content');
+            });
+        } else {
+            alert('Clipboard API not supported in this browser');
+        }
     }
 
     downloadContent() {
