@@ -1,0 +1,641 @@
+/* ==================== RESUME THEMED CSS ==================== */
+/* Dual-theme resume: Human-readable cyberpunk theme + ATS-optimized clean theme */
+
+:root {
+  /* Cyberpunk Theme (Human) */
+  --human-primary: #00f3ff;
+  --human-secondary: #ff00ff;
+  --human-accent: #7b00ff;
+  --human-bg: #0a0a0a;
+  --human-surface: #1a1a1a;
+  --human-text: #ffffff;
+  --human-text-muted: #b0b0b0;
+  
+  /* ATS Theme (System) */
+  --ats-primary: #000000;
+  --ats-secondary: #333333;
+  --ats-accent: #666666;
+  --ats-bg: #ffffff;
+  --ats-surface: #f9f9f9;
+  --ats-text: #000000;
+  --ats-text-muted: #555555;
+  
+  /* Common */
+  --transition-speed: 0.3s;
+}
+
+/* ==================== BASE STYLES ==================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', 'Consolas', monospace;
+  line-height: 1.6;
+  transition: all var(--transition-speed) ease;
+}
+
+/* ==================== HUMAN THEME (Default) ==================== */
+
+body.theme-human {
+  background: var(--human-bg);
+  color: var(--human-text);
+}
+
+body.theme-human .resume-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 40px;
+  background: var(--human-surface);
+  border: 2px solid var(--human-primary);
+  box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+body.theme-human .resume-container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--human-primary), var(--human-secondary), var(--human-accent));
+  z-index: -1;
+  opacity: 0.1;
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+@keyframes borderGlow {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+}
+
+/* Theme Toggle Controls */
+.theme-controls {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.theme-btn {
+  padding: 12px 24px;
+  border: 2px solid;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all var(--transition-speed) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+body.theme-human .theme-btn {
+  border-color: var(--human-primary);
+  color: var(--human-primary);
+}
+
+body.theme-human .theme-btn:hover {
+  background: var(--human-primary);
+  color: var(--human-bg);
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+body.theme-human .theme-btn.active {
+  background: var(--human-primary);
+  color: var(--human-bg);
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+}
+
+/* Download Button */
+.download-btn {
+  padding: 12px 24px;
+  border: 2px solid;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all var(--transition-speed) ease;
+  margin-left: 10px;
+}
+
+body.theme-human .download-btn {
+  border-color: var(--human-secondary);
+  color: var(--human-secondary);
+}
+
+body.theme-human .download-btn:hover {
+  background: var(--human-secondary);
+  color: var(--human-bg);
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+}
+
+/* Header Section */
+.resume-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  position: relative;
+}
+
+body.theme-human .resume-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--human-primary), transparent);
+}
+
+body.theme-human .resume-header h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, var(--human-primary), var(--human-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: glitchText 5s infinite;
+}
+
+@keyframes glitchText {
+  0%, 90%, 100% { text-shadow: none; }
+  91% { text-shadow: 2px 0 var(--human-primary), -2px 0 var(--human-secondary); }
+  93% { text-shadow: -2px 0 var(--human-primary), 2px 0 var(--human-secondary); }
+  95% { text-shadow: 1px 0 var(--human-primary), -1px 0 var(--human-secondary); }
+}
+
+body.theme-human .resume-header .title {
+  font-size: 20px;
+  color: var(--human-text-muted);
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+body.theme-human .contact-info {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+body.theme-human .contact-info a {
+  color: var(--human-primary);
+  text-decoration: none;
+  transition: all var(--transition-speed) ease;
+  position: relative;
+}
+
+body.theme-human .contact-info a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--human-primary);
+  transition: width var(--transition-speed) ease;
+}
+
+body.theme-human .contact-info a:hover::after {
+  width: 100%;
+}
+
+body.theme-human .contact-info a:hover {
+  color: var(--human-secondary);
+  text-shadow: 0 0 10px var(--human-secondary);
+}
+
+/* Section Styles */
+.resume-section {
+  margin-bottom: 40px;
+}
+
+body.theme-human .resume-section h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: var(--human-primary);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  position: relative;
+  padding-left: 20px;
+}
+
+body.theme-human .resume-section h2::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  color: var(--human-secondary);
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0.3; }
+}
+
+body.theme-human .resume-section h3 {
+  font-size: 20px;
+  color: var(--human-secondary);
+  margin-bottom: 8px;
+}
+
+body.theme-human .resume-section h4 {
+  font-size: 16px;
+  color: var(--human-text-muted);
+  margin-bottom: 5px;
+  font-weight: normal;
+}
+
+body.theme-human .resume-section p,
+body.theme-human .resume-section li {
+  color: var(--human-text);
+  margin-bottom: 10px;
+}
+
+body.theme-human .resume-section ul {
+  list-style: none;
+  padding-left: 20px;
+}
+
+body.theme-human .resume-section li::before {
+  content: '◆';
+  color: var(--human-accent);
+  margin-right: 10px;
+}
+
+/* Experience/Education Items */
+.experience-item,
+.education-item,
+.project-item {
+  margin-bottom: 30px;
+  padding: 20px;
+  position: relative;
+}
+
+body.theme-human .experience-item,
+body.theme-human .education-item,
+body.theme-human .project-item {
+  border-left: 3px solid var(--human-accent);
+  background: rgba(123, 0, 255, 0.05);
+  transition: all var(--transition-speed) ease;
+}
+
+body.theme-human .experience-item:hover,
+body.theme-human .education-item:hover,
+body.theme-human .project-item:hover {
+  border-left-color: var(--human-primary);
+  background: rgba(0, 243, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.date-range {
+  font-style: italic;
+  font-size: 14px;
+}
+
+body.theme-human .date-range {
+  color: var(--human-text-muted);
+}
+
+/* Skills Section */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.skill-category {
+  padding: 15px;
+}
+
+body.theme-human .skill-category {
+  background: rgba(0, 243, 255, 0.05);
+  border: 1px solid var(--human-primary);
+  transition: all var(--transition-speed) ease;
+}
+
+body.theme-human .skill-category:hover {
+  background: rgba(0, 243, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+  transform: scale(1.05);
+}
+
+body.theme-human .skill-category h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: var(--human-primary);
+}
+
+body.theme-human .skill-category ul {
+  padding-left: 0;
+}
+
+body.theme-human .skill-category li {
+  font-size: 14px;
+  color: var(--human-text);
+}
+
+/* ==================== ATS THEME ==================== */
+
+body.theme-ats {
+  background: var(--ats-bg);
+  color: var(--ats-text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body.theme-ats .resume-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 40px;
+  background: var(--ats-bg);
+  border: 1px solid var(--ats-secondary);
+  box-shadow: none;
+}
+
+body.theme-ats .resume-container::before {
+  display: none;
+}
+
+body.theme-ats .theme-btn {
+  border-color: var(--ats-secondary);
+  color: var(--ats-text);
+  background: var(--ats-bg);
+}
+
+body.theme-ats .theme-btn:hover {
+  background: var(--ats-secondary);
+  color: var(--ats-bg);
+  box-shadow: none;
+  transform: none;
+}
+
+body.theme-ats .theme-btn.active {
+  background: var(--ats-text);
+  color: var(--ats-bg);
+  box-shadow: none;
+}
+
+body.theme-ats .download-btn {
+  border-color: var(--ats-secondary);
+  color: var(--ats-text);
+}
+
+body.theme-ats .download-btn:hover {
+  background: var(--ats-secondary);
+  color: var(--ats-bg);
+}
+
+/* ATS Header */
+body.theme-ats .resume-header {
+  border-bottom: 2px solid var(--ats-secondary);
+}
+
+body.theme-ats .resume-header::after {
+  display: none;
+}
+
+body.theme-ats .resume-header h1 {
+  font-size: 36px;
+  color: var(--ats-text);
+  background: none;
+  -webkit-text-fill-color: initial;
+  animation: none;
+  font-weight: bold;
+}
+
+body.theme-ats .resume-header .title {
+  font-size: 18px;
+  color: var(--ats-text-muted);
+  letter-spacing: normal;
+}
+
+body.theme-ats .contact-info a {
+  color: var(--ats-text);
+  text-decoration: underline;
+}
+
+body.theme-ats .contact-info a::after {
+  display: none;
+}
+
+body.theme-ats .contact-info a:hover {
+  color: var(--ats-secondary);
+  text-shadow: none;
+}
+
+/* ATS Sections */
+body.theme-ats .resume-section h2 {
+  font-size: 22px;
+  color: var(--ats-text);
+  border-bottom: 2px solid var(--ats-text);
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  letter-spacing: normal;
+  padding-left: 0;
+  font-weight: bold;
+}
+
+body.theme-ats .resume-section h2::before {
+  display: none;
+}
+
+body.theme-ats .resume-section h3 {
+  font-size: 18px;
+  color: var(--ats-text);
+  font-weight: bold;
+}
+
+body.theme-ats .resume-section h4 {
+  font-size: 14px;
+  color: var(--ats-text-muted);
+  font-weight: normal;
+}
+
+body.theme-ats .resume-section p,
+body.theme-ats .resume-section li {
+  color: var(--ats-text);
+}
+
+body.theme-ats .resume-section ul {
+  list-style: disc;
+  padding-left: 40px;
+}
+
+body.theme-ats .resume-section li::before {
+  display: none;
+}
+
+body.theme-ats .experience-item,
+body.theme-ats .education-item,
+body.theme-ats .project-item {
+  border-left: none;
+  background: none;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+body.theme-ats .experience-item:hover,
+body.theme-ats .education-item:hover,
+body.theme-ats .project-item:hover {
+  transform: none;
+  background: none;
+}
+
+body.theme-ats .date-range {
+  color: var(--ats-text-muted);
+}
+
+body.theme-ats .skills-grid {
+  display: block;
+}
+
+body.theme-ats .skill-category {
+  background: none;
+  border: none;
+  padding: 10px 0;
+  margin-bottom: 15px;
+}
+
+body.theme-ats .skill-category:hover {
+  background: none;
+  box-shadow: none;
+  transform: none;
+}
+
+body.theme-ats .skill-category h3 {
+  font-size: 16px;
+  color: var(--ats-text);
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+body.theme-ats .skill-category ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+body.theme-ats .skill-category li {
+  display: inline;
+}
+
+body.theme-ats .skill-category li::after {
+  content: ' • ';
+}
+
+body.theme-ats .skill-category li:last-child::after {
+  content: '';
+}
+
+/* ==================== PRINT STYLES ==================== */
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .theme-controls {
+    display: none !important;
+  }
+  
+  .resume-container {
+    max-width: 100%;
+    margin: 0;
+    padding: 20px;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+  .resume-container::before {
+    display: none !important;
+  }
+  
+  .resume-section {
+    page-break-inside: avoid;
+  }
+  
+  a {
+    color: black;
+    text-decoration: none;
+  }
+  
+  /* Use ATS-style for printing */
+  body * {
+    color: black !important;
+    background: white !important;
+    border-color: black !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    animation: none !important;
+  }
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+@media (max-width: 768px) {
+  .resume-container {
+    padding: 20px !important;
+    margin: 20px !important;
+  }
+  
+  .theme-controls {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin-bottom: 20px;
+    justify-content: center;
+  }
+  
+  .theme-btn,
+  .download-btn {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+  
+  body.theme-human .resume-header h1 {
+    font-size: 32px;
+  }
+  
+  body.theme-ats .resume-header h1 {
+    font-size: 28px;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-info {
+    flex-direction: column;
+    gap: 10px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  body.theme-human .resume-header h1 {
+    font-size: 28px;
+  }
+  
+  body.theme-ats .resume-header h1 {
+    font-size: 24px;
+  }
+  
+  .resume-section h2 {
+    font-size: 20px !important;
+  }
+}
