@@ -1,0 +1,190 @@
+/* ==================== THEME VARIABLES ==================== */
+
+/* Cyberpunk Theme (Default) */
+:root {
+    --primary: #00ffff;
+    --secondary: #ff00ff;
+    --accent: #ffff00;
+    --bg-dark: #0a0a0f;
+    --bg-darker: #050508;
+    --text: #ffffff;
+    --text-dim: #a0a0b0;
+    --neon-blue: #00ffff;
+    --neon-pink: #ff00ff;
+    --neon-purple: #9d00ff;
+    --neon-green: #00ff41;
+    --grid-color: rgba(0, 255, 255, 0.1);
+}
+
+/* Dark Minimal Theme */
+[data-theme="dark"] {
+    --primary: #3b82f6;
+    --secondary: #8b5cf6;
+    --accent: #10b981;
+    --bg-dark: #1a1a1a;
+    --bg-darker: #0f0f0f;
+    --text: #e5e7eb;
+    --text-dim: #9ca3af;
+    --neon-blue: #60a5fa;
+    --neon-pink: #a78bfa;
+    --neon-purple: #8b5cf6;
+    --neon-green: #34d399;
+    --grid-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Neon Light Theme */
+[data-theme="neon-light"] {
+    --primary: #00d9ff;
+    --secondary: #ff006e;
+    --accent: #ffbe0b;
+    --bg-dark: #f8f9fa;
+    --bg-darker: #e9ecef;
+    --text: #212529;
+    --text-dim: #6c757d;
+    --neon-blue: #00d9ff;
+    --neon-pink: #ff006e;
+    --neon-purple: #8338ec;
+    --neon-green: #06ffa5;
+    --grid-color: rgba(0, 217, 255, 0.1);
+}
+
+/* Matrix Theme */
+[data-theme="matrix"] {
+    --primary: #00ff41;
+    --secondary: #008f11;
+    --accent: #39ff14;
+    --bg-dark: #0d0208;
+    --bg-darker: #000000;
+    --text: #00ff41;
+    --text-dim: #008f11;
+    --neon-blue: #00ff41;
+    --neon-pink: #00ff41;
+    --neon-purple: #008f11;
+    --neon-green: #00ff41;
+    --grid-color: rgba(0, 255, 65, 0.1);
+}
+
+/* Synthwave Theme */
+[data-theme="synthwave"] {
+    --primary: #ff71ce;
+    --secondary: #01cdfe;
+    --accent: #05ffa1;
+    --bg-dark: #2d1b69;
+    --bg-darker: #1a0c42;
+    --text: #f9f9f9;
+    --text-dim: #b8b8ff;
+    --neon-blue: #01cdfe;
+    --neon-pink: #ff71ce;
+    --neon-purple: #b967ff;
+    --neon-green: #05ffa1;
+    --grid-color: rgba(255, 113, 206, 0.1);
+}
+
+/* Smooth theme transitions */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Preserve animations during theme switch */
+* {
+    transition-property: background-color, color, border-color, box-shadow, opacity;
+}
+
+/* Theme-specific adjustments */
+[data-theme="neon-light"] body {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+[data-theme="dark"] body {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+}
+
+[data-theme="matrix"] body {
+    background: #000000;
+}
+
+[data-theme="synthwave"] body {
+    background: linear-gradient(135deg, #2d1b69 0%, #1a0c42 100%);
+}
+
+/* Theme-specific text shadows */
+[data-theme="neon-light"] .glitch,
+[data-theme="neon-light"] h1,
+[data-theme="neon-light"] h2,
+[data-theme="neon-light"] h3 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="matrix"] .glitch,
+[data-theme="matrix"] h1,
+[data-theme="matrix"] h2,
+[data-theme="matrix"] h3 {
+    text-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-green);
+}
+
+[data-theme="synthwave"] .glitch,
+[data-theme="synthwave"] h1,
+[data-theme="synthwave"] h2,
+[data-theme="synthwave"] h3 {
+    text-shadow: 
+        0 0 10px var(--neon-pink),
+        0 0 20px var(--neon-pink),
+        0 0 30px var(--neon-pink),
+        0 0 40px var(--neon-blue);
+}
+
+/* Theme-specific button styles */
+[data-theme="neon-light"] .btn {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="neon-light"] .btn:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Matrix theme specific effects */
+[data-theme="matrix"] #matrix-canvas {
+    opacity: 0.6;
+}
+
+/* Synthwave theme specific grid */
+[data-theme="synthwave"] .cyber-grid {
+    background: 
+        linear-gradient(90deg, transparent 49.5%, rgba(255, 113, 206, 0.2) 50%, transparent 50.5%),
+        linear-gradient(0deg, transparent 49.5%, rgba(1, 205, 254, 0.2) 50%, transparent 50.5%);
+    animation: gridPulse 4s ease-in-out infinite;
+}
+
+@keyframes gridPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* Dark theme reduced glow effects */
+[data-theme="dark"] .glitch::before,
+[data-theme="dark"] .glitch::after {
+    animation: none;
+}
+
+/* Light theme - remove dark overlays */
+[data-theme="neon-light"] .navbar {
+    background: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="neon-light"] .terminal-overlay {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="neon-light"] .terminal-window {
+    background: #ffffff;
+    border-color: var(--primary);
+}
+
+[data-theme="neon-light"] .terminal-content {
+    color: var(--text);
+}
+
+[data-theme="neon-light"] .loading-screen {
+    background: #ffffff;
+}
