@@ -93,7 +93,7 @@ self.addEventListener('fetch', (event) => {
     // Skip cross-origin requests
     if (url.origin !== location.origin) {
         // For API calls (like GitHub), use network-first strategy
-        if (url.hostname.includes('api.github.com')) {
+        if (url.hostname === 'api.github.com') {
             event.respondWith(networkFirst(request));
             return;
         }
