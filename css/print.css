@@ -1,0 +1,460 @@
+/* ==================== PRINT STYLES ==================== */
+
+@media print {
+    /* Reset page layout */
+    * {
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    @page {
+        margin: 2cm;
+        size: A4 portrait;
+    }
+    
+    /* Hide interactive and decorative elements */
+    .navbar,
+    .hamburger,
+    .cyber-grid,
+    #matrix-canvas,
+    .music-player,
+    .back-to-top,
+    .scroll-progress,
+    .loading-screen,
+    .terminal-overlay,
+    .performance-monitor,
+    .cursor-trail,
+    .particle,
+    .glitch::before,
+    .glitch::after,
+    .btn-glitch,
+    .hologram,
+    .scroll-indicator,
+    .theme-switcher,
+    .analytics-widget,
+    footer .share-btn,
+    .social-feed,
+    .testimonials,
+    video,
+    audio,
+    iframe {
+        display: none !important;
+    }
+    
+    /* Body and container */
+    body {
+        font-family: 'Times New Roman', serif;
+        font-size: 12pt;
+        line-height: 1.6;
+        color: #000;
+        background: #fff;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Header with contact info */
+    .hero {
+        page-break-after: avoid;
+        padding: 0;
+        margin-bottom: 20pt;
+        border-bottom: 2pt solid #000;
+    }
+    
+    .hero-content {
+        display: block;
+    }
+    
+    .hero h1 {
+        font-size: 24pt;
+        font-weight: bold;
+        margin: 0 0 10pt 0;
+        text-align: center;
+    }
+    
+    .hero-description,
+    .typing-container {
+        display: none;
+    }
+    
+    /* About section */
+    .about {
+        page-break-inside: avoid;
+        margin-bottom: 20pt;
+    }
+    
+    .section-title {
+        font-size: 18pt;
+        font-weight: bold;
+        margin: 15pt 0 10pt 0;
+        border-bottom: 1pt solid #000;
+        page-break-after: avoid;
+    }
+    
+    .about-content {
+        display: block;
+    }
+    
+    .terminal,
+    .about-stats {
+        border: 1pt solid #000;
+        padding: 10pt;
+        margin: 10pt 0;
+        page-break-inside: avoid;
+    }
+    
+    .terminal-header {
+        display: none;
+    }
+    
+    .terminal-body {
+        font-family: 'Courier New', monospace;
+        font-size: 10pt;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+    
+    /* Skills section */
+    .skills {
+        page-break-inside: avoid;
+        margin-bottom: 20pt;
+    }
+    
+    .skills-grid,
+    .skill-category {
+        display: block;
+        page-break-inside: avoid;
+    }
+    
+    .skill-category h3 {
+        font-size: 14pt;
+        font-weight: bold;
+        margin: 10pt 0 5pt 0;
+    }
+    
+    .skill-tag {
+        display: inline-block;
+        border: 1pt solid #000;
+        padding: 2pt 6pt;
+        margin: 2pt;
+        font-size: 10pt;
+    }
+    
+    /* Projects section */
+    .projects {
+        page-break-before: always;
+        page-break-inside: auto;
+    }
+    
+    .projects-grid {
+        display: block;
+    }
+    
+    .project-card {
+        page-break-inside: avoid;
+        border: 1pt solid #000;
+        padding: 10pt;
+        margin-bottom: 15pt;
+    }
+    
+    .project-card img {
+        display: none;
+    }
+    
+    .project-title {
+        font-size: 14pt;
+        font-weight: bold;
+        margin: 0 0 5pt 0;
+    }
+    
+    .project-description {
+        font-size: 11pt;
+        margin: 5pt 0;
+    }
+    
+    .project-tags {
+        margin-top: 5pt;
+    }
+    
+    .project-tag {
+        display: inline-block;
+        border: 1pt solid #000;
+        padding: 2pt 6pt;
+        margin: 2pt;
+        font-size: 9pt;
+    }
+    
+    .project-links {
+        margin-top: 5pt;
+    }
+    
+    .project-link {
+        color: #000;
+        text-decoration: underline;
+        margin-right: 10pt;
+    }
+    
+    .project-link::after {
+        content: " (" attr(href) ")";
+        font-size: 9pt;
+    }
+    
+    /* Timeline section */
+    .timeline {
+        page-break-inside: auto;
+        margin-bottom: 20pt;
+    }
+    
+    .timeline-item {
+        page-break-inside: avoid;
+        margin-bottom: 15pt;
+        padding-left: 0;
+        border-left: 2pt solid #000;
+        padding-left: 10pt;
+    }
+    
+    .timeline-date {
+        font-weight: bold;
+        font-size: 11pt;
+    }
+    
+    .timeline-title {
+        font-size: 12pt;
+        font-weight: bold;
+        margin: 5pt 0;
+    }
+    
+    .timeline-company {
+        font-style: italic;
+        margin: 3pt 0;
+    }
+    
+    /* Certifications */
+    .certifications {
+        page-break-inside: avoid;
+        margin-bottom: 20pt;
+    }
+    
+    .cert-grid {
+        display: block;
+    }
+    
+    .cert-card {
+        page-break-inside: avoid;
+        border: 1pt solid #000;
+        padding: 10pt;
+        margin-bottom: 10pt;
+    }
+    
+    .cert-card img {
+        display: none;
+    }
+    
+    /* Blog section */
+    .blog {
+        page-break-before: always;
+    }
+    
+    .blog-grid {
+        display: block;
+    }
+    
+    .blog-post {
+        page-break-inside: avoid;
+        border: 1pt solid #000;
+        padding: 10pt;
+        margin-bottom: 15pt;
+    }
+    
+    .blog-image {
+        display: none;
+    }
+    
+    .blog-title {
+        font-size: 14pt;
+        font-weight: bold;
+        margin: 0 0 5pt 0;
+    }
+    
+    /* Contact section */
+    .contact {
+        page-break-before: always;
+    }
+    
+    .contact-form {
+        display: none;
+    }
+    
+    .contact-info {
+        border: 1pt solid #000;
+        padding: 15pt;
+        page-break-inside: avoid;
+    }
+    
+    .contact-item {
+        margin-bottom: 10pt;
+        page-break-inside: avoid;
+    }
+    
+    .contact-item h3 {
+        font-size: 12pt;
+        font-weight: bold;
+        margin: 0 0 3pt 0;
+    }
+    
+    .contact-item p {
+        margin: 0;
+        font-size: 11pt;
+    }
+    
+    .social-links {
+        margin-top: 10pt;
+    }
+    
+    .social-link {
+        display: block;
+        color: #000;
+        text-decoration: underline;
+        margin: 3pt 0;
+    }
+    
+    .social-link::after {
+        content: " (" attr(href) ")";
+        font-size: 9pt;
+    }
+    
+    /* Footer */
+    footer {
+        page-break-before: avoid;
+        margin-top: 20pt;
+        padding-top: 10pt;
+        border-top: 1pt solid #000;
+        text-align: center;
+        font-size: 10pt;
+    }
+    
+    /* Links */
+    a {
+        color: #000;
+        text-decoration: underline;
+    }
+    
+    /* Buttons */
+    .btn {
+        display: inline-block;
+        border: 1pt solid #000;
+        padding: 5pt 10pt;
+        margin: 5pt;
+        color: #000;
+        text-decoration: none;
+    }
+    
+    /* Page breaks */
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+    
+    p, li {
+        page-break-inside: avoid;
+        orphans: 3;
+        widows: 3;
+    }
+    
+    /* Add contact info to every page */
+    @page {
+        @top-right {
+            content: "Maya Smith | developer@cyberpunk.dev";
+            font-size: 9pt;
+        }
+        
+        @bottom-center {
+            content: "Page " counter(page) " of " counter(pages);
+            font-size: 9pt;
+        }
+    }
+    
+    /* Resume-style header on first page */
+    .hero::before {
+        content: "MAYA SMITH\A Full Stack Developer\A developer@cyberpunk.dev | +27 652 460 760 | Cape Town, WC";
+        white-space: pre;
+        display: block;
+        text-align: center;
+        font-size: 16pt;
+        line-height: 1.4;
+        margin-bottom: 15pt;
+        font-weight: bold;
+    }
+    
+    /* Optimize for printing */
+    img {
+        max-width: 100%;
+        page-break-inside: avoid;
+    }
+    
+    /* Force backgrounds for important elements (override initial rule) */
+    .skill-tag,
+    .project-tag,
+    .cert-card,
+    .project-card {
+        background: #f5f5f5 !important;
+    }
+    
+    /* Lists */
+    ul, ol {
+        margin: 5pt 0;
+        padding-left: 20pt;
+    }
+    
+    li {
+        margin: 3pt 0;
+    }
+    
+    /* Code blocks */
+    code, pre {
+        font-family: 'Courier New', monospace;
+        font-size: 9pt;
+        border: 1pt solid #000;
+        padding: 5pt;
+        display: block;
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+}
+
+/* Print-specific utility classes */
+@media print {
+    .print-only {
+        display: block !important;
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+    
+    .page-break-before {
+        page-break-before: always;
+    }
+    
+    .page-break-after {
+        page-break-after: always;
+    }
+    
+    .avoid-break {
+        page-break-inside: avoid;
+    }
+}
+
+/* Screen-only utility class */
+@media screen {
+    .print-only {
+        display: none;
+    }
+}

@@ -3,7 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maya Smith | Cyberpunk Portfolio</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>Maya Smith | Full Stack Developer Portfolio</title>
+    <meta name="title" content="Maya Smith | Full Stack Developer Portfolio">
+    <meta name="description" content="Cyberpunk-themed portfolio showcasing full stack web development projects with React, Node.js, Python, and cloud technologies.">
+    <meta name="keywords" content="full stack developer, web developer, React, Node.js, portfolio, Maya Smith, cyberpunk, web development">
+    <meta name="author" content="Maya Smith">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://theliquidivyfile.github.io/portfolio-website/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://theliquidivyfile.github.io/portfolio-website/">
+    <meta property="og:title" content="Maya Smith | Full Stack Developer Portfolio">
+    <meta property="og:description" content="Explore my cyberpunk-themed portfolio featuring cutting-edge web development projects.">
+    <meta property="og:image" content="https://theliquidivyfile.github.io/portfolio-website/assets/og-image.jpg">
+    <meta property="og:site_name" content="Maya Smith Portfolio">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://theliquidivyfile.github.io/portfolio-website/">
+    <meta property="twitter:title" content="Maya Smith | Full Stack Developer Portfolio">
+    <meta property="twitter:description" content="Explore my cyberpunk-themed portfolio featuring cutting-edge web development projects.">
+    <meta property="twitter:image" content="https://theliquidivyfile.github.io/portfolio-website/assets/twitter-image.jpg">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#00f3ff">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/terminal.css">
@@ -13,17 +41,46 @@
     <link rel="stylesheet" href="css/timeline.css">
     <link rel="stylesheet" href="css/blog.css">
     <link rel="stylesheet" href="css/testimonials.css">
+    <link rel="stylesheet" href="css/music-player.css">
+    <link rel="stylesheet" href="css/social-feed.css">
+    <link rel="stylesheet" href="css/print.css" media="print">
+    
+    <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://api.github.com">
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Maya Smith",
+      "jobTitle": "Full Stack Developer",
+      "url": "https://theliquidivyfile.github.io/portfolio-website/",
+      "sameAs": [
+        "https://github.com/TheLiquidIvy",
+        "https://linkedin.com/in/mayasmith",
+        "https://twitter.com/mayasmith"
+      ],
+      "knowsAbout": ["React", "Node.js", "Python", "Web Development", "Cloud Computing", "JavaScript", "TypeScript"],
+      "description": "Full Stack Developer specializing in creating innovative web experiences with modern technologies and cutting-edge design."
+    }
+    </script>
 </head>
 <body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <!-- Animated Background -->
     <div class="cyber-grid"></div>
     <canvas id="matrix-canvas"></canvas>
     
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <div class="logo glitch" data-text="<Maya Smith/>">
                 <span>&lt;Maya Smith/&gt;</span>
@@ -37,9 +94,10 @@
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#blog" class="nav-link">Blog</a></li>
                 <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                <li><a href="#social-feed" class="nav-link">Connect</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <div class="hamburger">
+            <div class="hamburger" role="button" aria-label="Toggle navigation menu" aria-expanded="false" tabindex="0">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -49,7 +107,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content">
+        <div class="hero-content" id="main-content"  role="main">
             <div class="hero-text">
                 <h1 class="glitch" data-text="FULL STACK DEVELOPER">
                     FULL STACK DEVELOPER
@@ -1231,5 +1289,28 @@
     <script src="js/testimonials.js"></script>
     <script src="js/analytics.js"></script>
     <script src="js/main.js"></script>
+    
+    <!-- Batch 4: New Features -->
+    <script src="js/console-easter-egg.js"></script>
+    <script src="js/lazy-loading.js"></script>
+    <script src="js/music-player.js"></script>
+    <script src="js/social-feed.js"></script>
+    <script src="js/performance-monitor.js"></script>
+    <script src="js/polish-features.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered successfully:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
