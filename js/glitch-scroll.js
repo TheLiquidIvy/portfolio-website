@@ -5,9 +5,6 @@ class GlitchScroll {
         this.sections = document.querySelectorAll('section');
         this.currentSection = 0;
         this.isAnimating = false;
-        this.scrollThreshold = 50;
-        this.lastScrollTime = 0;
-        this.scrollCooldown = 1000; // ms between scroll transitions
         this.touchStartY = 0;
         this.touchEndY = 0;
         this.minSwipeDistance = 50;
@@ -57,42 +54,23 @@ class GlitchScroll {
     
     setupScrollListener() {
         let scrollTimeout;
-        let lastScrollY = window.scrollY;
         
+        // Only track scroll position for navigation dots and current section
+        // Let browser handle normal scrolling - no wheel event hijacking
         window.addEventListener('scroll', () => {
             clearTimeout(scrollTimeout);
             
             scrollTimeout = setTimeout(() => {
                 this.updateCurrentSection();
             }, 100);
-            
-            lastScrollY = window.scrollY;
         }, { passive: true });
         
-        // Wheel event for threshold-based scrolling
-        window.addEventListener('wheel', (e) => {
-            if (this.isAnimating) {
-                e.preventDefault();
-                return;
-            }
-            
-            const now = Date.now();
-            if (now - this.lastScrollTime < this.scrollCooldown) {
-                return;
-            }
-            
-            // Check if scroll is significant enough
-            if (Math.abs(e.deltaY) > this.scrollThreshold) {
-                if (e.deltaY > 0) {
-                    // Scrolling down
-                    this.navigateToSection(this.currentSection + 1);
-                } else {
-                    // Scrolling up
-                    this.navigateToSection(this.currentSection - 1);
-                }
-                this.lastScrollTime = now;
-            }
-        }, { passive: false });
+        // REMOVED: Aggressive wheel event listener
+        // Normal scrolling now works smoothly without hijacking
+        // Glitch transitions only triggered by intentional navigation:
+        // - Clicking navigation dots
+        // - Clicking scroll down arrow
+        // - Keyboard shortcuts (PageDown, Space, etc.)
     }
     
     setupClickListeners() {
@@ -188,11 +166,10 @@ class GlitchScroll {
             return;
         }
         
-        const fromSection = this.sections[this.currentSection];
         const toSection = this.sections[targetIndex];
         
         if (this.prefersReducedMotion) {
-            // Simple scroll without glitch effect
+            // Simple scroll without glitch effect for reduced motion
             toSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             this.currentSection = targetIndex;
             this.updateNavigationDots();
@@ -201,6 +178,8 @@ class GlitchScroll {
             return;
         }
         
+        // Glitch effect only when explicitly triggered (arrow/dots/keyboard)
+        const fromSection = this.sections[this.currentSection];
         this.glitchTransition(fromSection, toSection, targetIndex);
     }
     
@@ -214,7 +193,7 @@ class GlitchScroll {
         // Phase 1: Glitch out current section
         this.glitchOut(fromSection);
         
-        // Phase 2: Glitch in new section
+        // Phase 2: Glitch in new section with smooth scroll
         setTimeout(() => {
             this.glitchIn(toSection);
             this.currentSection = targetIndex;
@@ -222,16 +201,16 @@ class GlitchScroll {
             this.updateScrollArrow();
             this.announceSection(toSection);
             
-            // Scroll to new section
-            toSection.scrollIntoView({ behavior: 'instant', block: 'start' });
+            // Smooth scroll to new section for better UX
+            toSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 300);
         
-        // Cleanup
+        // Cleanup - increased to allow smooth scroll animation to complete
         setTimeout(() => {
             fromSection.classList.remove('glitch-out', 'glitch-transitioning');
             toSection.classList.remove('glitch-in', 'glitch-transitioning');
             this.isAnimating = false;
-        }, 600);
+        }, 900); // Increased from 600ms to allow smoother transition completion
     }
     
     glitchOut(section) {
