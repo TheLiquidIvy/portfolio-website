@@ -1,5 +1,7 @@
 // DevOps Dashboard JavaScript
 class DevOpsDashboard {
+    static DEFAULT_ALERT_IDS = [1, 2, 3, 5];
+
     constructor() {
         this.metrics = {
             cpu: 45,
@@ -389,7 +391,7 @@ class DevOpsDashboard {
 
     loadAlerts() {
         const saved = localStorage.getItem('devops_alerts');
-        return saved ? JSON.parse(saved) : [1, 2, 3, 5];
+        return saved ? JSON.parse(saved) : DevOpsDashboard.DEFAULT_ALERT_IDS;
     }
 }
 

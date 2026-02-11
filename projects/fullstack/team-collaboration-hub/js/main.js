@@ -524,9 +524,20 @@ class CollaborationHub {
             randomMember.status = statuses[Math.floor(Math.random() * statuses.length)];
             
             // Update team sidebar if visible
-            const teamSidebar = document.querySelector('.team-sidebar');
-            if (teamSidebar) {
-                teamSidebar.innerHTML = this.renderTeamSidebar().match(/<aside[^>]*>([\s\S]*)<\/aside>/)[1];
+            const teamList = document.querySelector('.team-list');
+            if (teamList) {
+                teamList.innerHTML = this.teamMembers.map(member => `
+                    <li class="team-member">
+                        <div class="member-avatar">
+                            ${member.avatar}
+                            <div class="status-indicator ${member.status}"></div>
+                        </div>
+                        <div class="member-info">
+                            <div class="member-name">${member.name}</div>
+                            <div class="member-status">${member.role}</div>
+                        </div>
+                    </li>
+                `).join('');
             }
         }, 10000);
     }
