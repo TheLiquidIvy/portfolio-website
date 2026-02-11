@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Real-Time Features with WebSockets | Maya Smith</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/themes.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .blog-post {
+            min-height: 100vh;
+            padding: 100px 0 60px;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            gap: 15px;
+            color: var(--secondary);
+        }
+
+        .blog-hero {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #7b00ff 0%, #b24bf3 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            border: 2px solid #7b00ff;
+        }
+
+        .blog-hero::before {
+            content: '⚡';
+            font-size: 6rem;
+            opacity: 0.4;
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .post-category {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(123, 0, 255, 0.2);
+            border: 2px solid #7b00ff;
+            border-radius: 25px;
+            color: #7b00ff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 50px;
+        }
+
+        .blog-content h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .blog-content h3 {
+            color: var(--secondary);
+            font-size: 1.4rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .blog-content p {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .blog-content ul, .blog-content ol {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+
+        .blog-content li {
+            margin-bottom: 10px;
+        }
+
+        .blog-content code {
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+        }
+
+        .blog-content pre {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            margin: 25px 0;
+        }
+
+        .blog-content pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            color: var(--neon-green);
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+            margin: 25px 0;
+            font-style: italic;
+            color: var(--text);
+        }
+
+        .social-share {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 50px 0 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--primary);
+        }
+
+        .share-btn {
+            padding: 10px 20px;
+            background: rgba(0, 243, 255, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 25px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .share-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .comments-section {
+            max-width: 800px;
+            margin: 40px auto 0;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .blog-post {
+                padding: 80px 15px 40px;
+            }
+
+            .post-title {
+                font-size: 2rem;
+            }
+
+            .blog-hero {
+                height: 200px;
+            }
+
+            .blog-hero::before {
+                font-size: 4rem;
+            }
+
+            .blog-content {
+                padding: 30px 25px;
+            }
+
+            .comments-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <canvas id="matrix-canvas"></canvas>
+
+    <section class="blog-post">
+        <div class="container">
+            <div class="blog-header">
+                <a href="../index.html#blog" class="back-link">← Back to Blog</a>
+                
+                <div class="blog-hero"></div>
+                
+                <h1 class="post-title glitch" data-text="Building Real-Time Features with WebSockets">
+                    Building Real-Time Features with WebSockets
+                </h1>
+                
+                <div class="post-meta">
+                    <span>📅 November 15, 2025</span>
+                    <span>👤 Maya Smith</span>
+                    <span>⏱️ 9 min read</span>
+                </div>
+                
+                <span class="post-category">Backend</span>
+            </div>
+
+            <article class="blog-content">
+                <p>Real-time features have become essential in modern web applications. From live chat to collaborative editing, users expect instant updates without refreshing the page. WebSockets make this possible, and after building several real-time applications, I've learned what works and what doesn't.</p>
+
+                <h2>Why WebSockets?</h2>
+                <p>Before WebSockets, implementing real-time features meant polling the server every few seconds or using long-polling techniques. These approaches are inefficient and create unnecessary load. WebSockets provide a persistent, bidirectional communication channel between client and server.</p>
+
+                <pre><code>HTTP Polling (Old Way):
+Client → Server: "Any updates?"
+Server → Client: "No"
+[Wait 5 seconds]
+Client → Server: "Any updates?"
+Server → Client: "No"
+[Repeat forever...]
+
+WebSockets (Better Way):
+Client ←→ Server: [Persistent connection]
+Server → Client: "Here's an update!"
+Client → Server: "Got it, thanks!"</code></pre>
+
+                <h2>Understanding the WebSocket Protocol</h2>
+                <p>WebSockets start as HTTP requests that get "upgraded" to a WebSocket connection. Once established, both client and server can send messages at any time without the overhead of HTTP headers.</p>
+
+                <pre><code>// WebSocket handshake
+GET /chat HTTP/1.1
+Host: example.com
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==
+
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=</code></pre>
+
+                <h2>Building a WebSocket Server with Node.js</h2>
+                <p>Let's start with a basic WebSocket server using the popular <code>ws</code> library:</p>
+
+                <pre><code>const WebSocket = require('ws');
+const wss = new WebSocket.Server({ port: 8080 });
+
+wss.on('connection', (ws) => {
+  console.log('New client connected');
+  
+  // Send welcome message
+  ws.send(JSON.stringify({
+    type: 'welcome',
+    message: 'Connected to WebSocket server'
+  }));
+  
+  // Handle incoming messages
+  ws.on('message', (data) => {
+    const message = JSON.parse(data);
+    console.log('Received:', message);
+    
+    // Broadcast to all clients
+    wss.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify(message));
+      }
+    });
+  });
+  
+  // Handle disconnect
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+});</code></pre>
+
+                <h2>Client-Side WebSocket Implementation</h2>
+                <p>On the client side, the WebSocket API is built into modern browsers:</p>
+
+                <pre><code>class WebSocketClient {
+  constructor(url) {
+    this.url = url;
+    this.ws = null;
+    this.reconnectAttempts = 0;
+    this.maxReconnectAttempts = 5;
+  }
+
+  connect() {
+    this.ws = new WebSocket(this.url);
+    
+    this.ws.onopen = () => {
+      console.log('Connected to server');
+      this.reconnectAttempts = 0;
+    };
+    
+    this.ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      this.handleMessage(data);
+    };
+    
+    this.ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+    
+    this.ws.onclose = () => {
+      console.log('Disconnected from server');
+      this.reconnect();
+    };
+  }
+  
+  send(data) {
+    if (this.ws.readyState === WebSocket.OPEN) {
+      this.ws.send(JSON.stringify(data));
+    }
+  }
+  
+  reconnect() {
+    if (this.reconnectAttempts < this.maxReconnectAttempts) {
+      this.reconnectAttempts++;
+      const delay = Math.min(1000 * Math.pow(2, this.reconnectAttempts), 30000);
+      setTimeout(() => this.connect(), delay);
+    }
+  }
+  
+  handleMessage(data) {
+    // Override this in your implementation
+    console.log('Received:', data);
+  }
+}</code></pre>
+
+                <h2>Building a Real-Time Chat Application</h2>
+                <p>Let's build a practical example - a chat room. Here's the server implementation with rooms and user management:</p>
+
+                <pre><code>const WebSocket = require('ws');
+const wss = new WebSocket.Server({ port: 8080 });
+
+const rooms = new Map();
+
+wss.on('connection', (ws) => {
+  let currentRoom = null;
+  let username = null;
+  
+  ws.on('message', (data) => {
+    const message = JSON.parse(data);
+    
+    switch(message.type) {
+      case 'join':
+        username = message.username;
+        currentRoom = message.room;
+        
+        if (!rooms.has(currentRoom)) {
+          rooms.set(currentRoom, new Set());
+        }
+        
+        rooms.get(currentRoom).add(ws);
+        
+        broadcast(currentRoom, {
+          type: 'user_joined',
+          username: username,
+          timestamp: Date.now()
+        });
+        break;
+        
+      case 'message':
+        broadcast(currentRoom, {
+          type: 'message',
+          username: username,
+          text: message.text,
+          timestamp: Date.now()
+        });
+        break;
+        
+      case 'typing':
+        broadcast(currentRoom, {
+          type: 'typing',
+          username: username,
+          isTyping: message.isTyping
+        }, ws);
+        break;
+    }
+  });
+  
+  ws.on('close', () => {
+    if (currentRoom && rooms.has(currentRoom)) {
+      rooms.get(currentRoom).delete(ws);
+      broadcast(currentRoom, {
+        type: 'user_left',
+        username: username,
+        timestamp: Date.now()
+      });
+    }
+  });
+});
+
+function broadcast(room, message, except = null) {
+  if (!rooms.has(room)) return;
+  
+  rooms.get(room).forEach((client) => {
+    if (client !== except && client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(message));
+    }
+  });
+}</code></pre>
+
+                <h2>Authentication and Security</h2>
+                <p>Security is crucial for WebSocket connections. Here's how to implement JWT-based authentication:</p>
+
+                <pre><code>const jwt = require('jsonwebtoken');
+
+wss.on('connection', (ws, req) => {
+  // Extract token from URL query params
+  const token = new URL(req.url, 'ws://localhost').searchParams.get('token');
+  
+  try {
+    // Verify token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    ws.userId = decoded.userId;
+    ws.username = decoded.username;
+    
+    console.log(`User ${ws.username} connected`);
+  } catch (error) {
+    ws.close(1008, 'Unauthorized');
+    return;
+  }
+  
+  // Continue with authenticated connection
+  ws.on('message', (data) => {
+    // Handle messages from authenticated user
+  });
+});</code></pre>
+
+                <blockquote>
+                    "Always validate and sanitize WebSocket messages. Treat them with the same security mindset as HTTP requests."
+                </blockquote>
+
+                <h2>Scaling WebSocket Connections</h2>
+                <p>When you have multiple server instances, you need a way to synchronize messages across servers. Redis Pub/Sub is perfect for this:</p>
+
+                <pre><code>const Redis = require('ioredis');
+const redis = new Redis();
+const redisSub = new Redis();
+
+// Subscribe to room channels
+redisSub.psubscribe('room:*');
+
+redisSub.on('pmessage', (pattern, channel, message) => {
+  const roomId = channel.split(':')[1];
+  const data = JSON.parse(message);
+  
+  // Broadcast to local clients in this room
+  if (rooms.has(roomId)) {
+    rooms.get(roomId).forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify(data));
+      }
+    });
+  }
+});
+
+function broadcastToRoom(roomId, message) {
+  // Publish to Redis for other servers
+  redis.publish(`room:${roomId}`, JSON.stringify(message));
+  
+  // Also broadcast to local clients
+  if (rooms.has(roomId)) {
+    rooms.get(roomId).forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify(message));
+      }
+    });
+  }
+}</code></pre>
+
+                <h2>Handling Connection Issues</h2>
+                <p>Network issues happen. Your client needs robust reconnection logic:</p>
+
+                <pre><code>class RobustWebSocket {
+  constructor(url) {
+    this.url = url;
+    this.ws = null;
+    this.messageQueue = [];
+    this.heartbeatInterval = null;
+  }
+  
+  connect() {
+    this.ws = new WebSocket(this.url);
+    
+    this.ws.onopen = () => {
+      // Send queued messages
+      while (this.messageQueue.length > 0) {
+        const msg = this.messageQueue.shift();
+        this.ws.send(msg);
+      }
+      
+      // Start heartbeat
+      this.startHeartbeat();
+    };
+    
+    this.ws.onclose = () => {
+      this.stopHeartbeat();
+      // Exponential backoff reconnect
+      setTimeout(() => this.connect(), 
+        Math.min(30000, 1000 * Math.pow(2, this.reconnectAttempts++))
+      );
+    };
+  }
+  
+  send(data) {
+    const message = JSON.stringify(data);
+    
+    if (this.ws.readyState === WebSocket.OPEN) {
+      this.ws.send(message);
+    } else {
+      // Queue for when connection is restored
+      this.messageQueue.push(message);
+    }
+  }
+  
+  startHeartbeat() {
+    this.heartbeatInterval = setInterval(() => {
+      if (this.ws.readyState === WebSocket.OPEN) {
+        this.ws.send(JSON.stringify({ type: 'ping' }));
+      }
+    }, 30000);
+  }
+  
+  stopHeartbeat() {
+    if (this.heartbeatInterval) {
+      clearInterval(this.heartbeatInterval);
+    }
+  }
+}</code></pre>
+
+                <h2>Using Socket.IO for Easier Development</h2>
+                <p>For most projects, I actually recommend Socket.IO over raw WebSockets. It provides automatic reconnection, rooms, and fallback options:</p>
+
+                <pre><code>// Server
+const io = require('socket.io')(3000);
+
+io.on('connection', (socket) => {
+  socket.on('join_room', (room) => {
+    socket.join(room);
+    socket.to(room).emit('user_joined', { userId: socket.id });
+  });
+  
+  socket.on('message', (data) => {
+    io.to(data.room).emit('message', {
+      userId: socket.id,
+      text: data.text,
+      timestamp: Date.now()
+    });
+  });
+});
+
+// Client
+const socket = io('http://localhost:3000');
+
+socket.emit('join_room', 'general');
+
+socket.on('message', (data) => {
+  displayMessage(data);
+});</code></pre>
+
+                <h2>Performance Considerations</h2>
+                <p>Keep these performance tips in mind:</p>
+
+                <ul>
+                    <li><strong>Message size:</strong> Keep messages small; send deltas, not full state</li>
+                    <li><strong>Binary data:</strong> Use binary frames for media instead of base64</li>
+                    <li><strong>Compression:</strong> Enable permessage-deflate for text messages</li>
+                    <li><strong>Backpressure:</strong> Monitor bufferedAmount to avoid overwhelming clients</li>
+                    <li><strong>Connection limits:</strong> Plan for thousands of concurrent connections per server</li>
+                </ul>
+
+                <h2>Real-World Applications</h2>
+                <p>I've used WebSockets successfully for:</p>
+
+                <ul>
+                    <li><strong>Live chat systems:</strong> Support chat with 500+ concurrent users</li>
+                    <li><strong>Collaborative editing:</strong> Real-time document collaboration</li>
+                    <li><strong>Live dashboards:</strong> Streaming analytics and metrics</li>
+                    <li><strong>Multiplayer games:</strong> Low-latency game state synchronization</li>
+                    <li><strong>Stock tickers:</strong> Real-time price updates</li>
+                    <li><strong>Notifications:</strong> Instant push notifications to users</li>
+                </ul>
+
+                <h2>Testing WebSocket Applications</h2>
+                <p>Testing real-time features requires special approaches:</p>
+
+                <pre><code>// Example with Jest and ws
+const WebSocket = require('ws');
+
+describe('Chat Server', () => {
+  let ws;
+  
+  beforeEach((done) => {
+    ws = new WebSocket('ws://localhost:8080');
+    ws.on('open', done);
+  });
+  
+  afterEach(() => {
+    ws.close();
+  });
+  
+  test('broadcasts messages to all clients', (done) => {
+    ws.on('message', (data) => {
+      const message = JSON.parse(data);
+      expect(message.type).toBe('message');
+      expect(message.text).toBe('Hello');
+      done();
+    });
+    
+    ws.send(JSON.stringify({
+      type: 'message',
+      text: 'Hello'
+    }));
+  });
+});</code></pre>
+
+                <h2>Conclusion</h2>
+                <p>WebSockets have transformed how we build interactive applications. They enable experiences that were previously impossible or impractical with traditional HTTP. While they add complexity, the benefits of real-time communication are worth it for many applications.</p>
+
+                <p>Start with Socket.IO for rapid development, then optimize with raw WebSockets if you need more control. Focus on reconnection logic, security, and scalability from the start. With these foundations, you can build robust real-time features that delight your users.</p>
+
+                <div class="social-share">
+                    <span style="color: var(--text);">Share this post:</span>
+                    <a href="#" class="share-btn">Twitter</a>
+                    <a href="#" class="share-btn">LinkedIn</a>
+                    <a href="#" class="share-btn">Facebook</a>
+                </div>
+            </article>
+
+            <div class="comments-section">
+                <h3 style="color: var(--primary); margin-bottom: 15px;">Comments</h3>
+                <p style="color: var(--text-dim);">Comments section coming soon! For now, feel free to reach out via the contact form.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="../js/theme-switcher.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

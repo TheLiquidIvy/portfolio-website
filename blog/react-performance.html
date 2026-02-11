@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Performance Optimization: Lessons Learned | Maya Smith</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/themes.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .blog-post {
+            min-height: 100vh;
+            padding: 100px 0 60px;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            gap: 15px;
+            color: var(--secondary);
+        }
+
+        .blog-hero {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #ff00ff 0%, #ff1493 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            border: 2px solid #ff00ff;
+        }
+
+        .blog-hero::before {
+            content: '⚡';
+            font-size: 6rem;
+            opacity: 0.4;
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .post-category {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 0, 255, 0.2);
+            border: 2px solid #ff00ff;
+            border-radius: 25px;
+            color: #ff00ff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 50px;
+        }
+
+        .blog-content h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .blog-content h3 {
+            color: var(--secondary);
+            font-size: 1.4rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .blog-content p {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .blog-content ul, .blog-content ol {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+
+        .blog-content li {
+            margin-bottom: 10px;
+        }
+
+        .blog-content code {
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+        }
+
+        .blog-content pre {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            margin: 25px 0;
+        }
+
+        .blog-content pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            color: var(--neon-green);
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+            margin: 25px 0;
+            font-style: italic;
+            color: var(--text);
+        }
+
+        .social-share {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 50px 0 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--primary);
+        }
+
+        .share-btn {
+            padding: 10px 20px;
+            background: rgba(0, 243, 255, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 25px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .share-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .comments-section {
+            max-width: 800px;
+            margin: 40px auto 0;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .blog-post {
+                padding: 80px 15px 40px;
+            }
+
+            .post-title {
+                font-size: 2rem;
+            }
+
+            .blog-hero {
+                height: 200px;
+            }
+
+            .blog-hero::before {
+                font-size: 4rem;
+            }
+
+            .blog-content {
+                padding: 30px 25px;
+            }
+
+            .comments-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <canvas id="matrix-canvas"></canvas>
+
+    <section class="blog-post">
+        <div class="container">
+            <div class="blog-header">
+                <a href="../index.html#blog" class="back-link">← Back to Blog</a>
+                
+                <div class="blog-hero"></div>
+                
+                <h1 class="post-title glitch" data-text="React Performance Optimization: Lessons Learned">
+                    React Performance Optimization: Lessons Learned
+                </h1>
+                
+                <div class="post-meta">
+                    <span>📅 December 10, 2025</span>
+                    <span>👤 Maya Smith</span>
+                    <span>⏱️ 12 min read</span>
+                </div>
+                
+                <span class="post-category">Frontend</span>
+            </div>
+
+            <article class="blog-content">
+                <p>Performance optimization in React isn't just about making your app faster - it's about creating a better user experience. After spending months optimizing a large-scale React application with 50,000+ daily active users, I've learned some hard lessons about what actually matters for performance.</p>
+
+                <h2>The Performance Problem</h2>
+                <p>Our application was experiencing significant slowdowns. Users complained about laggy interactions, slow page loads, and choppy animations. The React DevTools profiler showed components re-rendering excessively. We had a problem, and band-aid solutions weren't going to cut it.</p>
+
+                <p>Here's what our initial metrics looked like:</p>
+                <ul>
+                    <li>First Contentful Paint: 3.2s (target: < 1.8s)</li>
+                    <li>Time to Interactive: 5.8s (target: < 3.5s)</li>
+                    <li>Largest Contentful Paint: 4.5s (target: < 2.5s)</li>
+                    <li>Total Blocking Time: 890ms (target: < 300ms)</li>
+                </ul>
+
+                <h2>Understanding the React Rendering Cycle</h2>
+                <p>Before optimizing, you need to understand how React renders. Every state change triggers a reconciliation process where React compares the virtual DOM with the previous version. This is fast, but unnecessary renders add up quickly.</p>
+
+                <pre><code>// React rendering phases
+1. Render Phase (Pure, can be paused)
+   - Call render()
+   - Build virtual DOM
+   - Determine what changed
+
+2. Commit Phase (Cannot be interrupted)
+   - Update real DOM
+   - Run effects
+   - Update refs</code></pre>
+
+                <h2>Optimization Strategy #1: Prevent Unnecessary Re-renders</h2>
+                <p>The biggest performance gains came from preventing components from re-rendering when they didn't need to. Here are the techniques that made the most impact:</p>
+
+                <h3>React.memo for Component Memoization</h3>
+                <p>React.memo is a higher-order component that prevents re-renders if props haven't changed:</p>
+
+                <pre><code>// Before: Re-renders on every parent update
+const UserCard = ({ user }) => (
+  &lt;div&gt;
+    &lt;h3&gt;{user.name}&lt;/h3&gt;
+    &lt;p&gt;{user.email}&lt;/p&gt;
+  &lt;/div&gt;
+);
+
+// After: Only re-renders when user prop changes
+const UserCard = React.memo(({ user }) => (
+  &lt;div&gt;
+    &lt;h3&gt;{user.name}&lt;/h3&gt;
+    &lt;p&gt;{user.email}&lt;/p&gt;
+  &lt;/div&gt;
+));</code></pre>
+
+                <blockquote>
+                    "React.memo is powerful, but use it wisely. Premature optimization can make code harder to maintain without meaningful performance gains."
+                </blockquote>
+
+                <h3>useMemo and useCallback Hooks</h3>
+                <p>These hooks prevent expensive recalculations and function recreations:</p>
+
+                <pre><code>// useMemo for expensive calculations
+const expensiveValue = useMemo(() => {
+  return computeExpensiveValue(data);
+}, [data]);
+
+// useCallback for function references
+const handleClick = useCallback(() => {
+  doSomething(id);
+}, [id]);
+
+// Pass to memoized child
+&lt;MemoizedChild onClick={handleClick} /&gt;</code></pre>
+
+                <p>The key insight: <code>useCallback</code> doesn't optimize the function itself, it optimizes the child components that receive it as a prop.</p>
+
+                <h2>Optimization Strategy #2: Code Splitting and Lazy Loading</h2>
+                <p>We reduced our initial bundle size by 60% using code splitting. This dramatically improved our load times:</p>
+
+                <pre><code>// Before: Everything in one bundle (842KB)
+import Dashboard from './Dashboard';
+import Analytics from './Analytics';
+import Settings from './Settings';
+
+// After: Lazy load route components
+const Dashboard = lazy(() => import('./Dashboard'));
+const Analytics = lazy(() => import('./Analytics'));
+const Settings = lazy(() => import('./Settings'));
+
+function App() {
+  return (
+    &lt;Suspense fallback={&lt;LoadingSpinner /&gt;}&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/dashboard" element={&lt;Dashboard /&gt;} /&gt;
+        &lt;Route path="/analytics" element={&lt;Analytics /&gt;} /&gt;
+        &lt;Route path="/settings" element={&lt;Settings /&gt;} /&gt;
+      &lt;/Routes&gt;
+    &lt;/Suspense&gt;
+  );
+}</code></pre>
+
+                <h2>Optimization Strategy #3: Virtualization for Large Lists</h2>
+                <p>Rendering thousands of list items is expensive. Virtualization only renders items currently in the viewport:</p>
+
+                <pre><code>import { FixedSizeList } from 'react-window';
+
+const VirtualizedList = ({ items }) => (
+  &lt;FixedSizeList
+    height={600}
+    itemCount={items.length}
+    itemSize={50}
+    width="100%"
+  &gt;
+    {({ index, style }) => (
+      &lt;div style={style}&gt;
+        {items[index].name}
+      &lt;/div&gt;
+    )}
+  &lt;/FixedSizeList&gt;
+);</code></pre>
+
+                <p>This reduced render time for our 10,000-item list from 2,800ms to 45ms - a 98% improvement!</p>
+
+                <h2>Optimization Strategy #4: Debouncing and Throttling</h2>
+                <p>User input events fire rapidly. Debouncing and throttling prevent excessive updates:</p>
+
+                <pre><code>import { useMemo } from 'react';
+import { debounce } from 'lodash';
+
+function SearchBar() {
+  const [query, setQuery] = useState('');
+
+  // Debounce search API call
+  const debouncedSearch = useMemo(
+    () => debounce((value) => {
+      searchAPI(value);
+    }, 300),
+    []
+  );
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setQuery(value);
+    debouncedSearch(value);
+  };
+
+  return &lt;input value={query} onChange={handleChange} /&gt;;
+}</code></pre>
+
+                <h2>Optimization Strategy #5: Optimize Context Usage</h2>
+                <p>Context can cause widespread re-renders if not used carefully. Split contexts and use memoization:</p>
+
+                <pre><code>// Bad: Single context with all app state
+const AppContext = createContext();
+
+// Good: Split into focused contexts
+const UserContext = createContext();
+const ThemeContext = createContext();
+const SettingsContext = createContext();
+
+// Memoize context values
+function UserProvider({ children }) {
+  const [user, setUser] = useState(null);
+  
+  const value = useMemo(
+    () => ({ user, setUser }),
+    [user]
+  );
+  
+  return (
+    &lt;UserContext.Provider value={value}&gt;
+      {children}
+    &lt;/UserContext.Provider&gt;
+  );
+}</code></pre>
+
+                <h2>Optimization Strategy #6: Bundle Size Optimization</h2>
+                <p>We reduced our bundle size significantly by:</p>
+
+                <ul>
+                    <li><strong>Tree shaking:</strong> Import only what you need from libraries</li>
+                    <li><strong>Replacing heavy libraries:</strong> Switched from Moment.js (67KB) to date-fns (4KB)</li>
+                    <li><strong>Dynamic imports:</strong> Load heavy dependencies only when needed</li>
+                    <li><strong>Webpack analysis:</strong> Use webpack-bundle-analyzer to find bloat</li>
+                </ul>
+
+                <pre><code>// Before: Importing entire library (67KB)
+import moment from 'moment';
+
+// After: Import specific functions (4KB)
+import { format, parseISO } from 'date-fns';</code></pre>
+
+                <h2>Optimization Strategy #7: Image Optimization</h2>
+                <p>Images accounted for 70% of our page weight. Here's what we did:</p>
+
+                <ul>
+                    <li>Converted images to WebP format (30% smaller)</li>
+                    <li>Implemented lazy loading with Intersection Observer</li>
+                    <li>Added responsive images with <code>srcset</code></li>
+                    <li>Used placeholder blur-ups during loading</li>
+                    <li>Served images from CDN with proper caching</li>
+                </ul>
+
+                <pre><code>const LazyImage = ({ src, alt }) => {
+  const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const img = imgRef.current;
+          img.src = src;
+          img.onload = () => setLoaded(true);
+          observer.disconnect();
+        }
+      }
+    );
+    observer.observe(imgRef.current);
+    return () => observer.disconnect();
+  }, [src]);
+
+  return (
+    &lt;img
+      ref={imgRef}
+      alt={alt}
+      className={loaded ? 'loaded' : 'loading'}
+    /&gt;
+  );
+};</code></pre>
+
+                <h2>Measuring the Impact</h2>
+                <p>After implementing these optimizations, our metrics improved dramatically:</p>
+
+                <ul>
+                    <li>First Contentful Paint: 3.2s → 1.4s (56% improvement)</li>
+                    <li>Time to Interactive: 5.8s → 2.8s (52% improvement)</li>
+                    <li>Largest Contentful Paint: 4.5s → 2.1s (53% improvement)</li>
+                    <li>Total Blocking Time: 890ms → 180ms (80% improvement)</li>
+                    <li>Bundle size: 842KB → 324KB (62% reduction)</li>
+                </ul>
+
+                <h2>Key Takeaways</h2>
+                <p>Here's what I learned about React performance optimization:</p>
+
+                <ol>
+                    <li><strong>Measure first:</strong> Use profiling tools before optimizing. Don't guess.</li>
+                    <li><strong>Target the bottlenecks:</strong> Focus on what actually impacts users</li>
+                    <li><strong>Bundle size matters:</strong> Smaller bundles mean faster load times</li>
+                    <li><strong>Prevent unnecessary renders:</strong> This is where most gains come from</li>
+                    <li><strong>Lazy load aggressively:</strong> Don't load what users haven't requested yet</li>
+                    <li><strong>Images are heavy:</strong> Optimize them or they'll kill your performance</li>
+                    <li><strong>Context can be expensive:</strong> Use it thoughtfully or pay the price</li>
+                    <li><strong>Monitor continuously:</strong> Performance degrades over time without vigilance</li>
+                </ol>
+
+                <h2>Tools for Performance Monitoring</h2>
+                <p>These tools were essential for identifying and fixing performance issues:</p>
+
+                <ul>
+                    <li><strong>React DevTools Profiler:</strong> Identify expensive renders</li>
+                    <li><strong>Chrome Lighthouse:</strong> Overall performance metrics</li>
+                    <li><strong>webpack-bundle-analyzer:</strong> Visualize bundle composition</li>
+                    <li><strong>React Query DevTools:</strong> Debug data fetching</li>
+                    <li><strong>Why Did You Render:</strong> Find unnecessary re-renders</li>
+                </ul>
+
+                <h2>Conclusion</h2>
+                <p>React performance optimization is an ongoing journey, not a one-time task. The techniques I've shared made a massive difference in our application's user experience. Start with measurement, focus on the biggest bottlenecks, and always validate that your optimizations actually improved performance.</p>
+
+                <p>Remember: premature optimization is the root of all evil, but informed optimization based on real metrics is the path to excellent user experience.</p>
+
+                <div class="social-share">
+                    <span style="color: var(--text);">Share this post:</span>
+                    <a href="#" class="share-btn">Twitter</a>
+                    <a href="#" class="share-btn">LinkedIn</a>
+                    <a href="#" class="share-btn">Facebook</a>
+                </div>
+            </article>
+
+            <div class="comments-section">
+                <h3 style="color: var(--primary); margin-bottom: 15px;">Comments</h3>
+                <p style="color: var(--text-dim);">Comments section coming soon! For now, feel free to reach out via the contact form.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="../js/theme-switcher.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
