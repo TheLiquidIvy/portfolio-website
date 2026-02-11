@@ -2,40 +2,40 @@
 
 const CACHE_NAME = 'portfolio-cache-v1';
 const ASSETS_TO_CACHE = [
-    '/',
-    '/index.html',
-    '/css/style.css',
-    '/css/themes.css',
-    '/css/terminal.css',
-    '/css/loading.css',
-    '/css/certifications.css',
-    '/css/enhanced-projects.css',
-    '/css/timeline.css',
-    '/css/blog.css',
-    '/css/testimonials.css',
-    '/css/music-player.css',
-    '/css/social-feed.css',
-    '/css/print.css',
-    '/js/main.js',
-    '/js/loading.js',
-    '/js/accessibility.js',
-    '/js/theme-switcher.js',
-    '/js/terminal.js',
-    '/js/cursor.js',
-    '/js/easter-eggs.js',
-    '/js/certifications.js',
-    '/js/project-enhancements.js',
-    '/js/contact-form.js',
-    '/js/timeline.js',
-    '/js/blog.js',
-    '/js/testimonials.js',
-    '/js/analytics.js',
-    '/js/music-player.js',
-    '/js/social-feed.js',
-    '/js/lazy-loading.js',
-    '/js/console-easter-egg.js',
-    '/js/performance-monitor.js',
-    '/js/polish-features.js'
+    './',
+    './index.html',
+    './css/style.css',
+    './css/themes.css',
+    './css/terminal.css',
+    './css/loading.css',
+    './css/certifications.css',
+    './css/enhanced-projects.css',
+    './css/timeline.css',
+    './css/blog.css',
+    './css/testimonials.css',
+    './css/music-player.css',
+    './css/social-feed.css',
+    './css/print.css',
+    './js/main.js',
+    './js/loading.js',
+    './js/accessibility.js',
+    './js/theme-switcher.js',
+    './js/terminal.js',
+    './js/cursor.js',
+    './js/easter-eggs.js',
+    './js/certifications.js',
+    './js/project-enhancements.js',
+    './js/contact-form.js',
+    './js/timeline.js',
+    './js/blog.js',
+    './js/testimonials.js',
+    './js/analytics.js',
+    './js/music-player.js',
+    './js/social-feed.js',
+    './js/lazy-loading.js',
+    './js/console-easter-egg.js',
+    './js/performance-monitor.js',
+    './js/polish-features.js'
 ];
 
 // Install event - cache assets
@@ -140,7 +140,7 @@ async function cacheFirst(request) {
         console.error('[Service Worker] Fetch failed:', error);
         
         // Return offline page if available
-        const offlinePage = await cache.match('/offline.html');
+        const offlinePage = await cache.match('./offline.html');
         if (offlinePage) {
             return offlinePage;
         }
