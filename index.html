@@ -744,21 +744,28 @@
                 </div>
                 <form class="contact-form">
                     <div class="form-group">
-                        <input type="text" placeholder="Name" required>
+                        <input type="text" name="name" placeholder="Name" required>
                         <div class="input-border"></div>
+                        <span class="validation-icon"></span>
                     </div>
                     <div class="form-group">
-                        <input type="email" placeholder="Email" required>
+                        <input type="email" name="email" placeholder="Email" required>
                         <div class="input-border"></div>
+                        <span class="validation-icon"></span>
                     </div>
                     <div class="form-group">
-                        <input type="text" placeholder="Subject" required>
+                        <input type="text" name="subject" placeholder="Subject" required>
                         <div class="input-border"></div>
+                        <span class="validation-icon"></span>
                     </div>
                     <div class="form-group">
-                        <textarea placeholder="Message" rows="5" required></textarea>
+                        <textarea name="message" placeholder="Message (20-1000 characters)" rows="5" required minlength="20" maxlength="1000"></textarea>
                         <div class="input-border"></div>
+                        <span class="validation-icon"></span>
+                        <span class="character-counter">0 / 1000</span>
                     </div>
+                    <!-- Honeypot field for spam prevention -->
+                    <input type="text" name="website" class="honeypot" tabindex="-1" autocomplete="off">
                     <button type="submit" class="btn btn-primary">
                         <span>Send Message</span>
                         <div class="btn-glitch"></div>
