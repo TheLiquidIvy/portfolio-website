@@ -1,0 +1,562 @@
+/* ==================== CERTIFICATIONS & ACHIEVEMENTS SECTION ==================== */
+
+.certifications {
+    padding: 100px 20px;
+    position: relative;
+    background: linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+}
+
+/* ==================== SECTION LAYOUT ==================== */
+.certifications .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.certifications-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+.cert-tab {
+    padding: 12px 30px;
+    background: transparent;
+    border: 2px solid var(--neon-blue);
+    color: var(--neon-blue);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cert-tab::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: var(--neon-blue);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+    z-index: -1;
+}
+
+.cert-tab:hover::before,
+.cert-tab.active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.cert-tab:hover,
+.cert-tab.active {
+    color: var(--bg-dark);
+    box-shadow: 0 0 20px var(--neon-blue);
+}
+
+/* ==================== CERTIFICATIONS GRID ==================== */
+.certifications-content {
+    display: none;
+}
+
+.certifications-content.active {
+    display: block;
+    animation: fadeInUp 0.5s ease;
+}
+
+.certifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+/* ==================== HEXAGONAL BADGE CARDS ==================== */
+.cert-badge {
+    position: relative;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 30px;
+    border: 2px solid var(--neon-blue);
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.cert-badge:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 40px rgba(0, 255, 255, 0.5);
+    border-color: var(--neon-pink);
+}
+
+.cert-badge::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink), var(--neon-purple));
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+    animation: rotateBorder 4s linear infinite;
+}
+
+.cert-badge:hover::after {
+    opacity: 0.7;
+}
+
+@keyframes rotateBorder {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+.cert-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 10px currentColor);
+}
+
+.cert-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.cert-issuer {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+}
+
+.cert-date {
+    font-size: 12px;
+    color: var(--neon-green);
+    margin-bottom: 10px;
+}
+
+.cert-link {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--neon-blue);
+    text-decoration: none;
+    border: 1px solid var(--neon-blue);
+    padding: 5px 15px;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.cert-link:hover {
+    background: var(--neon-blue);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px var(--neon-blue);
+}
+
+/* ==================== ACHIEVEMENTS SECTION ==================== */
+.achievements-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.achievements-filters {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-btn {
+    padding: 8px 20px;
+    background: transparent;
+    border: 1px solid var(--neon-purple);
+    color: var(--neon-purple);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--neon-purple);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px var(--neon-purple);
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* ==================== ACHIEVEMENT CARDS ==================== */
+.achievement-card {
+    position: relative;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border: 2px solid var(--neon-purple);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.achievement-card.visible {
+    animation: achievementUnlock 0.6s ease forwards;
+}
+
+@keyframes achievementUnlock {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.achievement-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(157, 0, 255, 0.5);
+    border-color: var(--neon-pink);
+}
+
+.achievement-card.locked {
+    opacity: 0.5;
+    filter: grayscale(70%);
+}
+
+.achievement-card.locked:hover {
+    filter: grayscale(50%);
+}
+
+.achievement-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.achievement-icon {
+    font-size: 50px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--neon-purple);
+    border-radius: 50%;
+    background: rgba(157, 0, 255, 0.1);
+    flex-shrink: 0;
+}
+
+.achievement-card.unlocked .achievement-icon {
+    animation: iconGlow 2s ease-in-out infinite;
+}
+
+@keyframes iconGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px var(--neon-purple);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 30px var(--neon-purple), 0 0 50px var(--neon-pink);
+        transform: scale(1.05);
+    }
+}
+
+.achievement-info {
+    flex: 1;
+}
+
+.achievement-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+.achievement-desc {
+    font-size: 14px;
+    color: var(--text-dim);
+}
+
+.achievement-status {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--neon-green);
+    color: var(--bg-dark);
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.achievement-card.locked .achievement-status {
+    background: var(--text-dim);
+}
+
+.achievement-progress {
+    margin-top: 15px;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));
+    border-radius: 10px;
+    transition: width 1s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: progressShine 2s infinite;
+}
+
+@keyframes progressShine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ==================== ACHIEVEMENT MODAL ==================== */
+.achievement-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.achievement-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.achievement-modal-content {
+    background: var(--bg-dark);
+    border: 3px solid var(--neon-purple);
+    border-radius: 15px;
+    padding: 50px;
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 0 50px rgba(157, 0, 255, 0.7);
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.achievement-modal.active .achievement-modal-content {
+    transform: scale(1);
+    animation: modalBounce 0.6s ease;
+}
+
+@keyframes modalBounce {
+    0% { transform: scale(0.8); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: var(--neon-pink);
+    transform: rotate(90deg);
+}
+
+.modal-achievement-icon {
+    font-size: 100px;
+    margin-bottom: 20px;
+    animation: modalIconFloat 3s ease-in-out infinite;
+}
+
+@keyframes modalIconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.modal-achievement-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--neon-purple);
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px var(--neon-purple);
+}
+
+.modal-achievement-story {
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.modal-achievement-date {
+    font-size: 14px;
+    color: var(--neon-green);
+    font-weight: 600;
+}
+
+/* ==================== CONFETTI ANIMATION ==================== */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    z-index: 10001;
+    pointer-events: none;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 768px) {
+    .certifications {
+        padding: 60px 15px;
+    }
+
+    .certifications-tabs {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .cert-tab {
+        padding: 10px 20px;
+        font-size: 12px;
+    }
+
+    .certifications-grid,
+    .achievements-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .cert-badge {
+        padding: 20px;
+    }
+
+    .cert-icon {
+        font-size: 40px;
+    }
+
+    .achievement-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .achievement-icon {
+        font-size: 40px;
+        width: 60px;
+        height: 60px;
+    }
+
+    .achievement-name {
+        font-size: 16px;
+    }
+
+    .achievements-filters {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .filter-btn {
+        flex: 1;
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .achievement-modal-content {
+        padding: 30px;
+    }
+
+    .modal-achievement-icon {
+        font-size: 70px;
+    }
+
+    .modal-achievement-name {
+        font-size: 24px;
+    }
+
+    .modal-achievement-story {
+        font-size: 14px;
+    }
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

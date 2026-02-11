@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/terminal.css">
     <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/certifications.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -27,6 +28,7 @@
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#certifications" class="nav-link">Certifications</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -215,6 +217,93 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications & Achievements Section -->
+    <section id="certifications" class="certifications">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="CERTIFICATIONS & ACHIEVEMENTS">CERTIFICATIONS & ACHIEVEMENTS</h2>
+            
+            <!-- Tabs -->
+            <div class="certifications-tabs">
+                <button class="cert-tab active" data-tab="certifications">Certifications</button>
+                <button class="cert-tab" data-tab="achievements">Achievements</button>
+            </div>
+
+            <!-- Certifications Content -->
+            <div class="certifications-content active" data-content="certifications">
+                <div class="certifications-grid">
+                    <!-- AWS Certified Solutions Architect -->
+                    <div class="cert-badge">
+                        <div class="cert-icon">☁️</div>
+                        <h3 class="cert-name">AWS Solutions Architect</h3>
+                        <p class="cert-issuer">Amazon Web Services</p>
+                        <p class="cert-date">Earned: January 2025</p>
+                        <a href="#" class="cert-link">View Certificate</a>
+                    </div>
+
+                    <!-- Microsoft Azure Fundamentals -->
+                    <div class="cert-badge">
+                        <div class="cert-icon">🔷</div>
+                        <h3 class="cert-name">Azure Fundamentals</h3>
+                        <p class="cert-issuer">Microsoft</p>
+                        <p class="cert-date">Earned: December 2024</p>
+                        <a href="#" class="cert-link">View Certificate</a>
+                    </div>
+
+                    <!-- Google Cloud Professional -->
+                    <div class="cert-badge">
+                        <div class="cert-icon">🌩️</div>
+                        <h3 class="cert-name">Cloud Professional</h3>
+                        <p class="cert-issuer">Google Cloud</p>
+                        <p class="cert-date">Earned: November 2024</p>
+                        <a href="#" class="cert-link">View Certificate</a>
+                    </div>
+
+                    <!-- Meta React Advanced -->
+                    <div class="cert-badge">
+                        <div class="cert-icon">⚛️</div>
+                        <h3 class="cert-name">React Advanced</h3>
+                        <p class="cert-issuer">Meta</p>
+                        <p class="cert-date">Earned: October 2024</p>
+                        <a href="#" class="cert-link">View Certificate</a>
+                    </div>
+
+                    <!-- MongoDB Certified Developer -->
+                    <div class="cert-badge">
+                        <div class="cert-icon">🍃</div>
+                        <h3 class="cert-name">MongoDB Developer</h3>
+                        <p class="cert-issuer">MongoDB University</p>
+                        <p class="cert-date">Earned: September 2024</p>
+                        <a href="#" class="cert-link">View Certificate</a>
+                    </div>
+
+                    <!-- Docker Certified Associate -->
+                    <div class="cert-badge">
+                        <div class="cert-icon">🐳</div>
+                        <h3 class="cert-name">Docker Associate</h3>
+                        <p class="cert-issuer">Docker Inc.</p>
+                        <p class="cert-date">Earned: August 2024</p>
+                        <a href="#" class="cert-link">View Certificate</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements Content -->
+            <div class="certifications-content" data-content="achievements">
+                <div class="achievements-header">
+                    <h3 style="color: var(--neon-purple); font-family: 'Orbitron', sans-serif; font-size: 20px;">🎮 Gaming Achievements</h3>
+                    <div class="achievements-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="unlocked">Unlocked</button>
+                        <button class="filter-btn" data-filter="in-progress">In Progress</button>
+                    </div>
+                </div>
+                <div class="achievements-grid">
+                    <!-- Achievements will be rendered by JavaScript -->
                 </div>
             </div>
         </div>
@@ -692,6 +781,7 @@
     <script src="js/terminal.js"></script>
     <script src="js/cursor.js"></script>
     <script src="js/easter-eggs.js"></script>
+    <script src="js/certifications.js"></script>
     <script src="js/contact-form.js"></script>
     <script src="js/analytics.js"></script>
     <script src="js/main.js"></script>
