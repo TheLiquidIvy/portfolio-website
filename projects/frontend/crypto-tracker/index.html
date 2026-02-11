@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
     <style>
         /* Crypto Trading Terminal Styles */
         .trading-header {
@@ -458,6 +459,7 @@
     </style>
 </head>
 <body>
+    <canvas id="particles-canvas"></canvas>
     <div class="cyber-grid"></div>
     <canvas id="matrix-canvas"></canvas>
     
@@ -530,274 +532,57 @@
             </div>
 
             <div id="demo" class="project-demo">
-                <h2 class="section-title glitch" data-text="MARKET PREVIEW">MARKET PREVIEW</h2>
+                <h2 class="section-title glitch" data-text="LIVE CRYPTO MARKET">LIVE CRYPTO MARKET</h2>
                 
                 <!-- Trading Header -->
                 <div class="trading-header">
                     <div class="market-status">
-                        <div class="status-dot"></div>
-                        <span style="font-family: 'Orbitron', monospace; color: var(--primary); font-size: 1.1rem;">MARKETS OPEN</span>
+                        <div class="status-indicator">
+                            <div class="status-dot"></div>
+                            <span style="font-family: 'Orbitron', monospace; color: var(--primary); font-size: 1.1rem;">MARKETS OPEN</span>
+                        </div>
+                        <div class="market-info">
+                            Market Cap: <span id="market-cap">$2.48T</span>
+                        </div>
+                        <div class="market-info">
+                            24h Volume: <span id="volume-24h">$124.6B</span>
+                        </div>
                     </div>
-                    <div class="market-cap">
-                        Global Market Cap <span id="marketCap">$2.48T</span>
-                    </div>
-                    <div class="market-cap">
-                        24h Volume <span id="volume24h">$124.6B</span>
-                    </div>
+                    <button id="refresh-btn" class="refresh-btn">🔄 Refresh Data</button>
                 </div>
 
                 <!-- Price Ticker Ribbon -->
                 <div class="ticker-ribbon">
-                    <div class="ticker-scroll">
-                        <div class="ticker-item">
-                            <span class="ticker-symbol">BTC</span>
-                            <span class="ticker-price" data-crypto="btc">$62,480</span>
-                            <span class="ticker-change up">+3.4%</span>
-                        </div>
-                        <div class="ticker-item">
-                            <span class="ticker-symbol">ETH</span>
-                            <span class="ticker-price" data-crypto="eth">$3,210</span>
-                            <span class="ticker-change down">-1.2%</span>
-                        </div>
-                        <div class="ticker-item">
-                            <span class="ticker-symbol">SOL</span>
-                            <span class="ticker-price" data-crypto="sol">$138.40</span>
-                            <span class="ticker-change up">+6.8%</span>
-                        </div>
-                        <div class="ticker-item">
-                            <span class="ticker-symbol">ADA</span>
-                            <span class="ticker-price">$0.58</span>
-                            <span class="ticker-change up">+2.1%</span>
-                        </div>
-                        <div class="ticker-item">
-                            <span class="ticker-symbol">DOT</span>
-                            <span class="ticker-price">$7.84</span>
-                            <span class="ticker-change down">-0.8%</span>
-                        </div>
-                        <!-- Duplicate for seamless scroll -->
-                        <div class="ticker-item">
-                            <span class="ticker-symbol">BTC</span>
-                            <span class="ticker-price">$62,480</span>
-                            <span class="ticker-change up">+3.4%</span>
-                        </div>
-                        <div class="ticker-item">
-                            <span class="ticker-symbol">ETH</span>
-                            <span class="ticker-price">$3,210</span>
-                            <span class="ticker-change down">-1.2%</span>
-                        </div>
-                        <div class="ticker-item">
-                            <span class="ticker-symbol">SOL</span>
-                            <span class="ticker-price">$138.40</span>
-                            <span class="ticker-change up">+6.8%</span>
-                        </div>
-                        <div class="ticker-item">
-                            <span class="ticker-symbol">ADA</span>
-                            <span class="ticker-price">$0.58</span>
-                            <span class="ticker-change up">+2.1%</span>
-                        </div>
-                        <div class="ticker-item">
-                            <span class="ticker-symbol">DOT</span>
-                            <span class="ticker-price">$7.84</span>
-                            <span class="ticker-change down">-0.8%</span>
-                        </div>
-                    </div>
+                    <div id="ticker-scroll" class="ticker-scroll"></div>
                 </div>
 
-                <!-- Trading Grid -->
-                <div class="trading-grid">
-                    <!-- Watchlist Panel -->
-                    <div class="watchlist-panel">
-                        <div class="panel-title">Watchlist</div>
-                        <div class="crypto-card btc">
-                            <div class="crypto-info">
-                                <div class="crypto-symbol">BTC</div>
-                                <div class="crypto-name">Bitcoin</div>
-                            </div>
-                            <div class="crypto-data">
-                                <div class="crypto-price" data-crypto="btc">$62,480</div>
-                                <div class="crypto-change positive">▲ +3.4%</div>
-                            </div>
+                <!-- Crypto Cards Grid -->
+                <div id="crypto-grid" class="crypto-grid"></div>
+
+                <!-- Portfolio Calculator -->
+                <div class="portfolio-calculator">
+                    <div class="calculator-header">💰 Portfolio Calculator</div>
+                    <div class="calculator-grid">
+                        <div class="calc-input-group">
+                            <label class="calc-label">Select Cryptocurrency</label>
+                            <select id="crypto-select" class="calc-select"></select>
                         </div>
-                        <div class="crypto-card eth">
-                            <div class="crypto-info">
-                                <div class="crypto-symbol">ETH</div>
-                                <div class="crypto-name">Ethereum</div>
-                            </div>
-                            <div class="crypto-data">
-                                <div class="crypto-price" data-crypto="eth">$3,210</div>
-                                <div class="crypto-change negative">▼ -1.2%</div>
-                            </div>
+                        <div class="calc-input-group">
+                            <label class="calc-label">Amount</label>
+                            <input type="number" id="amount-input" class="calc-input" placeholder="0.00" value="1" step="0.01">
                         </div>
-                        <div class="crypto-card sol">
-                            <div class="crypto-info">
-                                <div class="crypto-symbol">SOL</div>
-                                <div class="crypto-name">Solana</div>
-                            </div>
-                            <div class="crypto-data">
-                                <div class="crypto-price" data-crypto="sol">$138.40</div>
-                                <div class="crypto-change positive">▲ +6.8%</div>
-                            </div>
-                        </div>
-                        <div class="crypto-card ada">
-                            <div class="crypto-info">
-                                <div class="crypto-symbol">ADA</div>
-                                <div class="crypto-name">Cardano</div>
-                            </div>
-                            <div class="crypto-data">
-                                <div class="crypto-price">$0.58</div>
-                                <div class="crypto-change positive">▲ +2.1%</div>
-                            </div>
-                        </div>
-                        <div class="crypto-card dot">
-                            <div class="crypto-info">
-                                <div class="crypto-symbol">DOT</div>
-                                <div class="crypto-name">Polkadot</div>
-                            </div>
-                            <div class="crypto-data">
-                                <div class="crypto-price">$7.84</div>
-                                <div class="crypto-change negative">▼ -0.8%</div>
-                            </div>
+                        <div class="calc-input-group">
+                            <button id="calc-btn" class="refresh-btn" style="width: 100%; margin-top: 1.7rem;">Calculate Value</button>
                         </div>
                     </div>
-
-                    <!-- Chart Panel -->
-                    <div class="chart-panel">
-                        <div class="chart-header">
-                            <div class="panel-title">BTC/USD</div>
-                            <div class="chart-tabs">
-                                <div class="chart-tab active">1D</div>
-                                <div class="chart-tab">1W</div>
-                                <div class="chart-tab">1M</div>
-                                <div class="chart-tab">1Y</div>
-                            </div>
-                        </div>
-                        <div class="chart-canvas">
-                            <div class="candlestick-container">
-                                <div class="candlestick">
-                                    <div class="wick" style="height: 40px;"></div>
-                                    <div class="body green" style="height: 60px;"></div>
-                                </div>
-                                <div class="candlestick">
-                                    <div class="wick" style="height: 35px;"></div>
-                                    <div class="body green" style="height: 75px;"></div>
-                                </div>
-                                <div class="candlestick">
-                                    <div class="wick" style="height: 30px;"></div>
-                                    <div class="body red" style="height: 55px;"></div>
-                                </div>
-                                <div class="candlestick">
-                                    <div class="wick" style="height: 50px;"></div>
-                                    <div class="body green" style="height: 85px;"></div>
-                                </div>
-                                <div class="candlestick">
-                                    <div class="wick" style="height: 45px;"></div>
-                                    <div class="body red" style="height: 65px;"></div>
-                                </div>
-                                <div class="candlestick">
-                                    <div class="wick" style="height: 55px;"></div>
-                                    <div class="body green" style="height: 90px;"></div>
-                                </div>
-                                <div class="candlestick">
-                                    <div class="wick" style="height: 40px;"></div>
-                                    <div class="body green" style="height: 70px;"></div>
-                                </div>
-                                <div class="candlestick">
-                                    <div class="wick" style="height: 38px;"></div>
-                                    <div class="body red" style="height: 58px;"></div>
-                                </div>
-                                <div class="candlestick">
-                                    <div class="wick" style="height: 48px;"></div>
-                                    <div class="body green" style="height: 95px;"></div>
-                                </div>
-                                <div class="candlestick">
-                                    <div class="wick" style="height: 42px;"></div>
-                                    <div class="body green" style="height: 80px;"></div>
-                                </div>
-                                <div class="candlestick">
-                                    <div class="wick" style="height: 35px;"></div>
-                                    <div class="body red" style="height: 52px;"></div>
-                                </div>
-                                <div class="candlestick">
-                                    <div class="wick" style="height: 52px;"></div>
-                                    <div class="body green" style="height: 100px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Portfolio Panel -->
-                    <div class="portfolio-panel">
-                        <div class="panel-title">Portfolio</div>
-                        <div class="portfolio-total">
-                            <div class="portfolio-label">Total Value</div>
-                            <div class="portfolio-value" id="portfolioValue">$42.9k</div>
-                            <div class="portfolio-change">▲ +5.1% ($2,340)</div>
-                        </div>
-                        <div class="panel-title" style="margin-top: 1rem;">Holdings</div>
-                        <div class="holdings-list">
-                            <div class="holding-item">
-                                <span class="holding-crypto">BTC</span>
-                                <div class="holding-value">
-                                    <div class="holding-amount">$18.2k</div>
-                                    <div class="holding-percent">42.4%</div>
-                                </div>
-                            </div>
-                            <div class="holding-item">
-                                <span class="holding-crypto">ETH</span>
-                                <div class="holding-value">
-                                    <div class="holding-amount">$12.8k</div>
-                                    <div class="holding-percent">29.8%</div>
-                                </div>
-                            </div>
-                            <div class="holding-item">
-                                <span class="holding-crypto">SOL</span>
-                                <div class="holding-value">
-                                    <div class="holding-amount">$6.4k</div>
-                                    <div class="holding-percent">14.9%</div>
-                                </div>
-                            </div>
-                            <div class="holding-item">
-                                <span class="holding-crypto">Others</span>
-                                <div class="holding-value">
-                                    <div class="holding-amount">$5.5k</div>
-                                    <div class="holding-percent">12.9%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Alerts Section -->
-                <div style="margin-top: 2rem;">
-                    <h3 class="panel-title" style="margin-bottom: 1.5rem;">Active Alerts</h3>
-                    <div class="alerts-grid">
-                        <div class="alert-card queued">
-                            <div class="alert-title">BTC crosses $63k</div>
-                            <div class="alert-description">Notify when Bitcoin reaches target price</div>
-                            <span class="alert-status">
-                                <span style="width: 6px; height: 6px; background: currentColor; border-radius: 50%; display: inline-block;"></span>
-                                Queued
-                            </span>
-                        </div>
-                        <div class="alert-card high">
-                            <div class="alert-title">ETH volatility</div>
-                            <div class="alert-description">High price fluctuation detected</div>
-                            <span class="alert-status">
-                                <span style="width: 6px; height: 6px; background: currentColor; border-radius: 50%; display: inline-block;"></span>
-                                High
-                            </span>
-                        </div>
-                        <div class="alert-card bullish">
-                            <div class="alert-title">SOL momentum</div>
-                            <div class="alert-description">Strong bullish trend identified</div>
-                            <span class="alert-status">
-                                <span style="width: 6px; height: 6px; background: currentColor; border-radius: 50%; display: inline-block;"></span>
-                                Bullish
-                            </span>
-                        </div>
+                    <div class="calc-result">
+                        <div class="result-label">Total Portfolio Value</div>
+                        <div id="result-value" class="result-value">$0.00</div>
+                        <div id="result-breakdown" class="result-breakdown"></div>
                     </div>
                 </div>
             </div>
+
 
             <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
@@ -1018,5 +803,6 @@
             });
         }
     </script>
+    <script src="js/main.js"></script>
 </body>
 </html>

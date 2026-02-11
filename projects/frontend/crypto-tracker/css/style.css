@@ -1,0 +1,503 @@
+/* Crypto Tracker - Cyberpunk Theme */
+:root {
+    --primary: #00ffff;
+    --secondary: #ff00ff;
+    --neon-green: #00ff41;
+    --neon-pink: #ff00aa;
+    --bg-dark: #0a0a0f;
+    --text: #ffffff;
+    --text-dim: rgba(255, 255, 255, 0.6);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* Particles Background */
+#particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Trading Header */
+.trading-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.05));
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 255, 255, 0.15);
+    animation: glow-pulse 3s infinite;
+}
+
+@keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 8px 32px rgba(0, 255, 255, 0.15); }
+    50% { box-shadow: 0 8px 48px rgba(0, 255, 255, 0.25); }
+}
+
+.market-status {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--neon-green);
+    border-radius: 50%;
+    box-shadow: 0 0 20px var(--neon-green);
+    animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+.market-info {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.95rem;
+    color: var(--text-dim);
+}
+
+.market-info span {
+    color: var(--primary);
+    font-weight: 700;
+    margin-left: 0.5rem;
+}
+
+.refresh-btn {
+    padding: 0.75rem 1.5rem;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    color: var(--primary);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.refresh-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
+}
+
+/* Ticker Ribbon */
+.ticker-ribbon {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.ticker-ribbon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 100%;
+    background: linear-gradient(to right, rgba(10, 10, 15, 1), transparent);
+    z-index: 2;
+}
+
+.ticker-ribbon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 100%;
+    background: linear-gradient(to left, rgba(10, 10, 15, 1), transparent);
+    z-index: 2;
+}
+
+.ticker-scroll {
+    display: flex;
+    gap: 2rem;
+    animation: scroll 40s linear infinite;
+    will-change: transform;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    white-space: nowrap;
+    min-width: 180px;
+}
+
+.ticker-symbol {
+    font-weight: 700;
+    font-family: 'Orbitron', monospace;
+    color: var(--primary);
+    font-size: 0.95rem;
+}
+
+.ticker-price {
+    font-family: 'Orbitron', monospace;
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+.ticker-change {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.ticker-change.up {
+    color: var(--neon-green);
+    background: rgba(0, 255, 65, 0.2);
+}
+
+.ticker-change.down {
+    color: #ff4757;
+    background: rgba(255, 71, 87, 0.2);
+}
+
+/* Crypto Grid */
+.crypto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.crypto-card {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(255, 0, 255, 0.05));
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.crypto-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.crypto-card:hover::before {
+    left: 100%;
+}
+
+.crypto-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--primary);
+    box-shadow: 0 12px 40px rgba(0, 255, 255, 0.3);
+}
+
+.crypto-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.crypto-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3);
+}
+
+.crypto-info {
+    flex: 1;
+    margin-left: 1rem;
+}
+
+.crypto-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    font-family: 'Orbitron', monospace;
+}
+
+.crypto-symbol {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+}
+
+.crypto-rank {
+    background: rgba(255, 0, 255, 0.2);
+    color: var(--secondary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.crypto-price {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Orbitron', monospace;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.crypto-change {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.crypto-change.positive {
+    color: var(--neon-green);
+}
+
+.crypto-change.negative {
+    color: #ff4757;
+}
+
+.sparkline-container {
+    height: 60px;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.sparkline-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.crypto-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Orbitron', monospace;
+    color: var(--text);
+}
+
+/* Portfolio Calculator */
+.portfolio-calculator {
+    background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 255, 255, 0.05));
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.calculator-header {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-family: 'Orbitron', monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.calculator-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.calc-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.calc-label {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.calc-input {
+    padding: 0.75rem 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 1rem;
+    font-family: 'Orbitron', monospace;
+    transition: all 0.3s;
+}
+
+.calc-input:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+}
+
+.calc-select {
+    padding: 0.75rem 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 1rem;
+    font-family: 'Rajdhani', sans-serif;
+    cursor: pointer;
+}
+
+.calc-result {
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid var(--neon-green);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.result-label {
+    font-size: 1rem;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.result-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'Orbitron', monospace;
+    color: var(--neon-green);
+    text-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+}
+
+.result-breakdown {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .crypto-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .trading-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .calculator-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .crypto-price {
+        font-size: 1.5rem;
+    }
+    
+    .result-value {
+        font-size: 2rem;
+    }
+}
+
+/* Glitch Effect */
+.glitch {
+    position: relative;
+    animation: glitch 3s infinite;
+}
+
+@keyframes glitch {
+    0%, 90%, 100% { transform: translate(0); }
+    91% { transform: translate(-2px, 2px); }
+    92% { transform: translate(2px, -2px); }
+    93% { transform: translate(-2px, 2px); }
+    94% { transform: translate(2px, -2px); }
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 255, 255, 0.3);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

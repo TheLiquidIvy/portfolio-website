@@ -1,0 +1,524 @@
+/* Portfolio Builder - Cyberpunk Theme */
+:root {
+    --primary: #00ffff;
+    --secondary: #ff00ff;
+    --neon-green: #00ff41;
+    --neon-pink: #ff00aa;
+    --bg-dark: #0a0a0f;
+    --text: #ffffff;
+    --text-dim: rgba(255, 255, 255, 0.6);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Toolbar */
+.builder-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.05));
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.toolbar-title {
+    font-size: 1.5rem;
+    font-family: 'Orbitron', monospace;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.toolbar-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.toolbar-btn {
+    padding: 0.75rem 1.5rem;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    color: var(--primary);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.toolbar-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
+}
+
+.toolbar-btn.primary {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--bg-dark);
+    border: none;
+}
+
+/* Builder Layout */
+.builder-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr 320px;
+    gap: 1.5rem;
+    min-height: 700px;
+}
+
+/* Components Sidebar */
+.components-sidebar {
+    background: rgba(10, 10, 15, 0.9);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: 1.5rem;
+    overflow-y: auto;
+    max-height: 800px;
+}
+
+.sidebar-section {
+    margin-bottom: 2rem;
+}
+
+.sidebar-title {
+    font-size: 1.1rem;
+    font-family: 'Orbitron', monospace;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.component-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.component-item {
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(255, 0, 255, 0.05));
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 10px;
+    cursor: grab;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.component-item:hover {
+    transform: translateX(5px);
+    border-color: var(--primary);
+    box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+}
+
+.component-item:active {
+    cursor: grabbing;
+}
+
+.component-icon {
+    font-size: 1.5rem;
+}
+
+.component-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Canvas Area */
+.canvas-area {
+    background: rgba(10, 10, 15, 0.7);
+    border: 2px dashed rgba(0, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: 2rem;
+    min-height: 700px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.canvas-area.drag-over {
+    border-color: var(--primary);
+    background: rgba(0, 255, 255, 0.05);
+    box-shadow: inset 0 0 40px rgba(0, 255, 255, 0.1);
+}
+
+.canvas-placeholder {
+    text-align: center;
+    color: var(--text-dim);
+    padding: 3rem;
+    font-size: 1.1rem;
+}
+
+.canvas-placeholder-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+}
+
+/* Canvas Blocks */
+.canvas-block {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.05));
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    transition: all 0.3s;
+    cursor: move;
+}
+
+.canvas-block:hover {
+    border-color: var(--primary);
+    box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+}
+
+.canvas-block.selected {
+    border-color: var(--secondary);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+}
+
+.canvas-block.dragging {
+    opacity: 0.5;
+}
+
+.block-handle {
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(0, 255, 255, 0.4);
+    font-size: 1.2rem;
+    cursor: grab;
+}
+
+.block-controls {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.block-control-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 6px;
+    color: var(--primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.block-control-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.block-control-btn.delete {
+    color: #ff4757;
+    border-color: rgba(255, 71, 87, 0.5);
+}
+
+.block-control-btn.delete:hover {
+    background: rgba(255, 71, 87, 0.2);
+}
+
+.block-content {
+    margin-top: 1rem;
+}
+
+.block-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.block-text {
+    color: var(--text-dim);
+    line-height: 1.6;
+}
+
+.block-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.block-grid-item {
+    aspect-ratio: 1;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+/* Properties Panel */
+.properties-panel {
+    background: rgba(10, 10, 15, 0.9);
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    border-radius: 16px;
+    padding: 1.5rem;
+    overflow-y: auto;
+    max-height: 800px;
+}
+
+.properties-title {
+    font-size: 1.1rem;
+    font-family: 'Orbitron', monospace;
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.property-group {
+    margin-bottom: 1.5rem;
+}
+
+.property-label {
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    display: block;
+    font-weight: 600;
+}
+
+.property-input,
+.property-select,
+.property-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.property-input:focus,
+.property-select:focus,
+.property-textarea:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+}
+
+.property-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.property-color {
+    height: 50px;
+    cursor: pointer;
+}
+
+.property-range {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
+    outline: none;
+}
+
+.property-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.property-range::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+}
+
+/* Templates Panel */
+.templates-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.template-item {
+    padding: 1rem;
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.template-item:hover {
+    border-color: var(--primary);
+    background: rgba(0, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.template-name {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+}
+
+.template-desc {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+}
+
+/* Preview Mode */
+.preview-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 15, 0.95);
+    z-index: 10000;
+    display: none;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.preview-overlay.active {
+    display: block;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+}
+
+.preview-title {
+    font-size: 1.5rem;
+    font-family: 'Orbitron', monospace;
+    color: var(--primary);
+}
+
+.preview-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Animations */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.canvas-block {
+    animation: slideInRight 0.3s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 1400px) {
+    .builder-layout {
+        grid-template-columns: 240px 1fr 280px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .builder-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .components-sidebar,
+    .properties-panel {
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .toolbar-actions {
+        width: 100%;
+        justify-content: stretch;
+    }
+    
+    .toolbar-btn {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+/* Notification Toast */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
+    border: 1px solid var(--primary);
+    border-radius: 12px;
+    color: var(--text);
+    box-shadow: 0 8px 30px rgba(0, 255, 255, 0.3);
+    z-index: 10001;
+    animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
