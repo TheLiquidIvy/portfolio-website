@@ -1,20 +1,39 @@
 # 🌟 Cyberpunk Portfolio Website
 
-A flashy, modern portfolio website for full stack developers with a stunning cyberpunk theme featuring neon effects, glitch animations, and futuristic design elements.
+A flashy, modern portfolio website for full stack developers with a stunning cyberpunk theme featuring neon effects, glitch animations, futuristic design elements, and a comprehensive set of interactive features.
 
 ## ✨ Features
 
+### Core Design
 - **Cyberpunk Aesthetics**: Neon colors, glitch effects, and futuristic design
 - **Animated Background**: Matrix-style falling characters and animated grid
 - **Responsive Design**: Works perfectly on all devices
-- **Interactive Sections**:
-  - Hero section with typing animation
-  - About section with terminal-style info
-  - Skills section with animated progress bars
-  - Projects showcase with filtering (Frontend/Full Stack)
-  - Contact form with validation
-- **Smooth Animations**: Scroll animations, hover effects, and transitions
 - **Mobile-Friendly**: Hamburger menu and responsive layout
+
+### Interactive Features
+- **Interactive Terminal** (Press `~`): Full-featured terminal with 13 commands including `help`, `ls`, `cd`, `cat`, `whoami`, `stats`, `social`, `coffee`, `matrix`, and more
+- **Epic Loading Screen**: Boot sequence with ASCII art, progress bar, and particle effects
+- **Enhanced Cursor Effects**: Particle trail system with section-based colors (Toggle with CTRL+P)
+- **Theme Switcher**: 5 stunning themes (Cyberpunk, Dark Minimal, Neon Light, Matrix, Synthwave)
+- **Visitor Analytics**: Live statistics widget with visitor count, time on site, and more
+
+### Easter Eggs & Hidden Features
+- **Konami Code**: Type ↑↑↓↓←→←→BA for "Ultra Mode"
+- **Logo Secret**: Click the logo 10 times for a surprise
+- **Matrix Rain**: Type `matrix` in terminal for full-screen Matrix animation
+- **Developer Console**: Press CTRL+SHIFT+D for performance metrics
+
+### Form & Engagement
+- **Contact Form**: Real-time validation with animated indicators
+- **Success/Error Modals**: Beautiful modals with confetti animations
+- **Rate Limiting**: Prevents spam submissions
+
+### Accessibility
+- **ARIA Labels**: On all interactive elements
+- **Keyboard Navigation**: Full keyboard support for all features
+- **Reduced Motion**: Respects prefers-reduced-motion setting
+- **Screen Reader**: Comprehensive announcements
+- **Skip Links**: Jump to main content
 
 ## 🚀 Quick Start
 
@@ -26,18 +45,64 @@ A flashy, modern portfolio website for full stack developers with a stunning cyb
 ```
 portfolio-website/
 │
-├── index.html          # Main HTML file
+├── index.html              # Main HTML file
 ├── css/
-│   └── style.css      # All styles with cyberpunk theme
+│   ├── style.css          # Main styles with cyberpunk theme
+│   ├── themes.css         # Theme variables (5 themes)
+│   ├── terminal.css       # Terminal styling with CRT effects
+│   └── loading.css        # Loading screen styles
 ├── js/
-│   └── main.js        # JavaScript for interactions
-└── README.md          # This file
+│   ├── main.js            # Core JavaScript
+│   ├── terminal.js        # Interactive terminal system
+│   ├── loading.js         # Loading screen with boot sequence
+│   ├── cursor.js          # Enhanced cursor particle effects
+│   ├── easter-eggs.js     # Hidden features and achievements
+│   ├── theme-switcher.js  # Theme management
+│   ├── contact-form.js    # Form validation and submission
+│   ├── analytics.js       # Visitor analytics widget
+│   └── accessibility.js   # Accessibility improvements
+└── README.md              # This file
 ```
+
+## 🎮 Interactive Features Guide
+
+### Terminal Commands
+Press `~` (tilde) to open the terminal, then try these commands:
+- `help` - Show all available commands
+- `ls` - List projects (try `ls frontend` or `ls fullstack`)
+- `cd <project>` - Navigate to a project
+- `cat about.txt` - Display about information
+- `cat skills.txt` - Display skills list
+- `cat contact.txt` - Display contact information
+- `whoami` - Display developer info
+- `stats` - Show portfolio statistics
+- `social` - Display social media links
+- `coffee` - Show coffee counter animation
+- `matrix` - Trigger Matrix rain animation
+- `theme <name>` - Switch themes
+- `easteregg` - Secret surprise
+- `clear` - Clear terminal
+- `exit` - Close terminal
+
+### Keyboard Shortcuts
+- `~` (tilde) - Open/close terminal
+- `ESC` - Close terminal or modals
+- `CTRL + P` - Toggle cursor effects
+- `CTRL + SHIFT + D` - Open developer console
+- `↑↑↓↓←→←→BA` - Konami code for Ultra Mode
+
+### Themes
+Click the 🎨 icon in the navigation bar to switch between:
+1. **Cyberpunk** (Default) - Neon cyan and magenta
+2. **Dark Minimal** - Clean professional dark
+3. **Neon Light** - Bright with neon accents
+4. **Matrix** - Green terminal aesthetic
+5. **Synthwave** - Retro 80s pink and blue
 
 ## 🎨 Customization
 
 ### Colors
-Edit CSS variables in `style.css`:
+Edit CSS variables in `css/themes.css`:
 ```css
 :root {
     --primary: #00ffff;      /* Cyan/Neon Blue */

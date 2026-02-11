@@ -1,0 +1,277 @@
+/* ==================== LOADING SCREEN ==================== */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
+}
+
+.loading-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-content {
+    text-align: center;
+    color: var(--neon-green);
+    font-family: 'Courier New', monospace;
+}
+
+.loading-logo {
+    font-size: 12px;
+    line-height: 1.2;
+    color: var(--neon-blue);
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    white-space: pre;
+    animation: logoGlow 2s ease-in-out infinite;
+}
+
+@keyframes logoGlow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    }
+    50% {
+        text-shadow: 
+            0 0 20px rgba(0, 255, 255, 1),
+            0 0 30px rgba(0, 255, 255, 0.8);
+    }
+}
+
+.boot-sequence {
+    text-align: left;
+    margin-bottom: 30px;
+    min-height: 150px;
+}
+
+.boot-line {
+    color: var(--neon-green);
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: bootLineFade 0.5s forwards;
+}
+
+@keyframes bootLineFade {
+    to {
+        opacity: 1;
+    }
+}
+
+.boot-status {
+    display: inline-block;
+    margin-left: 10px;
+    color: var(--neon-green);
+    font-weight: bold;
+}
+
+.boot-status.ok {
+    color: var(--neon-green);
+    text-shadow: 0 0 5px rgba(0, 255, 65, 0.8);
+}
+
+.boot-status.loading {
+    color: var(--accent);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+}
+
+.loading-bar-container {
+    width: 400px;
+    height: 30px;
+    background: rgba(0, 255, 255, 0.1);
+    border: 2px solid var(--neon-blue);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+.loading-bar {
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        var(--neon-blue) 0%,
+        var(--neon-green) 50%,
+        var(--neon-blue) 100%
+    );
+    width: 0%;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+.loading-percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    z-index: 1;
+}
+
+.loading-text {
+    margin-top: 20px;
+    color: var(--neon-green);
+    font-size: 14px;
+    text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+    min-height: 20px;
+    animation: textPulse 1s ease-in-out infinite;
+}
+
+@keyframes textPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Particle Background */
+.loading-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--neon-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 5px var(--neon-blue);
+    animation: particleFloat 10s linear infinite;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(100px);
+        opacity: 0;
+    }
+}
+
+/* Glitch Effect for Logo */
+.loading-logo-glitch {
+    position: relative;
+}
+
+.loading-logo-glitch::before,
+.loading-logo-glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.loading-logo-glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--neon-pink);
+    animation: glitchTop 3s infinite;
+}
+
+.loading-logo-glitch::after {
+    left: -2px;
+    text-shadow: 2px 0 var(--neon-green);
+    animation: glitchBottom 3s infinite;
+}
+
+@keyframes glitchTop {
+    0%, 90%, 100% { clip-path: polygon(0 0, 100% 0, 100% 5%, 0 5%); }
+    91% { clip-path: polygon(0 10%, 100% 10%, 100% 15%, 0 15%); }
+    92% { clip-path: polygon(0 20%, 100% 20%, 100% 25%, 0 25%); }
+    93% { clip-path: polygon(0 30%, 100% 30%, 100% 35%, 0 35%); }
+}
+
+@keyframes glitchBottom {
+    0%, 90%, 100% { clip-path: polygon(0 95%, 100% 95%, 100% 100%, 0 100%); }
+    91% { clip-path: polygon(0 85%, 100% 85%, 100% 90%, 0 90%); }
+    92% { clip-path: polygon(0 75%, 100% 75%, 100% 80%, 0 80%); }
+    93% { clip-path: polygon(0 65%, 100% 65%, 100% 70%, 0 70%); }
+}
+
+/* Welcome Message */
+.loading-welcome {
+    margin-top: 30px;
+    color: var(--neon-blue);
+    font-size: 18px;
+    opacity: 0;
+    animation: fadeInWelcome 1s forwards;
+    animation-delay: 3s;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+@keyframes fadeInWelcome {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .loading-logo {
+        font-size: 8px;
+    }
+    
+    .loading-bar-container {
+        width: 90%;
+        max-width: 300px;
+    }
+    
+    .boot-sequence {
+        font-size: 12px;
+    }
+    
+    .loading-welcome {
+        font-size: 16px;
+    }
+}
