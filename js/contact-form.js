@@ -74,7 +74,7 @@ class ContactFormHandler {
                     error = 'Name is required';
                 } else if (value.length < 2) {
                     error = 'Name must be at least 2 characters';
-                } else if (/[0-9!@#$%^&*(),.?":{}|<>]/.test(value)) {
+                } else if (/[0-9!@#$%^&*(){}|<>]/.test(value)) {
                     error = 'Please enter a valid name';
                 }
                 break;
@@ -132,7 +132,7 @@ class ContactFormHandler {
             color: #ff0066;
             font-size: 12px;
             margin-top: 5px;
-            animation: slideInDown 0.3s ease, shake 0.5s ease;
+            animation: slideInDown 0.3s ease;
         `;
         
         field.parentElement.appendChild(errorElement);
@@ -143,6 +143,12 @@ class ContactFormHandler {
             icon.classList.add('error');
             icon.style.animation = 'shake 0.5s ease';
         }
+        
+        // Shake the field itself
+        field.style.animation = 'shake 0.5s ease';
+        setTimeout(() => {
+            field.style.animation = '';
+        }, 500);
     }
 
     clearFieldError(field) {
