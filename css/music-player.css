@@ -1,0 +1,386 @@
+/* ==================== MUSIC PLAYER ==================== */
+
+.music-player {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    z-index: 9999;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Minimized State */
+.music-player.minimized {
+    width: 60px;
+    height: 60px;
+}
+
+.music-player.minimized .player-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 243, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--primary-color, #00f3ff);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 28px;
+    animation: pulse 2s infinite;
+    transition: all 0.3s ease;
+}
+
+.music-player.minimized .player-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
+}
+
+.music-player.minimized .player-controls {
+    display: none;
+}
+
+/* Expanded State */
+.music-player.expanded {
+    width: 280px;
+    min-height: 220px;
+}
+
+.music-player.expanded .player-icon {
+    display: none;
+}
+
+.player-controls {
+    background: rgba(10, 10, 20, 0.95);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--primary-color, #00f3ff);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 243, 255, 0.3);
+}
+
+/* Player Header */
+.player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.player-header h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    color: var(--primary-color, #00f3ff);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.minimize-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color, #00f3ff);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.minimize-btn:hover {
+    transform: rotate(180deg);
+    color: var(--secondary-color, #ff00ff);
+}
+
+/* Track Display */
+.track-display {
+    background: rgba(0, 243, 255, 0.05);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.track-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-time {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+/* Visualizer */
+.audio-visualizer {
+    height: 60px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 3px;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.visualizer-bar {
+    width: 8px;
+    min-height: 5px;
+    background: linear-gradient(to top, var(--primary-color, #00f3ff), var(--secondary-color, #ff00ff));
+    border-radius: 4px 4px 0 0;
+    transition: height 0.1s ease;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+.visualizer-bar:nth-child(odd) {
+    background: linear-gradient(to top, #00f3ff, #7b00ff);
+}
+
+.visualizer-bar:nth-child(even) {
+    background: linear-gradient(to top, #ff00ff, #ff006e);
+}
+
+/* Control Buttons */
+.player-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.control-btn {
+    background: rgba(0, 243, 255, 0.1);
+    border: 2px solid var(--primary-color, #00f3ff);
+    color: var(--primary-color, #00f3ff);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.control-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
+    background: rgba(0, 243, 255, 0.2);
+}
+
+.control-btn.play-btn {
+    width: 55px;
+    height: 55px;
+    font-size: 24px;
+}
+
+.control-btn.play-btn.playing {
+    animation: glow 1.5s infinite;
+}
+
+.control-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.control-btn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Track Selector */
+.track-selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.track-select {
+    flex: 1;
+    background: rgba(0, 243, 255, 0.05);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 8px;
+    color: #ffffff;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.track-select:hover,
+.track-select:focus {
+    border-color: var(--primary-color, #00f3ff);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+    outline: none;
+}
+
+.track-select option {
+    background: #0a0a14;
+    color: #ffffff;
+}
+
+/* Volume Control */
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mute-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color, #00f3ff);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.mute-btn:hover {
+    color: var(--secondary-color, #ff00ff);
+    transform: scale(1.2);
+}
+
+.mute-btn.muted {
+    color: #ff006e;
+}
+
+.volume-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: rgba(0, 243, 255, 0.2);
+    border-radius: 3px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.volume-slider:hover {
+    background: rgba(0, 243, 255, 0.3);
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--primary-color, #00f3ff);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 1);
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: var(--primary-color, #00f3ff);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+.volume-slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 1);
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 243, 255, 0.8);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(0, 243, 255, 1);
+    }
+}
+
+/* Focus Styles for Accessibility */
+.control-btn:focus,
+.minimize-btn:focus,
+.mute-btn:focus,
+.track-select:focus,
+.volume-slider:focus {
+    outline: 2px solid var(--primary-color, #00f3ff);
+    outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .music-player {
+        bottom: 80px;
+        right: 20px;
+    }
+    
+    .music-player.expanded {
+        width: 260px;
+    }
+}
+
+@media (max-width: 480px) {
+    .music-player {
+        bottom: 70px;
+        right: 15px;
+    }
+    
+    .music-player.minimized {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .music-player.minimized .player-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+    
+    .music-player.expanded {
+        width: 240px;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .music-player,
+    .control-btn,
+    .minimize-btn,
+    .mute-btn {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .visualizer-bar {
+        transition: none !important;
+    }
+}

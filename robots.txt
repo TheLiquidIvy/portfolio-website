@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and private directories (if any)
+Disallow: /private/
+Disallow: /admin/
+
+# Allow all CSS and JS files
+Allow: /css/
+Allow: /js/
+
+# Allow all images
+Allow: /assets/
+Allow: /images/
+
+# Sitemap location
+Sitemap: https://theliquidivyfile.github.io/portfolio-website/sitemap.xml
+
+# Crawl delay (optional, in seconds)
+Crawl-delay: 1

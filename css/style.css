@@ -25,6 +25,13 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Disable smooth scroll for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
 body {
     font-family: 'Rajdhani', sans-serif;
     background: var(--bg-darker);
@@ -35,6 +42,63 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Orbitron', sans-serif;
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+
+/* Screen Reader Only Class */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Skip to Content Link */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary, #00f3ff);
+    color: #0a0a14;
+    padding: 12px 24px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 8px;
+    z-index: 100000;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 20px;
+    outline: 2px solid var(--primary, #00f3ff);
+    outline-offset: 2px;
+}
+
+/* Focus Visible Support */
+:focus-visible {
+    outline: 2px solid var(--primary, #00f3ff);
+    outline-offset: 2px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* ==================== ANIMATED BACKGROUND ==================== */
