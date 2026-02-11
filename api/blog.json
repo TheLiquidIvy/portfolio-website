@@ -1,0 +1,91 @@
+{
+  "blog_posts": [
+    {
+      "id": 1,
+      "title": "My Journey into Web Development",
+      "slug": "my-journey",
+      "excerpt": "How I transitioned from a curious beginner to a full stack developer, sharing lessons learned and resources that helped me along the way.",
+      "content_url": "./blog/my-journey.html",
+      "date": "2025-01-15",
+      "category": "Personal",
+      "tags": ["career", "learning", "web development"],
+      "read_time": "8 min",
+      "views": 1245,
+      "likes": 89
+    },
+    {
+      "id": 2,
+      "title": "Building a Cyberpunk Portfolio",
+      "slug": "cyberpunk-portfolio",
+      "excerpt": "A deep dive into creating a stunning cyberpunk-themed portfolio with advanced CSS animations, glitch effects, and interactive elements.",
+      "content_url": "./blog/cyberpunk-portfolio.html",
+      "date": "2025-01-10",
+      "category": "Tutorial",
+      "tags": ["css", "animations", "design"],
+      "read_time": "12 min",
+      "views": 2134,
+      "likes": 156
+    },
+    {
+      "id": 3,
+      "title": "React Performance Optimization",
+      "slug": "react-performance",
+      "excerpt": "Essential techniques for optimizing React applications including code splitting, memoization, and lazy loading strategies.",
+      "content_url": "./blog/react-performance.html",
+      "date": "2024-12-20",
+      "category": "Development",
+      "tags": ["react", "performance", "optimization"],
+      "read_time": "10 min",
+      "views": 3421,
+      "likes": 234
+    },
+    {
+      "id": 4,
+      "title": "CSS Animation Tips & Tricks",
+      "slug": "css-animation-tips",
+      "excerpt": "Master CSS animations with these advanced techniques for creating smooth, performant, and eye-catching effects.",
+      "content_url": "./blog/css-animation-tips.html",
+      "date": "2024-12-05",
+      "category": "Tutorial",
+      "tags": ["css", "animations", "frontend"],
+      "read_time": "7 min",
+      "views": 1876,
+      "likes": 123
+    },
+    {
+      "id": 5,
+      "title": "JAMstack Architecture Guide",
+      "slug": "jamstack-architecture",
+      "excerpt": "Understanding JAMstack architecture and how it can improve your web application's performance, security, and scalability.",
+      "content_url": "./blog/jamstack-architecture.html",
+      "date": "2024-11-18",
+      "category": "Architecture",
+      "tags": ["jamstack", "architecture", "performance"],
+      "read_time": "15 min",
+      "views": 2567,
+      "likes": 178
+    },
+    {
+      "id": 6,
+      "title": "Real-time with WebSockets",
+      "slug": "websockets-guide",
+      "excerpt": "A comprehensive guide to implementing real-time features in your web applications using WebSockets and Socket.io.",
+      "content_url": "./blog/websockets-guide.html",
+      "date": "2024-11-02",
+      "category": "Development",
+      "tags": ["websockets", "real-time", "nodejs"],
+      "read_time": "13 min",
+      "views": 1923,
+      "likes": 145
+    }
+  ],
+  "total": 6,
+  "categories": [
+    "Personal",
+    "Tutorial",
+    "Development",
+    "Architecture"
+  ],
+  "total_views": 13166,
+  "total_likes": 925
+}
