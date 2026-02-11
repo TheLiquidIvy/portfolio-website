@@ -205,12 +205,12 @@ class GlitchScroll {
             toSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 300);
         
-        // Cleanup - reduced from longer blocking time (was 600ms+)
+        // Cleanup - increased to allow smooth scroll animation to complete
         setTimeout(() => {
             fromSection.classList.remove('glitch-out', 'glitch-transitioning');
             toSection.classList.remove('glitch-in', 'glitch-transitioning');
             this.isAnimating = false;
-        }, 900); // Reduced animation blocking time for better responsiveness
+        }, 900); // Increased from 600ms to allow smoother transition completion
     }
     
     glitchOut(section) {
