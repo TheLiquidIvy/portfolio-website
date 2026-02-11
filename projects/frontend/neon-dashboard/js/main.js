@@ -5,7 +5,7 @@ function generateRandomData(count, min = 0, max = 100) {
     return Array.from({ length: count }, () => Math.floor(Math.random() * (max - min + 1)) + min);
 }
 
-function generateTrendingData(count, base = 50, variance = 20) {
+function generateTrendingData(count, base = 50, variance = 20, min = 0, max = 100) {
     const data = [];
     let current = base;
     for (let i = 0; i < count; i++) {
