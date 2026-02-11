@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Journey from Bootcamp to Full Stack Developer | Maya Smith</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/themes.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .blog-post {
+            min-height: 100vh;
+            padding: 100px 0 60px;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            gap: 15px;
+            color: var(--secondary);
+        }
+
+        .blog-hero {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #ff6b35 0%, #ff9e5e 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            border: 2px solid #ff6b35;
+        }
+
+        .blog-hero::before {
+            content: '🚀';
+            font-size: 6rem;
+            opacity: 0.4;
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .post-category {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #ff6b35;
+            border-radius: 25px;
+            color: #ff6b35;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 50px;
+        }
+
+        .blog-content h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .blog-content h3 {
+            color: var(--secondary);
+            font-size: 1.4rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .blog-content p {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .blog-content ul, .blog-content ol {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+
+        .blog-content li {
+            margin-bottom: 10px;
+        }
+
+        .blog-content code {
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+        }
+
+        .blog-content pre {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            margin: 25px 0;
+        }
+
+        .blog-content pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            color: var(--neon-green);
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+            margin: 25px 0;
+            font-style: italic;
+            color: var(--text);
+        }
+
+        .social-share {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 50px 0 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--primary);
+        }
+
+        .share-btn {
+            padding: 10px 20px;
+            background: rgba(0, 243, 255, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 25px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .share-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .comments-section {
+            max-width: 800px;
+            margin: 40px auto 0;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .blog-post {
+                padding: 80px 15px 40px;
+            }
+
+            .post-title {
+                font-size: 2rem;
+            }
+
+            .blog-hero {
+                height: 200px;
+            }
+
+            .blog-hero::before {
+                font-size: 4rem;
+            }
+
+            .blog-content {
+                padding: 30px 25px;
+            }
+
+            .comments-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <canvas id="matrix-canvas"></canvas>
+
+    <section class="blog-post">
+        <div class="container">
+            <div class="blog-header">
+                <a href="../index.html#blog" class="back-link">← Back to Blog</a>
+                
+                <div class="blog-hero"></div>
+                
+                <h1 class="post-title glitch" data-text="My Journey from Bootcamp to Full Stack Developer">
+                    My Journey from Bootcamp to Full Stack Developer
+                </h1>
+                
+                <div class="post-meta">
+                    <span>📅 December 20, 2025</span>
+                    <span>👤 Maya Smith</span>
+                    <span>⏱️ 10 min read</span>
+                </div>
+                
+                <span class="post-category">Career</span>
+            </div>
+
+            <article class="blog-content">
+                <p>Three years ago, I was working in retail management with no technical background. Today, I'm a full stack developer building production applications used by thousands of users. This is the story of how I made that transformation, the challenges I faced, and the lessons I learned along the way.</p>
+
+                <h2>The Decision to Change Careers</h2>
+                <p>The decision to leave a stable career and dive into coding wasn't easy. I had always been fascinated by technology, but I never thought programming was something I could do. That changed when I started playing with HTML and CSS to customize my blog. The moment I saw my first style change appear on the screen, something clicked.</p>
+
+                <p>I spent three months doing free online tutorials before committing to a bootcamp. I wanted to make sure this wasn't just a passing interest. When I found myself staying up until 2 AM solving JavaScript challenges, I knew I had found my calling.</p>
+
+                <h2>Choosing the Right Bootcamp</h2>
+                <p>Researching bootcamps was overwhelming. There were so many options, each promising job placement and career success. Here's what I looked for:</p>
+                <ul>
+                    <li><strong>Curriculum depth:</strong> I wanted a program that covered both frontend and backend</li>
+                    <li><strong>Job placement support:</strong> Not just statistics, but actual career services</li>
+                    <li><strong>Alumni network:</strong> Access to graduates who could share their experiences</li>
+                    <li><strong>Teaching methodology:</strong> Project-based learning with real-world applications</li>
+                    <li><strong>Flexibility:</strong> A schedule that allowed me to work part-time during the program</li>
+                </ul>
+
+                <p>I ultimately chose a 6-month full-stack bootcamp that used the MERN stack (MongoDB, Express, React, Node.js). The investment was significant - $15,000 - but I viewed it as investing in my future.</p>
+
+                <h2>The Bootcamp Experience</h2>
+                <p>Bootcamp was intense. We covered in 6 months what would typically take 2-3 years in a traditional CS program. The pace was relentless, but that's exactly what I needed. Here's what a typical week looked like:</p>
+
+                <pre><code>Monday-Wednesday: New concepts
+  - Morning lectures (3 hours)
+  - Afternoon labs (4 hours)
+  - Evening homework (3-4 hours)
+
+Thursday: Mini project day
+  - Apply the week's learnings
+  - Work in pairs or small groups
+
+Friday: Code reviews and assessments
+  - Present your work
+  - Get feedback from instructors
+  - Weekly coding challenge
+
+Weekend: Catch up and personal projects</code></pre>
+
+                <h2>Key Turning Points</h2>
+                <p>Several moments during my journey stand out as pivotal:</p>
+
+                <h3>1. Building My First Full Stack App</h3>
+                <p>Around week 8, we built our first complete application - a task management system. Seeing data flow from a form, through an API, into a database, and back to the UI was magical. This is when I truly understood how the pieces fit together.</p>
+
+                <h3>2. The Imposter Syndrome Crisis</h3>
+                <p>Week 12 hit me hard. We dove into authentication, middleware, and advanced React patterns all at once. I felt completely lost while everyone else seemed to get it. I seriously considered dropping out.</p>
+
+                <blockquote>
+                    "The instructor told me: 'If you're not struggling, you're not learning.' That perspective shift changed everything."
+                </blockquote>
+
+                <p>I learned to embrace the struggle and ask for help instead of suffering in silence. Turns out, most of my classmates felt the same way - we just weren't talking about it.</p>
+
+                <h3>3. My First Technical Interview</h3>
+                <p>My first technical interview was a disaster. I froze during a simple algorithmic question about reversing a string. But it taught me that technical interviews are a skill you need to practice separately from coding.</p>
+
+                <h2>Life After Bootcamp</h2>
+                <p>Graduation didn't mean job offers flooded in. The job search took 3 months, 127 applications, and countless rejections. Here's what made the difference:</p>
+
+                <ul>
+                    <li><strong>Personal projects:</strong> I built three full-stack applications to showcase my skills</li>
+                    <li><strong>Open source contributions:</strong> Started small with documentation fixes, then moved to features</li>
+                    <li><strong>Networking:</strong> Attended 2-3 meetups per week, even when I didn't feel like it</li>
+                    <li><strong>Blog writing:</strong> Documented my learning journey and technical concepts</li>
+                    <li><strong>Mock interviews:</strong> Practiced with bootcamp peers 3 times a week</li>
+                </ul>
+
+                <h2>Landing My First Role</h2>
+                <p>My first developer job came through a connection I made at a React meetup. The CTO of a startup was looking for a junior developer who was willing to learn their specific tech stack. The interview process focused more on potential than existing knowledge.</p>
+
+                <p>The offer was lower than bootcamp placement statistics suggested, but I took it. Getting that first professional experience was worth more than holding out for a higher salary.</p>
+
+                <h2>Growth and Progression</h2>
+                <p>That first year as a developer was transformative:</p>
+
+                <ol>
+                    <li><strong>Months 1-3:</strong> Imposter syndrome in full force, but learning production code practices</li>
+                    <li><strong>Months 4-6:</strong> Started contributing meaningful features independently</li>
+                    <li><strong>Months 7-9:</strong> Led my first feature from design to deployment</li>
+                    <li><strong>Months 10-12:</strong> Mentored the next junior developer hired</li>
+                </ol>
+
+                <p>After 18 months, I moved to a larger company with better compensation. After 3 years, I'm now a full stack developer working on complex systems and loving every day of it.</p>
+
+                <h2>Advice for Career Changers</h2>
+                <p>Based on my experience, here's what I wish someone had told me:</p>
+
+                <ul>
+                    <li><strong>Build things:</strong> Tutorials are great, but building projects is where real learning happens</li>
+                    <li><strong>Focus on fundamentals:</strong> JavaScript, data structures, and algorithms never go out of style</li>
+                    <li><strong>Don't compare:</strong> Everyone's journey is different; focus on your progress</li>
+                    <li><strong>Network genuinely:</strong> Build real relationships, not transactional connections</li>
+                    <li><strong>Embrace discomfort:</strong> If you're not confused sometimes, you're not challenging yourself</li>
+                    <li><strong>Celebrate small wins:</strong> Every bug fixed and feature shipped is an achievement</li>
+                </ul>
+
+                <h2>The Reality Check</h2>
+                <p>Let me be honest: bootcamp isn't a magic solution. You won't graduate as a senior developer. You'll still have massive gaps in your knowledge. You'll face rejection and self-doubt.</p>
+
+                <p>But if you're willing to work hard, stay curious, and persevere through the challenges, it absolutely can be the catalyst for an incredible career change. The tech industry needs diverse perspectives and people who are passionate about solving problems.</p>
+
+                <h2>Looking Forward</h2>
+                <p>Looking back, leaving retail management to become a developer was the best decision I've ever made. I wake up excited to solve problems. I'm constantly learning. And I'm building things that make a difference.</p>
+
+                <p>If you're considering a career change into tech, my advice is simple: start coding today. Do the free tutorials. Build a small project. See if it ignites that spark. If it does, commit fully and don't look back.</p>
+
+                <p>The journey isn't easy, but it's absolutely worth it.</p>
+
+                <div class="social-share">
+                    <span style="color: var(--text);">Share this post:</span>
+                    <a href="#" class="share-btn">Twitter</a>
+                    <a href="#" class="share-btn">LinkedIn</a>
+                    <a href="#" class="share-btn">Facebook</a>
+                </div>
+            </article>
+
+            <div class="comments-section">
+                <h3 style="color: var(--primary); margin-bottom: 15px;">Comments</h3>
+                <p style="color: var(--text-dim);">Comments section coming soon! For now, feel free to reach out via the contact form.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="../js/theme-switcher.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

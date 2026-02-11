@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 CSS Animation Tips | Maya Smith</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/themes.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .blog-post {
+            min-height: 100vh;
+            padding: 100px 0 60px;
+        }
+        .blog-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            gap: 15px;
+            color: var(--secondary);
+        }
+        .blog-hero {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #ff00ff 0%, #00f3ff 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            border: 2px solid var(--primary);
+        }
+        .blog-hero::before {
+            content: 'CSS';
+            font-size: 6rem;
+            font-family: 'Orbitron', sans-serif;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: bold;
+        }
+        .post-title {
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        .post-meta {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .post-category {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 0, 255, 0.2);
+            border: 2px solid var(--secondary);
+            border-radius: 25px;
+            color: var(--secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 50px;
+        }
+        .blog-content h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        .blog-content h3 {
+            color: var(--secondary);
+            font-size: 1.4rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .blog-content p {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+        .blog-content ul, .blog-content ol {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+        .blog-content li {
+            margin-bottom: 10px;
+        }
+        .blog-content code {
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+        }
+        .blog-content pre {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            margin: 25px 0;
+        }
+        .blog-content pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            color: var(--neon-green);
+        }
+        .blog-content blockquote {
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+            margin: 25px 0;
+            font-style: italic;
+            color: var(--text);
+        }
+        .social-share {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 50px 0 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--primary);
+        }
+        .share-btn {
+            padding: 10px 20px;
+            background: rgba(0, 243, 255, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 25px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .share-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--primary);
+        }
+        .comments-section {
+            max-width: 800px;
+            margin: 40px auto 0;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .blog-post {
+                padding: 80px 15px 40px;
+            }
+            .post-title {
+                font-size: 2rem;
+            }
+            .blog-hero {
+                height: 200px;
+            }
+            .blog-hero::before {
+                font-size: 4rem;
+            }
+            .blog-content {
+                padding: 30px 25px;
+            }
+            .comments-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <canvas id="matrix-canvas"></canvas>
+
+    <section class="blog-post">
+        <div class="container">
+            <div class="blog-header">
+                <a href="../index.html#blog" class="back-link">← Back to Blog</a>
+                
+                <div class="blog-hero"></div>
+                
+                <h1 class="post-title glitch" data-text="10 CSS Animation Tips for Stunning Web Experiences">
+                    10 CSS Animation Tips for Stunning Web Experiences
+                </h1>
+                
+                <div class="post-meta">
+                    <span>📅 January 8, 2026</span>
+                    <span>👤 Maya Smith</span>
+                    <span>⏱️ 6 min read</span>
+                </div>
+                
+                <span class="post-category">Frontend</span>
+            </div>
+
+            <article class="blog-content">
+                <p>CSS animations have evolved tremendously over the years. With the right techniques, you can create stunning, performant animations that enhance user experience without relying on JavaScript. Here are my top 10 tips for creating eye-catching web animations.</p>
+
+                <h2>1. Use Transform Instead of Position</h2>
+                <p>Always prefer <code>transform</code> over changing position properties like <code>top</code>, <code>left</code>, or <code>margin</code>. Transforms are hardware-accelerated and don't trigger layout recalculations.</p>
+
+                <pre><code>/* Bad */
+.element {
+    animation: slideIn 0.5s;
+}
+@keyframes slideIn {
+    from { left: -100px; }
+    to { left: 0; }
+}
+
+/* Good */
+.element {
+    animation: slideIn 0.5s;
+}
+@keyframes slideIn {
+    from { transform: translateX(-100px); }
+    to { transform: translateX(0); }
+}</code></pre>
+
+                <h2>2. Leverage will-change Property</h2>
+                <p>The <code>will-change</code> property hints to the browser that an element will be animated, allowing it to optimize rendering.</p>
+
+                <pre><code>.animated-element {
+    will-change: transform, opacity;
+}</code></pre>
+
+                <blockquote>
+                    "Performance is not just about speed - it's about creating smooth, jank-free experiences that feel natural."
+                </blockquote>
+
+                <h2>3. Master Easing Functions</h2>
+                <p>The right easing function can make the difference between a mechanical animation and one that feels natural:</p>
+                <ul>
+                    <li><code>ease-out</code>: Great for elements entering the screen</li>
+                    <li><code>ease-in</code>: Perfect for elements leaving</li>
+                    <li><code>ease-in-out</code>: Ideal for smooth transitions</li>
+                    <li><code>cubic-bezier()</code>: Create custom curves for unique effects</li>
+                </ul>
+
+                <h2>4. Animate Opacity for Fades</h2>
+                <p>Opacity changes are highly optimized and don't trigger repaints, making them perfect for fade effects.</p>
+
+                <h2>5. Use Animation Delays Strategically</h2>
+                <p>Stagger animations with delays to create engaging sequential effects:</p>
+
+                <pre><code>.item:nth-child(1) { animation-delay: 0s; }
+.item:nth-child(2) { animation-delay: 0.1s; }
+.item:nth-child(3) { animation-delay: 0.2s; }</code></pre>
+
+                <h2>6. Combine Multiple Animations</h2>
+                <p>Layer multiple animations on a single element for complex effects:</p>
+
+                <pre><code>.element {
+    animation: 
+        slideIn 0.5s ease-out,
+        fadeIn 0.5s ease-out,
+        pulse 2s ease-in-out infinite;
+}</code></pre>
+
+                <h2>7. Keep Animation Duration Under 500ms</h2>
+                <p>For most UI interactions, animations should be quick. Anything longer than 500ms can feel sluggish. Exceptions include loading states and special effects.</p>
+
+                <h2>8. Use @keyframes Percentage Values</h2>
+                <p>Instead of just <code>from</code> and <code>to</code>, use percentage values for more control:</p>
+
+                <pre><code>@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-30px); }
+    50% { transform: translateY(-15px); }
+    75% { transform: translateY(-5px); }
+}</code></pre>
+
+                <h2>9. Test Performance with DevTools</h2>
+                <p>Use browser DevTools to monitor FPS and identify animation performance issues:</p>
+                <ul>
+                    <li>Open Chrome DevTools Performance tab</li>
+                    <li>Record while animations run</li>
+                    <li>Look for dropped frames and long paint times</li>
+                    <li>Optimize accordingly</li>
+                </ul>
+
+                <h2>10. Add Reduced Motion Support</h2>
+                <p>Respect user preferences for reduced motion:</p>
+
+                <pre><code>@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}</code></pre>
+
+                <h2>Bonus: CSS Animation Resources</h2>
+                <p>Here are some great resources to level up your CSS animation skills:</p>
+                <ul>
+                    <li>Animista - Pre-made animations you can customize</li>
+                    <li>Cubic-bezier.com - Visual easing function generator</li>
+                    <li>Can I Use - Check browser support for CSS features</li>
+                    <li>CSS-Tricks - In-depth guides and tutorials</li>
+                </ul>
+
+                <h2>Conclusion</h2>
+                <p>Mastering CSS animations takes practice, but these tips will set you on the right path. Remember: the best animations are the ones users don't consciously notice - they just make the experience feel smooth and natural.</p>
+
+                <p>Start with these fundamentals, experiment with different techniques, and always test performance across devices. Happy animating!</p>
+
+                <div class="social-share">
+                    <span style="color: var(--text);">Share this post:</span>
+                    <a href="#" class="share-btn">Twitter</a>
+                    <a href="#" class="share-btn">LinkedIn</a>
+                    <a href="#" class="share-btn">Facebook</a>
+                </div>
+            </article>
+
+            <div class="comments-section">
+                <h3 style="color: var(--primary); margin-bottom: 15px;">Comments</h3>
+                <p style="color: var(--text-dim);">Comments section coming soon! For now, feel free to reach out via the contact form.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="../js/theme-switcher.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

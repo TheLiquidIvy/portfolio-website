@@ -2,18 +2,18 @@
 
 /* Cyberpunk Theme (Default) */
 :root {
-    --primary: #00ffff;
+    --primary: #00f3ff;
     --secondary: #ff00ff;
-    --accent: #ffff00;
-    --bg-dark: #0a0a0f;
-    --bg-darker: #050508;
+    --accent: #7b00ff;
+    --bg-dark: #0a0a0a;
+    --bg-darker: #0a0a0a;
     --text: #ffffff;
     --text-dim: #a0a0b0;
-    --neon-blue: #00ffff;
+    --neon-blue: #00f3ff;
     --neon-pink: #ff00ff;
-    --neon-purple: #9d00ff;
+    --neon-purple: #7b00ff;
     --neon-green: #00ff41;
-    --grid-color: rgba(0, 255, 255, 0.1);
+    --grid-color: rgba(0, 243, 255, 0.1);
 }
 
 /* Dark Minimal Theme */
@@ -21,63 +21,63 @@
     --primary: #3b82f6;
     --secondary: #8b5cf6;
     --accent: #10b981;
-    --bg-dark: #1a1a1a;
-    --bg-darker: #0f0f0f;
-    --text: #e5e7eb;
+    --bg-dark: #111827;
+    --bg-darker: #111827;
+    --text: #f9fafb;
     --text-dim: #9ca3af;
-    --neon-blue: #60a5fa;
-    --neon-pink: #a78bfa;
+    --neon-blue: #3b82f6;
+    --neon-pink: #8b5cf6;
     --neon-purple: #8b5cf6;
-    --neon-green: #34d399;
+    --neon-green: #10b981;
     --grid-color: rgba(59, 130, 246, 0.1);
 }
 
 /* Neon Light Theme */
 [data-theme="neon-light"] {
-    --primary: #00d9ff;
-    --secondary: #ff006e;
-    --accent: #ffbe0b;
-    --bg-dark: #f8f9fa;
-    --bg-darker: #e9ecef;
-    --text: #212529;
-    --text-dim: #6c757d;
-    --neon-blue: #00d9ff;
-    --neon-pink: #ff006e;
-    --neon-purple: #8338ec;
-    --neon-green: #06ffa5;
-    --grid-color: rgba(0, 217, 255, 0.1);
+    --primary: #06b6d4;
+    --secondary: #ec4899;
+    --accent: #8b5cf6;
+    --bg-dark: #f8fafc;
+    --bg-darker: #f8fafc;
+    --text: #0f172a;
+    --text-dim: #64748b;
+    --neon-blue: #06b6d4;
+    --neon-pink: #ec4899;
+    --neon-purple: #8b5cf6;
+    --neon-green: #10b981;
+    --grid-color: rgba(6, 182, 212, 0.1);
 }
 
 /* Matrix Theme */
 [data-theme="matrix"] {
-    --primary: #00ff41;
-    --secondary: #008f11;
-    --accent: #39ff14;
-    --bg-dark: #0d0208;
+    --primary: #00ff00;
+    --secondary: #39ff14;
+    --accent: #0f0;
+    --bg-dark: #000000;
     --bg-darker: #000000;
-    --text: #00ff41;
+    --text: #00ff00;
     --text-dim: #008f11;
-    --neon-blue: #00ff41;
-    --neon-pink: #00ff41;
-    --neon-purple: #008f11;
-    --neon-green: #00ff41;
-    --grid-color: rgba(0, 255, 65, 0.1);
+    --neon-blue: #00ff00;
+    --neon-pink: #00ff00;
+    --neon-purple: #39ff14;
+    --neon-green: #00ff00;
+    --grid-color: rgba(0, 255, 0, 0.1);
 }
 
 /* Synthwave Theme */
 [data-theme="synthwave"] {
-    --primary: #ff71ce;
-    --secondary: #01cdfe;
-    --accent: #05ffa1;
-    --bg-dark: #2d1b69;
-    --bg-darker: #1a0c42;
-    --text: #f9f9f9;
+    --primary: #ff6ec7;
+    --secondary: #bd00ff;
+    --accent: #00d9ff;
+    --bg-dark: #1a0b2e;
+    --bg-darker: #1a0b2e;
+    --text: #f8f8f2;
     --text-dim: #b8b8ff;
-    --neon-blue: #01cdfe;
-    --neon-pink: #ff71ce;
-    --neon-purple: #b967ff;
+    --neon-blue: #00d9ff;
+    --neon-pink: #ff6ec7;
+    --neon-purple: #bd00ff;
     --neon-green: #05ffa1;
-    --grid-color: rgba(255, 113, 206, 0.1);
+    --grid-color: rgba(255, 110, 199, 0.1);
 }
 
 /* Smooth theme transitions */
@@ -92,11 +92,11 @@ body, .navbar, .btn, .project-card, .terminal-window, .loading-screen {
 
 /* Theme-specific adjustments */
 [data-theme="neon-light"] body {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
 [data-theme="dark"] body {
-    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    background: linear-gradient(135deg, #111827 0%, #0f172a 100%);
 }
 
 [data-theme="matrix"] body {
@@ -104,7 +104,7 @@ body, .navbar, .btn, .project-card, .terminal-window, .loading-screen {
 }
 
 [data-theme="synthwave"] body {
-    background: linear-gradient(135deg, #2d1b69 0%, #1a0c42 100%);
+    background: linear-gradient(135deg, #1a0b2e 0%, #16082a 100%);
 }
 
 /* Theme-specific text shadows */
