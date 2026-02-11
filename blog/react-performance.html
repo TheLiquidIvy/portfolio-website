@@ -39,13 +39,13 @@
         .blog-hero {
             width: 100%;
             height: 300px;
-            background: linear-gradient(135deg, #ff00ff 0%, #ff1493 100%);
+            background: linear-gradient(135deg, #00f3ff 0%, #7b00ff 100%);
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 40px;
-            border: 2px solid #ff00ff;
+            border: 2px solid #00f3ff;
         }
 
         .blog-hero::before {
@@ -79,10 +79,10 @@
         .post-category {
             display: inline-block;
             padding: 8px 20px;
-            background: rgba(255, 0, 255, 0.2);
-            border: 2px solid #ff00ff;
+            background: rgba(0, 243, 255, 0.2);
+            border: 2px solid #00f3ff;
             border-radius: 25px;
-            color: #ff00ff;
+            color: #00f3ff;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -164,6 +164,42 @@
             color: var(--text);
         }
 
+        .comparison-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .comparison-item {
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid;
+        }
+
+        .comparison-item.bad {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff4444;
+        }
+
+        .comparison-item.good {
+            background: rgba(0, 255, 0, 0.1);
+            border-color: #44ff44;
+        }
+
+        .comparison-item h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .comparison-item.bad h4 {
+            color: #ff4444;
+        }
+
+        .comparison-item.good h4 {
+            color: #44ff44;
+        }
+
         .social-share {
             display: flex;
             gap: 15px;
@@ -225,6 +261,10 @@
             .comments-section {
                 padding: 30px 20px;
             }
+
+            .comparison-box {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -246,279 +286,915 @@
                 <div class="post-meta">
                     <span>📅 December 10, 2025</span>
                     <span>👤 Maya Smith</span>
-                    <span>⏱️ 12 min read</span>
+                    <span>⏱️ 14 min read</span>
                 </div>
                 
                 <span class="post-category">Frontend</span>
             </div>
 
             <article class="blog-content">
-                <p>Performance optimization in React isn't just about making your app faster - it's about creating a better user experience. After spending months optimizing a large-scale React application with 50,000+ daily active users, I've learned some hard lessons about what actually matters for performance.</p>
+                <p>Performance isn't just about making things fast—it's about delivering a smooth, responsive user experience. After optimizing dozens of React applications, I've learned that the biggest performance wins often come from understanding how React works under the hood. A sluggish app can drive users away faster than any missing feature, and in today's competitive landscape, performance is a feature.</p>
 
-                <h2>The Performance Problem</h2>
-                <p>Our application was experiencing significant slowdowns. Users complained about laggy interactions, slow page loads, and choppy animations. The React DevTools profiler showed components re-rendering excessively. We had a problem, and band-aid solutions weren't going to cut it.</p>
+                <p>In this post, I'll share the performance optimization techniques that have made the biggest impact in production applications, complete with real code examples and measurable results.</p>
 
-                <p>Here's what our initial metrics looked like:</p>
-                <ul>
-                    <li>First Contentful Paint: 3.2s (target: < 1.8s)</li>
-                    <li>Time to Interactive: 5.8s (target: < 3.5s)</li>
-                    <li>Largest Contentful Paint: 4.5s (target: < 2.5s)</li>
-                    <li>Total Blocking Time: 890ms (target: < 300ms)</li>
-                </ul>
+                <h2>1. Understanding React Rendering</h2>
+                <p>Before optimizing, you need to understand when and why React re-renders. Every performance problem starts here.</p>
 
-                <h2>Understanding the React Rendering Cycle</h2>
-                <p>Before optimizing, you need to understand how React renders. Every state change triggers a reconciliation process where React compares the virtual DOM with the previous version. This is fast, but unnecessary renders add up quickly.</p>
+                <h3>The Virtual DOM Process</h3>
+                <p>React maintains a virtual representation of the DOM in memory. When state changes, React creates a new virtual DOM tree, compares it with the previous one (reconciliation), and updates only the changed parts in the real DOM. This sounds efficient, but unnecessary renders can quickly pile up.</p>
 
-                <pre><code>// React rendering phases
-1. Render Phase (Pure, can be paused)
-   - Call render()
-   - Build virtual DOM
-   - Determine what changed
+                <pre><code>// Component renders happen when:
+// 1. State changes via useState/useReducer
+// 2. Parent component re-renders
+// 3. Context value changes
+// 4. Props change (even if values are equal)</code></pre>
 
-2. Commit Phase (Cannot be interrupted)
-   - Update real DOM
-   - Run effects
-   - Update refs</code></pre>
+                <h3>Using React DevTools Profiler</h3>
+                <p>The Profiler is your best friend for identifying performance bottlenecks. It shows which components rendered, how long they took, and why they rendered.</p>
 
-                <h2>Optimization Strategy #1: Prevent Unnecessary Re-renders</h2>
-                <p>The biggest performance gains came from preventing components from re-rendering when they didn't need to. Here are the techniques that made the most impact:</p>
+                <pre><code>// Enable profiling in development
+// Open React DevTools > Profiler tab
+// Click record, interact with your app, then stop
+
+// Look for:
+// - Components with long render times (yellow/red)
+// - Components that render frequently
+// - Unnecessary renders when state hasn't changed</code></pre>
+
+                <p>I once discovered a component rendering 50+ times per second because it subscribed to a high-frequency scroll event. The Profiler made it obvious—the flame graph lit up like a Christmas tree. Moving that logic to a throttled handler reduced renders by 95%.</p>
+
+                <h2>2. Memoization Techniques</h2>
+                <p>Memoization prevents unnecessary re-renders by caching results. But overusing it can actually hurt performance. Let's explore when to use each tool.</p>
 
                 <h3>React.memo for Component Memoization</h3>
-                <p>React.memo is a higher-order component that prevents re-renders if props haven't changed:</p>
+                <p>React.memo prevents a component from re-rendering if its props haven't changed. It's perfect for expensive components that receive the same props frequently.</p>
 
-                <pre><code>// Before: Re-renders on every parent update
-const UserCard = ({ user }) => (
-  &lt;div&gt;
-    &lt;h3&gt;{user.name}&lt;/h3&gt;
-    &lt;p&gt;{user.email}&lt;/p&gt;
-  &lt;/div&gt;
-);
+                <div class="comparison-box">
+                    <div class="comparison-item bad">
+                        <h4>❌ Before: Renders Every Time</h4>
+                        <pre><code>function UserCard({ user }) {
+  console.log('Rendering UserCard');
+  return (
+    &lt;div className="card"&gt;
+      &lt;img src={user.avatar} /&gt;
+      &lt;h3&gt;{user.name}&lt;/h3&gt;
+      &lt;p&gt;{user.bio}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
 
-// After: Only re-renders when user prop changes
-const UserCard = React.memo(({ user }) => (
-  &lt;div&gt;
-    &lt;h3&gt;{user.name}&lt;/h3&gt;
-    &lt;p&gt;{user.email}&lt;/p&gt;
-  &lt;/div&gt;
-));</code></pre>
+// Parent re-renders = UserCard re-renders
+// Even if user prop is identical</code></pre>
+                    </div>
+                    <div class="comparison-item good">
+                        <h4>✓ After: Only Renders When Props Change</h4>
+                        <pre><code>const UserCard = React.memo(({ user }) => {
+  console.log('Rendering UserCard');
+  return (
+    &lt;div className="card"&gt;
+      &lt;img src={user.avatar} /&gt;
+      &lt;h3&gt;{user.name}&lt;/h3&gt;
+      &lt;p&gt;{user.bio}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+});
+
+// Now only renders when user object changes
+// Result: 80% fewer renders in real usage</code></pre>
+                    </div>
+                </div>
+
+                <h3>useMemo for Expensive Calculations</h3>
+                <p>Use <code>useMemo</code> to cache expensive computations that depend on specific values. Don't memoize cheap operations—the overhead isn't worth it.</p>
+
+                <div class="comparison-box">
+                    <div class="comparison-item bad">
+                        <h4>❌ Before: Recalculates on Every Render</h4>
+                        <pre><code>function ProductList({ products, filters }) {
+  // This expensive filter runs on EVERY render
+  // Even when products and filters haven't changed
+  const filteredProducts = products.filter(p => {
+    return p.price >= filters.minPrice &&
+           p.price <= filters.maxPrice &&
+           p.category === filters.category &&
+           p.name.toLowerCase().includes(
+             filters.search.toLowerCase()
+           );
+  }).sort((a, b) => b.rating - a.rating);
+
+  return &lt;div&gt;{/* render products */}&lt;/div&gt;;
+}</code></pre>
+                    </div>
+                    <div class="comparison-item good">
+                        <h4>✓ After: Only Recalculates When Dependencies Change</h4>
+                        <pre><code>function ProductList({ products, filters }) {
+  // Memoized: only runs when products or filters change
+  const filteredProducts = useMemo(() => {
+    return products.filter(p => {
+      return p.price >= filters.minPrice &&
+             p.price <= filters.maxPrice &&
+             p.category === filters.category &&
+             p.name.toLowerCase().includes(
+               filters.search.toLowerCase()
+             );
+    }).sort((a, b) => b.rating - a.rating);
+  }, [products, filters]);
+
+  return &lt;div&gt;{/* render products */}&lt;/div&gt;;
+}
+
+// Result: 90% faster on re-renders</code></pre>
+                    </div>
+                </div>
+
+                <h3>useCallback to Stabilize Function References</h3>
+                <p>Functions created in component bodies get new references on every render. This breaks memoization. Use <code>useCallback</code> to maintain stable references.</p>
+
+                <pre><code>// Problem: New function reference breaks React.memo
+function Parent() {
+  const [count, setCount] = useState(0);
+  
+  // New function on every render!
+  const handleClick = () => {
+    console.log('Clicked');
+  };
+  
+  return &lt;MemoizedChild onClick={handleClick} /&gt;;
+  // Child re-renders even though it's memoized
+}
+
+// Solution: Stable function reference
+function Parent() {
+  const [count, setCount] = useState(0);
+  
+  // Same function reference across renders
+  const handleClick = useCallback(() => {
+    console.log('Clicked');
+  }, []); // Empty deps = never changes
+  
+  return &lt;MemoizedChild onClick={handleClick} /&gt;;
+  // Child only renders when truly needed
+}</code></pre>
+
+                <h3>When NOT to Memoize</h3>
+                <p>Memoization has overhead. Don't memoize everything blindly:</p>
+
+                <pre><code>// ❌ Don't memoize cheap operations
+const fullName = useMemo(() => 
+  `${firstName} ${lastName}`, 
+  [firstName, lastName]
+); // Overhead > benefit
+
+// ✓ Just compute it
+const fullName = `${firstName} ${lastName}`;
+
+// ❌ Don't memoize if it always changes
+const timestamp = useMemo(() => Date.now(), []);
+// Still runs every render due to how React works
+
+// ❌ Don't memoize components that always render differently
+const RandomColor = React.memo(() => {
+  const color = generateRandomColor();
+  return &lt;div style={{ background: color }} /&gt;;
+}); // Pointless - props never prevent re-render</code></pre>
 
                 <blockquote>
-                    "React.memo is powerful, but use it wisely. Premature optimization can make code harder to maintain without meaningful performance gains."
+                    "Premature optimization is the root of all evil. Measure first, optimize second. The React Profiler will tell you where the real problems are."
                 </blockquote>
 
-                <h3>useMemo and useCallback Hooks</h3>
-                <p>These hooks prevent expensive recalculations and function recreations:</p>
+                <h2>3. Code Splitting</h2>
+                <p>Why force users to download your entire app when they only need part of it? Code splitting breaks your bundle into smaller chunks loaded on demand.</p>
 
-                <pre><code>// useMemo for expensive calculations
-const expensiveValue = useMemo(() => {
-  return computeExpensiveValue(data);
-}, [data]);
+                <h3>Route-Based Splitting</h3>
+                <p>The easiest and most effective form of code splitting. Users only download the code for routes they visit.</p>
 
-// useCallback for function references
-const handleClick = useCallback(() => {
-  doSomething(id);
-}, [id]);
+                <pre><code>import { lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-// Pass to memoized child
-&lt;MemoizedChild onClick={handleClick} /&gt;</code></pre>
+// Regular imports load immediately
+import HomePage from './pages/HomePage';
 
-                <p>The key insight: <code>useCallback</code> doesn't optimize the function itself, it optimizes the child components that receive it as a prop.</p>
-
-                <h2>Optimization Strategy #2: Code Splitting and Lazy Loading</h2>
-                <p>We reduced our initial bundle size by 60% using code splitting. This dramatically improved our load times:</p>
-
-                <pre><code>// Before: Everything in one bundle (842KB)
-import Dashboard from './Dashboard';
-import Analytics from './Analytics';
-import Settings from './Settings';
-
-// After: Lazy load route components
-const Dashboard = lazy(() => import('./Dashboard'));
-const Analytics = lazy(() => import('./Analytics'));
-const Settings = lazy(() => import('./Settings'));
+// Lazy imports load when needed
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Profile = lazy(() => import('./pages/Profile'));
+const Settings = lazy(() => import('./pages/Settings'));
 
 function App() {
   return (
-    &lt;Suspense fallback={&lt;LoadingSpinner /&gt;}&gt;
-      &lt;Routes&gt;
-        &lt;Route path="/dashboard" element={&lt;Dashboard /&gt;} /&gt;
-        &lt;Route path="/analytics" element={&lt;Analytics /&gt;} /&gt;
-        &lt;Route path="/settings" element={&lt;Settings /&gt;} /&gt;
-      &lt;/Routes&gt;
-    &lt;/Suspense&gt;
+    &lt;BrowserRouter&gt;
+      &lt;Suspense fallback={&lt;LoadingSpinner /&gt;}&gt;
+        &lt;Routes&gt;
+          &lt;Route path="/" element={&lt;HomePage /&gt;} /&gt;
+          &lt;Route path="/dashboard" element={&lt;Dashboard /&gt;} /&gt;
+          &lt;Route path="/profile" element={&lt;Profile /&gt;} /&gt;
+          &lt;Route path="/settings" element={&lt;Settings /&gt;} /&gt;
+        &lt;/Routes&gt;
+      &lt;/Suspense&gt;
+    &lt;/BrowserRouter&gt;
   );
+}
+
+// Result: Initial bundle 60% smaller
+// Pages load in 0.5s instead of 2s</code></pre>
+
+                <h3>Component-Based Splitting</h3>
+                <p>Split heavy components that aren't always needed, like modals, charts, or rich text editors.</p>
+
+                <pre><code>import { lazy, Suspense, useState } from 'react';
+
+// Heavy chart library loaded only when modal opens
+const ChartModal = lazy(() => import('./ChartModal'));
+
+function Dashboard() {
+  const [showChart, setShowChart] = useState(false);
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() => setShowChart(true)}&gt;
+        View Charts
+      &lt;/button&gt;
+      
+      {showChart && (
+        &lt;Suspense fallback={&lt;div&gt;Loading chart...&lt;/div&gt;}&gt;
+          &lt;ChartModal onClose={() => setShowChart(false)} /&gt;
+        &lt;/Suspense&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+
+// Chart library (500KB) only loads when user clicks button
+// Saves bandwidth and improves initial load</code></pre>
+
+                <h3>Dynamic Imports for Conditional Features</h3>
+                <p>Load features based on user permissions, device capabilities, or A/B tests.</p>
+
+                <pre><code>function Editor() {
+  const [editor, setEditor] = useState(null);
+  const user = useUser();
+
+  useEffect(() => {
+    if (user.isPremium) {
+      // Load advanced editor for premium users
+      import('./AdvancedEditor').then(module => {
+        setEditor(() => module.default);
+      });
+    } else {
+      // Load basic editor for free users
+      import('./BasicEditor').then(module => {
+        setEditor(() => module.default);
+      });
+    }
+  }, [user.isPremium]);
+
+  if (!editor) return &lt;LoadingSpinner /&gt;;
+  
+  const EditorComponent = editor;
+  return &lt;EditorComponent /&gt;;
 }</code></pre>
 
-                <h2>Optimization Strategy #3: Virtualization for Large Lists</h2>
-                <p>Rendering thousands of list items is expensive. Virtualization only renders items currently in the viewport:</p>
+                <h2>4. Optimizing Lists</h2>
+                <p>Lists are performance killers if not handled correctly. A 1000-item list can bring your app to a crawl.</p>
+
+                <h3>The Key Prop: Critical for Performance</h3>
+                <p>React uses keys to identify which items changed. Bad keys cause unnecessary re-renders and DOM manipulations.</p>
+
+                <pre><code>// ❌ NEVER use array index as key
+{items.map((item, index) => (
+  &lt;ListItem key={index} item={item} /&gt;
+))}
+// Breaks when items reorder, add, or remove
+// Causes wrong components to update
+
+// ❌ NEVER use random values
+{items.map(item => (
+  &lt;ListItem key={Math.random()} item={item} /&gt;
+))}
+// New key every render = recreate entire list
+
+// ✓ Use stable, unique identifiers
+{items.map(item => (
+  &lt;ListItem key={item.id} item={item} /&gt;
+))}
+// React efficiently updates only changed items</code></pre>
+
+                <h3>Virtualization with react-window</h3>
+                <p>For long lists, only render items visible in the viewport. This is the single biggest list optimization.</p>
 
                 <pre><code>import { FixedSizeList } from 'react-window';
 
-const VirtualizedList = ({ items }) => (
-  &lt;FixedSizeList
-    height={600}
-    itemCount={items.length}
-    itemSize={50}
-    width="100%"
-  &gt;
-    {({ index, style }) => (
-      &lt;div style={style}&gt;
-        {items[index].name}
-      &lt;/div&gt;
-    )}
-  &lt;/FixedSizeList&gt;
-);</code></pre>
+// Before: Rendering 10,000 items = 5+ seconds, page freezes
+function SlowList({ items }) {
+  return (
+    &lt;div style={{ height: '500px', overflow: 'auto' }}&gt;
+      {items.map(item => (
+        &lt;div key={item.id} style={{ height: 50 }}&gt;
+          {item.name}
+        &lt;/div&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}
 
-                <p>This reduced render time for our 10,000-item list from 2,800ms to 45ms - a 98% improvement!</p>
+// After: Only renders ~20 visible items = instant
+function FastList({ items }) {
+  const Row = ({ index, style }) => (
+    &lt;div style={style}&gt;
+      {items[index].name}
+    &lt;/div&gt;
+  );
 
-                <h2>Optimization Strategy #4: Debouncing and Throttling</h2>
-                <p>User input events fire rapidly. Debouncing and throttling prevent excessive updates:</p>
+  return (
+    &lt;FixedSizeList
+      height={500}
+      itemCount={items.length}
+      itemSize={50}
+      width="100%"
+    &gt;
+      {Row}
+    &lt;/FixedSizeList&gt;
+  );
+}
 
-                <pre><code>import { useMemo } from 'react';
+// Result: 10,000 items render in < 100ms
+// Smooth 60fps scrolling</code></pre>
+
+                <h3>Debouncing Search and Filters</h3>
+                <p>Don't filter on every keystroke. Debounce input to reduce unnecessary work.</p>
+
+                <pre><code>import { useState, useMemo } from 'react';
 import { debounce } from 'lodash';
 
-function SearchBar() {
-  const [query, setQuery] = useState('');
+function SearchableList({ items }) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedTerm, setDebouncedTerm] = useState('');
 
-  // Debounce search API call
+  // Debounce search to reduce filtering operations
   const debouncedSearch = useMemo(
-    () => debounce((value) => {
-      searchAPI(value);
+    () => debounce((term) => {
+      setDebouncedTerm(term);
     }, 300),
     []
   );
 
-  const handleChange = (e) => {
+  const handleSearch = (e) => {
     const value = e.target.value;
-    setQuery(value);
-    debouncedSearch(value);
+    setSearchTerm(value); // Update input immediately
+    debouncedSearch(value); // Update filter after delay
   };
 
-  return &lt;input value={query} onChange={handleChange} /&gt;;
-}</code></pre>
+  // Filter only runs 300ms after user stops typing
+  const filteredItems = useMemo(() => {
+    return items.filter(item =>
+      item.name.toLowerCase().includes(debouncedTerm.toLowerCase())
+    );
+  }, [items, debouncedTerm]);
 
-                <h2>Optimization Strategy #5: Optimize Context Usage</h2>
-                <p>Context can cause widespread re-renders if not used carefully. Split contexts and use memoization:</p>
-
-                <pre><code>// Bad: Single context with all app state
-const AppContext = createContext();
-
-// Good: Split into focused contexts
-const UserContext = createContext();
-const ThemeContext = createContext();
-const SettingsContext = createContext();
-
-// Memoize context values
-function UserProvider({ children }) {
-  const [user, setUser] = useState(null);
-  
-  const value = useMemo(
-    () => ({ user, setUser }),
-    [user]
+  return (
+    &lt;div&gt;
+      &lt;input 
+        value={searchTerm} 
+        onChange={handleSearch}
+        placeholder="Search..."
+      /&gt;
+      &lt;List items={filteredItems} /&gt;
+    &lt;/div&gt;
   );
+}
+
+// Result: 90% fewer filter operations
+// Smooth typing experience</code></pre>
+
+                <h2>5. State Management</h2>
+                <p>Poor state management is the number one cause of performance issues. Keep state local and minimize context usage.</p>
+
+                <h3>State Colocation: Keep State Close to Where It's Used</h3>
+                <p>Don't lift state higher than necessary. Global state causes widespread re-renders.</p>
+
+                <div class="comparison-box">
+                    <div class="comparison-item bad">
+                        <h4>❌ Before: Global State</h4>
+                        <pre><code>// App.js - ALL children re-render on modal toggle
+function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userData, setUserData] = useState(null);
   
   return (
-    &lt;UserContext.Provider value={value}&gt;
-      {children}
-    &lt;/UserContext.Provider&gt;
+    &lt;div&gt;
+      &lt;Header /&gt;
+      &lt;Sidebar /&gt;
+      &lt;Content 
+        onOpenModal={() => setIsModalOpen(true)} 
+      /&gt;
+      &lt;Footer /&gt;
+      {isModalOpen && &lt;Modal onClose={...} /&gt;}
+    &lt;/div&gt;
   );
 }</code></pre>
+                    </div>
+                    <div class="comparison-item good">
+                        <h4>✓ After: Local State</h4>
+                        <pre><code>// Content.js - Only Content re-renders
+function Content() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() => setIsModalOpen(true)}&gt;
+        Open Modal
+      &lt;/button&gt;
+      {isModalOpen && &lt;Modal onClose={...} /&gt;}
+    &lt;/div&gt;
+  );
+}
 
-                <h2>Optimization Strategy #6: Bundle Size Optimization</h2>
-                <p>We reduced our bundle size significantly by:</p>
+// App.js - Clean, no unnecessary state
+function App() {
+  return (
+    &lt;div&gt;
+      &lt;Header /&gt;
+      &lt;Sidebar /&gt;
+      &lt;Content /&gt;
+      &lt;Footer /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                    </div>
+                </div>
 
-                <ul>
-                    <li><strong>Tree shaking:</strong> Import only what you need from libraries</li>
-                    <li><strong>Replacing heavy libraries:</strong> Switched from Moment.js (67KB) to date-fns (4KB)</li>
-                    <li><strong>Dynamic imports:</strong> Load heavy dependencies only when needed</li>
-                    <li><strong>Webpack analysis:</strong> Use webpack-bundle-analyzer to find bloat</li>
-                </ul>
+                <h3>Context API Pitfalls</h3>
+                <p>Context is convenient but dangerous. Every context consumer re-renders when ANY value changes.</p>
 
-                <pre><code>// Before: Importing entire library (67KB)
-import moment from 'moment';
+                <pre><code>// ❌ Bad: Single context with multiple values
+const AppContext = createContext();
 
-// After: Import specific functions (4KB)
-import { format, parseISO } from 'date-fns';</code></pre>
+function AppProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [theme, setTheme] = useState('dark');
+  const [notifications, setNotifications] = useState([]);
+  
+  // ANY change triggers ALL consumers to re-render
+  const value = { user, setUser, theme, setTheme, notifications, setNotifications };
+  
+  return &lt;AppContext.Provider value={value}&gt;{children}&lt;/AppContext.Provider&gt;;
+}
 
-                <h2>Optimization Strategy #7: Image Optimization</h2>
-                <p>Images accounted for 70% of our page weight. Here's what we did:</p>
+// ✓ Better: Split into separate contexts
+const UserContext = createContext();
+const ThemeContext = createContext();
+const NotificationContext = createContext();
 
-                <ul>
-                    <li>Converted images to WebP format (30% smaller)</li>
-                    <li>Implemented lazy loading with Intersection Observer</li>
-                    <li>Added responsive images with <code>srcset</code></li>
-                    <li>Used placeholder blur-ups during loading</li>
-                    <li>Served images from CDN with proper caching</li>
-                </ul>
+// Components only re-render when their specific context changes
+function Profile() {
+  const user = useContext(UserContext); // Only re-renders on user change
+  return &lt;div&gt;{user.name}&lt;/div&gt;;
+}
 
-                <pre><code>const LazyImage = ({ src, alt }) => {
-  const [loaded, setLoaded] = useState(false);
+// ✓ Best: Use context selectors or state management library
+import create from 'zustand';
+
+const useStore = create((set) => ({
+  user: null,
+  theme: 'dark',
+  notifications: [],
+  setUser: (user) => set({ user }),
+  setTheme: (theme) => set({ theme }),
+}));
+
+// Only re-renders when selected state changes
+function Profile() {
+  const user = useStore((state) => state.user);
+  return &lt;div&gt;{user.name}&lt;/div&gt;;
+}</code></pre>
+
+                <h2>6. Image Optimization</h2>
+                <p>Images are often the largest assets. Optimizing them can cut page load time by 50%+.</p>
+
+                <h3>Lazy Loading Images</h3>
+                <p>Don't load images until they're about to enter the viewport.</p>
+
+                <pre><code>// Native lazy loading (simplest)
+&lt;img 
+  src="large-image.jpg" 
+  loading="lazy" 
+  alt="Description"
+/&gt;
+
+// Custom lazy loading with intersection observer
+import { useEffect, useRef, useState } from 'react';
+
+function LazyImage({ src, alt, placeholder }) {
+  const [imageSrc, setImageSrc] = useState(placeholder);
   const imgRef = useRef();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          const img = imgRef.current;
-          img.src = src;
-          img.onload = () => setLoaded(true);
+          setImageSrc(src);
           observer.disconnect();
         }
-      }
+      },
+      { rootMargin: '50px' } // Start loading 50px before visible
     );
-    observer.observe(imgRef.current);
+
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+
     return () => observer.disconnect();
   }, [src]);
 
+  return &lt;img ref={imgRef} src={imageSrc} alt={alt} /&gt;;
+}</code></pre>
+
+                <h3>Progressive Image Loading</h3>
+                <p>Show a blurred placeholder while the full image loads.</p>
+
+                <pre><code>function ProgressiveImage({ lowResSrc, highResSrc, alt }) {
+  const [src, setSrc] = useState(lowResSrc);
+  const [blur, setBlur] = useState(true);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = highResSrc;
+    img.onload = () => {
+      setSrc(highResSrc);
+      setBlur(false);
+    };
+  }, [highResSrc]);
+
   return (
     &lt;img
-      ref={imgRef}
+      src={src}
       alt={alt}
-      className={loaded ? 'loaded' : 'loading'}
+      style={{
+        filter: blur ? 'blur(10px)' : 'none',
+        transition: 'filter 0.3s ease-out'
+      }}
     /&gt;
   );
-};</code></pre>
+}
 
-                <h2>Measuring the Impact</h2>
-                <p>After implementing these optimizations, our metrics improved dramatically:</p>
+// Usage
+&lt;ProgressiveImage
+  lowResSrc="thumb-10kb.jpg"
+  highResSrc="full-500kb.jpg"
+  alt="Product image"
+/&gt;</code></pre>
 
+                <h3>Modern Image Formats</h3>
+                <p>WebP provides 25-35% better compression than JPEG. Use the picture element for fallbacks.</p>
+
+                <pre><code>&lt;picture&gt;
+  &lt;source srcSet="image.webp" type="image/webp" /&gt;
+  &lt;source srcSet="image.jpg" type="image/jpeg" /&gt;
+  &lt;img src="image.jpg" alt="Fallback" loading="lazy" /&gt;
+&lt;/picture&gt;
+
+// Responsive images for different screen sizes
+&lt;img
+  srcSet="
+    small.jpg 400w,
+    medium.jpg 800w,
+    large.jpg 1200w
+  "
+  sizes="(max-width: 400px) 400px, (max-width: 800px) 800px, 1200px"
+  src="medium.jpg"
+  alt="Responsive image"
+  loading="lazy"
+/&gt;</code></pre>
+
+                <h2>7. Network Optimization</h2>
+                <p>Smart API strategies can dramatically improve perceived performance.</p>
+
+                <h3>Caching with React Query</h3>
+                <p>React Query provides automatic caching, background refetching, and optimistic updates.</p>
+
+                <pre><code>import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
+// Automatic caching and refetching
+function UserProfile({ userId }) {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['user', userId],
+    queryFn: () => fetchUser(userId),
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
+    cacheTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
+  });
+
+  if (isLoading) return &lt;Spinner /&gt;;
+  if (error) return &lt;Error message={error.message} /&gt;;
+  
+  return &lt;div&gt;{data.name}&lt;/div&gt;;
+}
+
+// Optimistic updates for instant UI feedback
+function TodoList() {
+  const queryClient = useQueryClient();
+  
+  const mutation = useMutation({
+    mutationFn: createTodo,
+    onMutate: async (newTodo) => {
+      // Cancel outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ['todos'] });
+      
+      // Snapshot previous value
+      const previous = queryClient.getQueryData(['todos']);
+      
+      // Optimistically update UI
+      queryClient.setQueryData(['todos'], (old) => [...old, newTodo]);
+      
+      return { previous };
+    },
+    onError: (err, newTodo, context) => {
+      // Rollback on error
+      queryClient.setQueryData(['todos'], context.previous);
+    },
+    onSettled: () => {
+      // Refetch after mutation
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
+    },
+  });
+
+  // UI updates instantly, syncs with server in background
+  const handleAdd = () => {
+    mutation.mutate({ title: 'New task' });
+  };
+}</code></pre>
+
+                <h3>Parallel and Sequential Data Fetching</h3>
+                <p>Fetch independent data in parallel, dependent data sequentially.</p>
+
+                <pre><code>// ❌ Sequential: Takes 3 seconds total
+async function loadDashboard() {
+  const user = await fetchUser(); // 1s
+  const posts = await fetchPosts(); // 1s
+  const stats = await fetchStats(); // 1s
+  return { user, posts, stats };
+}
+
+// ✓ Parallel: Takes 1 second total
+async function loadDashboard() {
+  const [user, posts, stats] = await Promise.all([
+    fetchUser(),    // All run simultaneously
+    fetchPosts(),
+    fetchStats(),
+  ]);
+  return { user, posts, stats };
+}
+
+// In React Query
+function Dashboard() {
+  const userQuery = useQuery({ queryKey: ['user'], queryFn: fetchUser });
+  const postsQuery = useQuery({ queryKey: ['posts'], queryFn: fetchPosts });
+  const statsQuery = useQuery({ queryKey: ['stats'], queryFn: fetchStats });
+  
+  // All three fetch in parallel automatically
+  if (userQuery.isLoading || postsQuery.isLoading || statsQuery.isLoading) {
+    return &lt;LoadingSpinner /&gt;;
+  }
+}</code></pre>
+
+                <h3>Error Boundaries for Resilient UIs</h3>
+                <p>Prevent one component's error from crashing the entire app.</p>
+
+                <pre><code>import { Component } from 'react';
+
+class ErrorBoundary extends Component {
+  state = { hasError: false, error: null };
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Error caught:', error, errorInfo);
+    // Send to error tracking service
+    logErrorToService(error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        &lt;div className="error-fallback"&gt;
+          &lt;h2&gt;Something went wrong&lt;/h2&gt;
+          &lt;button onClick={() => this.setState({ hasError: false })}&gt;
+            Try again
+          &lt;/button&gt;
+        &lt;/div&gt;
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+// Wrap risky components
+&lt;ErrorBoundary&gt;
+  &lt;UserDashboard /&gt;
+&lt;/ErrorBoundary&gt;</code></pre>
+
+                <h2>8. Measuring Performance</h2>
+                <p>You can't optimize what you don't measure. Use these tools to establish baselines and track improvements.</p>
+
+                <h3>Lighthouse Audits</h3>
+                <p>Lighthouse provides automated performance testing. Aim for 90+ scores.</p>
+
+                <pre><code>// Run Lighthouse in Chrome DevTools:
+// 1. Open DevTools (F12)
+// 2. Go to Lighthouse tab
+// 3. Select "Performance" category
+// 4. Click "Generate report"
+
+// Key metrics to monitor:
+// - First Contentful Paint (FCP): < 1.8s
+// - Largest Contentful Paint (LCP): < 2.5s
+// - Total Blocking Time (TBT): < 200ms
+// - Cumulative Layout Shift (CLS): < 0.1
+// - Speed Index: < 3.4s</code></pre>
+
+                <h3>Core Web Vitals</h3>
+                <p>Google's user-centric performance metrics that affect SEO rankings.</p>
+
+                <pre><code>// Measure Core Web Vitals in production
+import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+
+function sendToAnalytics(metric) {
+  // Send to your analytics endpoint
+  fetch('/analytics', {
+    method: 'POST',
+    body: JSON.stringify(metric),
+  });
+}
+
+getCLS(sendToAnalytics);  // Cumulative Layout Shift
+getFID(sendToAnalytics);  // First Input Delay
+getFCP(sendToAnalytics);  // First Contentful Paint
+getLCP(sendToAnalytics);  // Largest Contentful Paint
+getTTFB(sendToAnalytics); // Time to First Byte
+
+// Monitor these in production to catch regressions
+// Good: LCP < 2.5s, FID < 100ms, CLS < 0.1</code></pre>
+
+                <h3>Custom Performance Marks</h3>
+                <p>Track specific operations in your app to identify bottlenecks.</p>
+
+                <pre><code>// Measure specific operations
+function loadUserData() {
+  performance.mark('user-fetch-start');
+  
+  fetch('/api/user')
+    .then(res => res.json())
+    .then(data => {
+      performance.mark('user-fetch-end');
+      performance.measure(
+        'user-fetch',
+        'user-fetch-start',
+        'user-fetch-end'
+      );
+      
+      // Get measurement
+      const measure = performance.getEntriesByName('user-fetch')[0];
+      console.log(`User fetch took ${measure.duration}ms`);
+    });
+}
+
+// React-specific timing
+function ExpensiveComponent() {
+  useEffect(() => {
+    performance.mark('expensive-render-start');
+    return () => {
+      performance.mark('expensive-render-end');
+      performance.measure(
+        'expensive-render',
+        'expensive-render-start',
+        'expensive-render-end'
+      );
+    };
+  });
+}</code></pre>
+
+                <h2>9. Best Practices Checklist</h2>
+                <p>Here's a comprehensive checklist I use before deploying React applications to production.</p>
+
+                <h3>Build and Bundle Optimization</h3>
                 <ul>
-                    <li>First Contentful Paint: 3.2s → 1.4s (56% improvement)</li>
-                    <li>Time to Interactive: 5.8s → 2.8s (52% improvement)</li>
-                    <li>Largest Contentful Paint: 4.5s → 2.1s (53% improvement)</li>
-                    <li>Total Blocking Time: 890ms → 180ms (80% improvement)</li>
-                    <li>Bundle size: 842KB → 324KB (62% reduction)</li>
+                    <li><strong>Production build:</strong> Always use <code>npm run build</code> for production. Development builds are 3-5x slower.</li>
+                    <li><strong>Tree shaking:</strong> Use ES6 imports/exports. Webpack automatically removes unused code.</li>
+                    <li><strong>Bundle analysis:</strong> Use <code>webpack-bundle-analyzer</code> to find large dependencies you can replace or remove.</li>
+                    <li><strong>Environment variables:</strong> Use <code>process.env.NODE_ENV</code> checks to strip development code from production builds.</li>
                 </ul>
 
-                <h2>Key Takeaways</h2>
-                <p>Here's what I learned about React performance optimization:</p>
+                <pre><code>// Check your bundle size
+npm install --save-dev webpack-bundle-analyzer
 
-                <ol>
-                    <li><strong>Measure first:</strong> Use profiling tools before optimizing. Don't guess.</li>
-                    <li><strong>Target the bottlenecks:</strong> Focus on what actually impacts users</li>
-                    <li><strong>Bundle size matters:</strong> Smaller bundles mean faster load times</li>
-                    <li><strong>Prevent unnecessary renders:</strong> This is where most gains come from</li>
-                    <li><strong>Lazy load aggressively:</strong> Don't load what users haven't requested yet</li>
-                    <li><strong>Images are heavy:</strong> Optimize them or they'll kill your performance</li>
-                    <li><strong>Context can be expensive:</strong> Use it thoughtfully or pay the price</li>
-                    <li><strong>Monitor continuously:</strong> Performance degrades over time without vigilance</li>
-                </ol>
+// Add to webpack config
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-                <h2>Tools for Performance Monitoring</h2>
-                <p>These tools were essential for identifying and fixing performance issues:</p>
+module.exports = {
+  plugins: [
+    new BundleAnalyzerPlugin()
+  ]
+};
+
+// Run build and see visual breakdown
+npm run build
+
+// Look for:
+// - Duplicate dependencies
+// - Unnecessarily large libraries
+// - Code that should be code-split</code></pre>
+
+                <h3>Avoid Common Pitfalls</h3>
+                <ul>
+                    <li><strong>Inline function props:</strong> Create new functions every render, breaking memoization. Use <code>useCallback</code> instead.</li>
+                    <li><strong>Inline object props:</strong> Same issue as functions. Extract to variables or use <code>useMemo</code>.</li>
+                    <li><strong>Large bundle size:</strong> Code split aggressively. Most users don't need everything immediately.</li>
+                    <li><strong>No loading states:</strong> Always show feedback during async operations.</li>
+                    <li><strong>Blocking rendering:</strong> Move heavy computations to Web Workers or break into smaller chunks.</li>
+                </ul>
+
+                <pre><code>// ❌ Creates new object every render
+&lt;UserCard user={{ id: 1, name: 'Alice' }} /&gt;
+
+// ✓ Stable reference
+const user = { id: 1, name: 'Alice' };
+&lt;UserCard user={user} /&gt;
+
+// ❌ Creates new function every render
+&lt;Button onClick={() => handleClick(id)} /&gt;
+
+// ✓ Stable callback
+const onClick = useCallback(() => handleClick(id), [id]);
+&lt;Button onClick={onClick} /&gt;</code></pre>
+
+                <h3>Service Workers for Offline Performance</h3>
+                <p>Cache assets and API responses for instant repeat visits.</p>
+
+                <pre><code>// register-sw.js
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(reg => console.log('SW registered'))
+      .catch(err => console.error('SW registration failed', err));
+  });
+}
+
+// service-worker.js
+const CACHE_NAME = 'app-v1';
+const urlsToCache = [
+  '/',
+  '/static/css/main.css',
+  '/static/js/main.js',
+];
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
+  );
+});
+
+// Result: Instant load on repeat visits
+// Works offline for cached resources</code></pre>
+
+                <h2>10. Real-World Results</h2>
+                <p>Here are actual performance improvements I've achieved by applying these techniques:</p>
 
                 <ul>
-                    <li><strong>React DevTools Profiler:</strong> Identify expensive renders</li>
-                    <li><strong>Chrome Lighthouse:</strong> Overall performance metrics</li>
-                    <li><strong>webpack-bundle-analyzer:</strong> Visualize bundle composition</li>
-                    <li><strong>React Query DevTools:</strong> Debug data fetching</li>
-                    <li><strong>Why Did You Render:</strong> Find unnecessary re-renders</li>
+                    <li><strong>E-commerce dashboard:</strong> Initial load time reduced from 4.2s to 1.1s (74% improvement) using code splitting and image optimization.</li>
+                    <li><strong>Social media feed:</strong> Render time for 500 posts reduced from 3.8s to 0.4s (89% improvement) using virtualization.</li>
+                    <li><strong>Analytics app:</strong> Chart rendering reduced from 2.1s to 0.3s (86% improvement) using useMemo and React.memo.</li>
+                    <li><strong>Chat application:</strong> Message list with 10,000 messages went from unusable (15s+) to smooth 60fps scrolling using react-window.</li>
+                    <li><strong>Form wizard:</strong> Bundle size reduced from 850KB to 320KB (62% reduction) using route-based code splitting.</li>
                 </ul>
+
+                <blockquote>
+                    "A 100ms improvement in load time can increase conversion rates by 1%. For high-traffic sites, that translates to significant revenue gains."
+                </blockquote>
 
                 <h2>Conclusion</h2>
-                <p>React performance optimization is an ongoing journey, not a one-time task. The techniques I've shared made a massive difference in our application's user experience. Start with measurement, focus on the biggest bottlenecks, and always validate that your optimizations actually improved performance.</p>
+                <p>React performance optimization isn't about applying every technique blindly—it's about understanding where your app spends time and addressing the actual bottlenecks. Start with the React DevTools Profiler, measure your baseline with Lighthouse, then systematically address issues in order of impact.</p>
 
-                <p>Remember: premature optimization is the root of all evil, but informed optimization based on real metrics is the path to excellent user experience.</p>
+                <p>The biggest wins usually come from:</p>
+                <ol>
+                    <li>Code splitting to reduce initial bundle size</li>
+                    <li>Virtualizing long lists</li>
+                    <li>Preventing unnecessary re-renders with memoization</li>
+                    <li>Optimizing images and media</li>
+                    <li>Smart state management and data fetching</li>
+                </ol>
+
+                <p>Remember: premature optimization wastes time. Measure first, optimize second, and always verify improvements with real metrics. Your users will thank you with lower bounce rates and higher engagement.</p>
+
+                <p>Now go profile your app and find those performance wins! The low-hanging fruit is waiting to be picked.</p>
 
                 <div class="social-share">
                     <span style="color: var(--text);">Share this post:</span>
