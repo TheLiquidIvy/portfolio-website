@@ -25,8 +25,38 @@ class ContactFormHandler {
             input.addEventListener('blur', () => this.validateField(input));
             
             // Remove error on input
-            input.addEventListener('input', () => this.clearFieldError(input));
+            input.addEventListener('input', () => {
+                this.clearFieldError(input);
+                
+                // Update character counter for message field
+                if (input.name === 'message') {
+                    this.updateCharacterCounter(input);
+                }
+            });
         });
+        
+        // Initialize character counter
+        const messageField = this.form.querySelector('[name="message"]');
+        if (messageField) {
+            this.updateCharacterCounter(messageField);
+        }
+    }
+    
+    updateCharacterCounter(field) {
+        const counter = field.parentElement.querySelector('.character-counter');
+        if (counter) {
+            const length = field.value.length;
+            counter.textContent = `${length} / 1000`;
+            
+            // Change color based on length
+            if (length < 20) {
+                counter.style.color = '#ff0066';
+            } else if (length > 950) {
+                counter.style.color = '#ffff00';
+            } else {
+                counter.style.color = 'var(--neon-green)';
+            }
+        }
     }
 
     setupSubmitHandler() {
@@ -44,6 +74,8 @@ class ContactFormHandler {
                     error = 'Name is required';
                 } else if (value.length < 2) {
                     error = 'Name must be at least 2 characters';
+                } else if (/[0-9!@#$%^&*(){}|<>]/.test(value)) {
+                    error = 'Please enter a valid name';
                 }
                 break;
             
@@ -68,6 +100,8 @@ class ContactFormHandler {
                     error = 'Message is required';
                 } else if (value.length < 20) {
                     error = 'Message must be at least 20 characters';
+                } else if (value.length > 1000) {
+                    error = 'Message must not exceed 1000 characters';
                 }
                 break;
         }
@@ -76,7 +110,7 @@ class ContactFormHandler {
             this.showFieldError(field, error);
             return false;
         } else {
-            this.clearFieldError(field);
+            this.showFieldSuccess(field);
             return true;
         }
     }
@@ -102,14 +136,45 @@ class ContactFormHandler {
         `;
         
         field.parentElement.appendChild(errorElement);
+        
+        const icon = field.parentElement.querySelector('.validation-icon');
+        if (icon) {
+            icon.textContent = '✗';
+            icon.classList.add('error');
+            icon.style.animation = 'shake 0.5s ease';
+        }
+        
+        // Shake the field itself
+        field.style.animation = 'shake 0.5s ease';
+        setTimeout(() => {
+            field.style.animation = '';
+        }, 500);
     }
 
     clearFieldError(field) {
         field.classList.remove('error');
+        field.classList.remove('success');
         
         const errorElement = field.parentElement.querySelector('.field-error');
         if (errorElement) {
             errorElement.remove();
+        }
+        
+        const icon = field.parentElement.querySelector('.validation-icon');
+        if (icon) {
+            icon.textContent = '';
+            icon.classList.remove('error', 'success');
+        }
+    }
+    
+    showFieldSuccess(field) {
+        this.clearFieldError(field);
+        field.classList.add('success');
+        
+        const icon = field.parentElement.querySelector('.validation-icon');
+        if (icon) {
+            icon.textContent = '✓';
+            icon.classList.add('success');
         }
     }
 
@@ -144,6 +209,14 @@ class ContactFormHandler {
     async handleSubmit(e) {
         e.preventDefault();
         
+        // Check honeypot (spam prevention)
+        const honeypot = this.form.querySelector('[name="website"]');
+        if (honeypot && honeypot.value) {
+            // This is likely a bot
+            console.log('Honeypot triggered - potential spam');
+            return;
+        }
+        
         // Validate form
         if (!this.validateForm()) {
             this.showNotification('Please fix the errors in the form', 'error');
@@ -154,7 +227,7 @@ class ContactFormHandler {
         const rateLimitCheck = this.checkRateLimit();
         if (!rateLimitCheck.allowed) {
             this.showNotification(
-                `Please wait ${rateLimitCheck.remainingTime} seconds before submitting again`,
+                `⏱️ Please wait ${rateLimitCheck.remainingTime} seconds before submitting again`,
                 'warning'
             );
             return;
@@ -185,6 +258,7 @@ class ContactFormHandler {
             
             // Reset form
             this.form.reset();
+            this.updateCharacterCounter(this.form.querySelector('[name="message"]'));
             
         } catch (error) {
             this.showErrorModal(error.message);
@@ -484,6 +558,55 @@ formStyles.textContent = `
         border-color: #ff0066 !important;
         box-shadow: 0 0 10px rgba(255, 0, 102, 0.5) !important;
     }
+    
+    .contact-form input.success,
+    .contact-form textarea.success {
+        border-color: var(--neon-green) !important;
+        box-shadow: 0 0 10px rgba(0, 255, 65, 0.3) !important;
+    }
+    
+    .validation-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+        font-weight: bold;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .validation-icon.success {
+        color: var(--neon-green);
+        opacity: 1;
+    }
+    
+    .validation-icon.error {
+        color: #ff0066;
+        opacity: 1;
+    }
+    
+    .form-group {
+        position: relative;
+    }
+    
+    .character-counter {
+        position: absolute;
+        bottom: 10px;
+        right: 15px;
+        font-size: 11px;
+        font-weight: 600;
+        font-family: 'Courier New', monospace;
+        pointer-events: none;
+    }
+    
+    .honeypot {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+    }
 
     .contact-form button.loading {
         opacity: 0.7;
@@ -503,6 +626,12 @@ formStyles.textContent = `
 
     @keyframes spin {
         to { transform: rotate(360deg); }
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+        20%, 40%, 60%, 80% { transform: translateX(5px); }
     }
 
     @keyframes slideInDown {
