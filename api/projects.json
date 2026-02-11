@@ -1,0 +1,289 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "E-Commerce Engine",
+      "slug": "ecommerce-engine",
+      "category": "fullstack",
+      "description": "Full-featured online store with payment processing, inventory management, and admin dashboard.",
+      "technologies": ["React", "Node.js", "MongoDB", "Stripe", "Redux"],
+      "features": [
+        "Secure payment processing with Stripe",
+        "Real-time inventory tracking",
+        "Admin dashboard with analytics",
+        "Customer reviews and ratings",
+        "Email notifications"
+      ],
+      "demo_url": "./projects/fullstack/ecommerce-engine/index.html",
+      "github_url": "https://github.com/TheLiquidIvy/ecommerce-engine",
+      "image": null,
+      "date": "2024-12",
+      "status": "completed"
+    },
+    {
+      "id": 2,
+      "title": "AI Content Generator",
+      "slug": "ai-content-generator",
+      "category": "fullstack",
+      "description": "AI-powered content creation platform with GPT integration for blogs, social media, and marketing.",
+      "technologies": ["Vue.js", "Python", "FastAPI", "OpenAI", "PostgreSQL"],
+      "features": [
+        "GPT-4 integration",
+        "Multiple content formats",
+        "Template library",
+        "SEO optimization",
+        "Export to multiple formats"
+      ],
+      "demo_url": "./projects/fullstack/ai-content-generator/index.html",
+      "github_url": "https://github.com/TheLiquidIvy/ai-content-generator",
+      "image": null,
+      "date": "2024-11",
+      "status": "completed"
+    },
+    {
+      "id": 3,
+      "title": "Team Collaboration Hub",
+      "slug": "team-collaboration-hub",
+      "category": "fullstack",
+      "description": "Real-time collaboration tool with video conferencing, task management, and file sharing.",
+      "technologies": ["React", "Socket.io", "Node.js", "WebRTC", "Redis"],
+      "features": [
+        "Real-time messaging",
+        "Video conferencing",
+        "Task boards with drag-and-drop",
+        "File sharing with preview",
+        "Team analytics"
+      ],
+      "demo_url": "./projects/fullstack/team-collaboration-hub/index.html",
+      "github_url": "https://github.com/TheLiquidIvy/team-collaboration-hub",
+      "image": null,
+      "date": "2024-10",
+      "status": "completed"
+    },
+    {
+      "id": 4,
+      "title": "Streaming Platform",
+      "slug": "streaming-platform",
+      "category": "fullstack",
+      "description": "Netflix-style video streaming platform with subscriptions and content management.",
+      "technologies": ["React", "Node.js", "AWS S3", "HLS", "Stripe"],
+      "features": [
+        "Adaptive bitrate streaming",
+        "Subscription management",
+        "Content recommendation engine",
+        "Watch history and resume",
+        "Multi-device support"
+      ],
+      "demo_url": "./projects/fullstack/streaming-platform/index.html",
+      "github_url": "https://github.com/TheLiquidIvy/streaming-platform",
+      "image": null,
+      "date": "2024-09",
+      "status": "completed"
+    },
+    {
+      "id": 5,
+      "title": "Cloud Storage Pro",
+      "slug": "cloud-storage-pro",
+      "category": "fullstack",
+      "description": "Dropbox-like cloud storage with file sync, sharing, and collaboration features.",
+      "technologies": ["Vue.js", "Node.js", "AWS S3", "Socket.io", "MongoDB"],
+      "features": [
+        "File upload and download",
+        "Real-time file sync",
+        "Share with permissions",
+        "Version history",
+        "Search and filters"
+      ],
+      "demo_url": "./projects/fullstack/cloud-storage-pro/index.html",
+      "github_url": "https://github.com/TheLiquidIvy/cloud-storage-pro",
+      "image": null,
+      "date": "2024-08",
+      "status": "completed"
+    },
+    {
+      "id": 6,
+      "title": "DevOps Dashboard",
+      "slug": "devops-dashboard",
+      "category": "fullstack",
+      "description": "Comprehensive DevOps monitoring with CI/CD pipeline visualization and infrastructure metrics.",
+      "technologies": ["React", "Python", "Docker", "Kubernetes", "Prometheus"],
+      "features": [
+        "Real-time metrics",
+        "CI/CD pipeline tracking",
+        "Container monitoring",
+        "Alert management",
+        "Custom dashboards"
+      ],
+      "demo_url": "./projects/fullstack/devops-dashboard/index.html",
+      "github_url": "https://github.com/TheLiquidIvy/devops-dashboard",
+      "image": null,
+      "date": "2024-07",
+      "status": "completed"
+    },
+    {
+      "id": 7,
+      "title": "Social Nexus",
+      "slug": "social-nexus",
+      "category": "fullstack",
+      "description": "Social networking platform with posts, messaging, and real-time notifications.",
+      "technologies": ["React", "Node.js", "Socket.io", "MongoDB", "Redis"],
+      "features": [
+        "User profiles and connections",
+        "Post feed with likes/comments",
+        "Real-time messaging",
+        "Push notifications",
+        "Media upload and preview"
+      ],
+      "demo_url": "./projects/fullstack/social-nexus/index.html",
+      "github_url": "https://github.com/TheLiquidIvy/social-nexus",
+      "image": null,
+      "date": "2024-06",
+      "status": "completed"
+    },
+    {
+      "id": 8,
+      "title": "Neural Game Hub",
+      "slug": "neural-game-hub",
+      "category": "frontend",
+      "description": "Collection of AI-powered games including chess, sudoku, and puzzle games.",
+      "technologies": ["React", "TypeScript", "AI Algorithms", "Canvas API"],
+      "features": [
+        "Multiple game types",
+        "AI opponents with difficulty levels",
+        "Leaderboards",
+        "Save game progress",
+        "Multiplayer support"
+      ],
+      "demo_url": "./projects/frontend/neural-game-hub/index.html",
+      "github_url": "https://github.com/TheLiquidIvy/neural-game-hub",
+      "image": null,
+      "date": "2024-05",
+      "status": "completed"
+    },
+    {
+      "id": 9,
+      "title": "Crypto Tracker",
+      "slug": "crypto-tracker",
+      "category": "frontend",
+      "description": "Real-time cryptocurrency tracking with charts and portfolio management.",
+      "technologies": ["React", "Chart.js", "CoinGecko API", "LocalStorage"],
+      "features": [
+        "Real-time price updates",
+        "Interactive charts",
+        "Portfolio tracking",
+        "Price alerts",
+        "Market statistics"
+      ],
+      "demo_url": "./projects/crypto-tracker.html",
+      "github_url": "https://github.com/TheLiquidIvy/crypto-tracker",
+      "image": null,
+      "date": "2024-04",
+      "status": "completed"
+    },
+    {
+      "id": 10,
+      "title": "Data Visualizer Pro",
+      "slug": "data-visualizer-pro",
+      "category": "frontend",
+      "description": "Advanced data visualization tool with multiple chart types and export options.",
+      "technologies": ["D3.js", "React", "TypeScript", "Chart.js"],
+      "features": [
+        "Multiple chart types",
+        "CSV/JSON import",
+        "Interactive filters",
+        "Export to PNG/SVG",
+        "Custom color schemes"
+      ],
+      "demo_url": "./projects/data-visualizer-pro.html",
+      "github_url": "https://github.com/TheLiquidIvy/data-visualizer-pro",
+      "image": null,
+      "date": "2024-03",
+      "status": "completed"
+    },
+    {
+      "id": 11,
+      "title": "Task Matrix",
+      "slug": "task-matrix",
+      "category": "frontend",
+      "description": "Advanced task management with Kanban boards and productivity analytics.",
+      "technologies": ["Vue.js", "Vuex", "LocalStorage", "Chart.js"],
+      "features": [
+        "Kanban board view",
+        "Task priorities",
+        "Time tracking",
+        "Productivity analytics",
+        "Export reports"
+      ],
+      "demo_url": "./projects/task-matrix.html",
+      "github_url": "https://github.com/TheLiquidIvy/task-matrix",
+      "image": null,
+      "date": "2024-02",
+      "status": "completed"
+    },
+    {
+      "id": 12,
+      "title": "Portfolio Builder",
+      "slug": "portfolio-builder",
+      "category": "frontend",
+      "description": "Drag-and-drop portfolio builder with templates and export to HTML.",
+      "technologies": ["React", "React DnD", "TailwindCSS", "Export HTML"],
+      "features": [
+        "Drag-and-drop interface",
+        "Multiple templates",
+        "Live preview",
+        "Export to HTML/CSS",
+        "Responsive design"
+      ],
+      "demo_url": "./projects/portfolio-builder.html",
+      "github_url": "https://github.com/TheLiquidIvy/portfolio-builder",
+      "image": null,
+      "date": "2024-01",
+      "status": "completed"
+    },
+    {
+      "id": 13,
+      "title": "Neon Dashboard",
+      "slug": "neon-dashboard",
+      "category": "frontend",
+      "description": "Cyberpunk-themed admin dashboard with real-time data and analytics.",
+      "technologies": ["React", "Recharts", "Styled Components", "WebSocket"],
+      "features": [
+        "Real-time updates",
+        "Customizable widgets",
+        "Dark mode",
+        "Export data",
+        "User management"
+      ],
+      "demo_url": "./projects/neon-dashboard.html",
+      "github_url": "https://github.com/TheLiquidIvy/neon-dashboard",
+      "image": null,
+      "date": "2023-12",
+      "status": "completed"
+    },
+    {
+      "id": 14,
+      "title": "Portfolio Website",
+      "slug": "portfolio-website",
+      "category": "frontend",
+      "description": "This cyberpunk-themed portfolio with advanced animations and interactive features.",
+      "technologies": ["HTML5", "CSS3", "JavaScript", "Three.js", "Chart.js"],
+      "features": [
+        "PWA support",
+        "3D graphics",
+        "Global search",
+        "PDF resume generator",
+        "Performance optimized"
+      ],
+      "demo_url": "./index.html",
+      "github_url": "https://github.com/TheLiquidIvy/portfolio-website",
+      "image": null,
+      "date": "2025-02",
+      "status": "completed"
+    }
+  ],
+  "total": 14,
+  "categories": {
+    "fullstack": 7,
+    "frontend": 7
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "stats": {
+    "overview": {
+      "projects_completed": 14,
+      "blog_posts": 6,
+      "cups_of_coffee": 1247,
+      "github_stars": 89,
+      "years_experience": 5,
+      "certifications": 6,
+      "happy_clients": 100,
+      "code_commits": 5432
+    },
+    "projects": {
+      "total": 14,
+      "fullstack": 7,
+      "frontend": 7,
+      "in_progress": 2,
+      "completed": 12
+    },
+    "technologies": {
+      "primary": ["JavaScript", "React", "Node.js", "Python"],
+      "secondary": ["Vue.js", "TypeScript", "Docker", "AWS"],
+      "tools": ["Git", "VS Code", "Figma", "Postman"],
+      "databases": ["MongoDB", "PostgreSQL", "MySQL", "Redis"]
+    },
+    "github": {
+      "total_repos": 24,
+      "total_stars": 89,
+      "total_commits": 5432,
+      "contributions_last_year": 1247,
+      "longest_streak": 45,
+      "languages": [
+        { "name": "JavaScript", "percentage": 45 },
+        { "name": "Python", "percentage": 25 },
+        { "name": "TypeScript", "percentage": 15 },
+        { "name": "CSS", "percentage": 10 },
+        { "name": "Other", "percentage": 5 }
+      ]
+    },
+    "blog": {
+      "total_posts": 6,
+      "total_views": 13166,
+      "total_likes": 925,
+      "average_read_time": "10 min",
+      "most_viewed": {
+        "title": "React Performance Optimization",
+        "views": 3421
+      },
+      "most_liked": {
+        "title": "React Performance Optimization",
+        "likes": 234
+      }
+    },
+    "skills": {
+      "total": 34,
+      "categories": 5,
+      "average_level": 86.4,
+      "top_skills": [
+        { "name": "HTML5", "level": 98 },
+        { "name": "CSS3", "level": 96 },
+        { "name": "JavaScript", "level": 95 },
+        { "name": "Git", "level": 94 },
+        { "name": "RESTful APIs", "level": 93 }
+      ]
+    },
+    "experience": {
+      "years": 5,
+      "companies": 3,
+      "current_role": "Senior Full Stack Developer",
+      "current_company": "TechCorp Solutions",
+      "roles": [
+        {
+          "title": "Senior Full Stack Developer",
+          "years": 1
+        },
+        {
+          "title": "Full Stack Developer",
+          "years": 2
+        },
+        {
+          "title": "Junior Developer",
+          "years": 2
+        }
+      ]
+    },
+    "education": {
+      "degree": "Bachelor of Science in Computer Science",
+      "university": "University of Cape Town",
+      "graduation_year": 2020,
+      "gpa": 3.8,
+      "honors": true
+    },
+    "certifications": {
+      "total": 6,
+      "recent": [
+        {
+          "name": "AWS Solutions Architect",
+          "date": "2025-01"
+        },
+        {
+          "name": "Azure Fundamentals",
+          "date": "2024-12"
+        },
+        {
+          "name": "Cloud Professional",
+          "date": "2024-11"
+        }
+      ]
+    },
+    "activity": {
+      "last_30_days": {
+        "commits": 142,
+        "projects_updated": 5,
+        "blog_posts": 2,
+        "code_reviews": 23
+      },
+      "contribution_streak": 15,
+      "most_active_day": "Tuesday",
+      "most_active_time": "14:00-18:00"
+    },
+    "social": {
+      "github_followers": 234,
+      "linkedin_connections": 567,
+      "twitter_followers": 123,
+      "blog_subscribers": 89
+    }
+  },
+  "last_updated": "2025-02-11T17:00:00Z",
+  "api_version": "1.0.0"
+}

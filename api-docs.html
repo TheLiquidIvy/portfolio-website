@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio API Documentation - Maya Smith</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 20px;
+            background: rgba(10, 10, 15, 0.8);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #ff00ff;
+        }
+
+        .api-info {
+            background: rgba(10, 10, 15, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            margin-bottom: 40px;
+        }
+
+        .api-info h2 {
+            color: #ff00ff;
+            margin-bottom: 15px;
+        }
+
+        .endpoint-section {
+            background: rgba(10, 10, 15, 0.6);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            border-left: 4px solid #00ffff;
+        }
+
+        .endpoint-section h3 {
+            color: #00ffff;
+            margin-bottom: 10px;
+        }
+
+        .endpoint {
+            background: rgba(26, 26, 46, 0.8);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .method {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #00ffff;
+            color: #0a0a0f;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .url {
+            color: #ffffff;
+        }
+
+        .description {
+            color: #cccccc;
+            margin: 10px 0;
+        }
+
+        .example {
+            background: #1a1a2e;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border: 1px solid #00ffff;
+            overflow-x: auto;
+        }
+
+        .example-title {
+            color: #ff00ff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        pre {
+            color: #00ffff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(0, 255, 255, 0.1);
+            border-left: 3px solid #00ffff;
+            border-radius: 3px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(255, 0, 255, 0.3);
+            border: 1px solid #ff00ff;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin: 0 5px;
+        }
+
+        .response-field {
+            padding: 8px 12px;
+            margin: 5px 0;
+            background: rgba(0, 255, 255, 0.05);
+            border-left: 2px solid #ff00ff;
+            border-radius: 3px;
+        }
+
+        .response-field code {
+            color: #00ffff;
+            font-family: 'Courier New', monospace;
+        }
+
+        .note {
+            background: rgba(255, 255, 0, 0.1);
+            border: 1px solid rgba(255, 255, 0, 0.5);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .note strong {
+            color: #ffff00;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #888888;
+            margin-top: 60px;
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        footer a {
+            color: #00ffff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📡 Portfolio API</h1>
+            <p class="subtitle">Public JSON API for Portfolio Data</p>
+        </header>
+
+        <div class="api-info">
+            <h2>Overview</h2>
+            <p>This API provides public access to portfolio data in JSON format. All endpoints are static JSON files with no rate limits.</p>
+            <p><strong>Base URL:</strong> <code>https://theliquidivyfile.github.io/portfolio-website/api/</code></p>
+            <p><strong>Version:</strong> 1.0.0</p>
+            <p><strong>Format:</strong> JSON</p>
+            <p><strong>Authentication:</strong> None required</p>
+        </div>
+
+        <div class="endpoint-section">
+            <h3>📊 Complete Portfolio Data</h3>
+            <div class="endpoint">
+                <span class="method">GET</span>
+                <span class="url">/api/portfolio.json</span>
+            </div>
+            <p class="description">Returns complete portfolio information including contact details, skills, stats, and certifications.</p>
+            
+            <div class="example">
+                <div class="example-title">Response Fields:</div>
+                <div class="response-field"><code>name</code> - Full name</div>
+                <div class="response-field"><code>title</code> - Professional title</div>
+                <div class="response-field"><code>about</code> - Summary and location info</div>
+                <div class="response-field"><code>contact</code> - Email, phone, social links</div>
+                <div class="response-field"><code>skills</code> - Array of skills with levels</div>
+                <div class="response-field"><code>stats</code> - Portfolio statistics</div>
+                <div class="response-field"><code>certifications</code> - List of certifications</div>
+            </div>
+
+            <div class="example">
+                <div class="example-title">Example Request:</div>
+                <pre>fetch('https://theliquidivyfile.github.io/portfolio-website/api/portfolio.json')
+  .then(res => res.json())
+  .then(data => console.log(data));</pre>
+            </div>
+        </div>
+
+        <div class="endpoint-section">
+            <h3>🚀 Projects</h3>
+            <div class="endpoint">
+                <span class="method">GET</span>
+                <span class="url">/api/projects.json</span>
+            </div>
+            <p class="description">Returns all portfolio projects with details, technologies, and links.</p>
+            
+            <div class="example">
+                <div class="example-title">Response Fields:</div>
+                <div class="response-field"><code>projects</code> - Array of project objects</div>
+                <div class="response-field"><code>total</code> - Total number of projects</div>
+                <div class="response-field"><code>categories</code> - Project counts by category</div>
+            </div>
+
+            <div class="example">
+                <div class="example-title">Project Object:</div>
+                <pre>{
+  "id": 1,
+  "title": "Project Name",
+  "slug": "project-slug",
+  "category": "fullstack",
+  "description": "Project description",
+  "technologies": ["React", "Node.js"],
+  "features": ["Feature 1", "Feature 2"],
+  "demo_url": "https://...",
+  "github_url": "https://...",
+  "date": "2024-12",
+  "status": "completed"
+}</pre>
+            </div>
+        </div>
+
+        <div class="endpoint-section">
+            <h3>📝 Blog Posts</h3>
+            <div class="endpoint">
+                <span class="method">GET</span>
+                <span class="url">/api/blog.json</span>
+            </div>
+            <p class="description">Returns all blog posts with metadata and statistics.</p>
+            
+            <div class="example">
+                <div class="example-title">Response Fields:</div>
+                <div class="response-field"><code>blog_posts</code> - Array of blog post objects</div>
+                <div class="response-field"><code>total</code> - Total number of posts</div>
+                <div class="response-field"><code>categories</code> - Available categories</div>
+                <div class="response-field"><code>total_views</code> - Combined view count</div>
+                <div class="response-field"><code>total_likes</code> - Combined like count</div>
+            </div>
+        </div>
+
+        <div class="endpoint-section">
+            <h3>💡 Skills</h3>
+            <div class="endpoint">
+                <span class="method">GET</span>
+                <span class="url">/api/skills.json</span>
+            </div>
+            <p class="description">Returns all technical skills organized by category with proficiency levels.</p>
+            
+            <div class="example">
+                <div class="example-title">Response Fields:</div>
+                <div class="response-field"><code>skills</code> - Array of skill categories</div>
+                <div class="response-field"><code>summary</code> - Overall skill statistics</div>
+                <div class="response-field"><code>strengths</code> - Key strengths</div>
+                <div class="response-field"><code>currently_learning</code> - Skills in progress</div>
+            </div>
+        </div>
+
+        <div class="endpoint-section">
+            <h3>📈 Statistics</h3>
+            <div class="endpoint">
+                <span class="method">GET</span>
+                <span class="url">/api/stats.json</span>
+            </div>
+            <p class="description">Returns comprehensive portfolio statistics and activity data.</p>
+            
+            <div class="example">
+                <div class="example-title">Response Fields:</div>
+                <div class="response-field"><code>overview</code> - High-level statistics</div>
+                <div class="response-field"><code>github</code> - GitHub activity and contributions</div>
+                <div class="response-field"><code>blog</code> - Blog engagement metrics</div>
+                <div class="response-field"><code>experience</code> - Professional experience data</div>
+                <div class="response-field"><code>activity</code> - Recent activity and contribution patterns</div>
+            </div>
+        </div>
+
+        <div class="api-info">
+            <h2>Features</h2>
+            <ul class="feature-list">
+                <li>✅ No authentication required</li>
+                <li>✅ No rate limits</li>
+                <li>✅ CORS enabled</li>
+                <li>✅ Always up-to-date</li>
+                <li>✅ Static JSON files (fast response)</li>
+                <li>✅ Well-structured and documented</li>
+                <li>✅ Mobile-friendly</li>
+            </ul>
+        </div>
+
+        <div class="note">
+            <strong>Note:</strong> This is a static API with JSON files. Data is updated periodically. For real-time data, please contact directly.
+        </div>
+
+        <div class="api-info">
+            <h2>Use Cases</h2>
+            <ul class="feature-list">
+                <li>🔌 Integrate portfolio data into your own projects</li>
+                <li>📊 Create custom dashboards and visualizations</li>
+                <li>🤖 Build bots that showcase portfolio information</li>
+                <li>📱 Create mobile apps with portfolio data</li>
+                <li>🎓 Learn from project structures and implementations</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>Made with 💜 by <a href="../index.html">Maya Smith</a></p>
+            <p>For questions or API issues, please <a href="../index.html#contact">contact me</a></p>
+        </footer>
+    </div>
+</body>
+</html>

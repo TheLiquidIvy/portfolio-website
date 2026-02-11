@@ -31,6 +31,13 @@
     <!-- Theme Color -->
     <meta name="theme-color" content="#00f3ff">
     
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Maya Smith">
+    
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/themes.css">
@@ -45,15 +52,26 @@
     <link rel="stylesheet" href="css/social-feed.css">
     <link rel="stylesheet" href="css/glitch-transitions.css">
     <link rel="stylesheet" href="css/section-navigation.css">
+    <link rel="stylesheet" href="css/pwa.css">
+    <link rel="stylesheet" href="css/global-search.css">
+    <link rel="stylesheet" href="css/3d-elements.css">
+    <link rel="stylesheet" href="css/stats-dashboard.css">
+    <link rel="stylesheet" href="css/resume.css">
     <link rel="stylesheet" href="css/print.css" media="print">
     
     <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://api.github.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
     
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -109,6 +127,11 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <!-- 3D Background -->
+        <div class="hero-3d-container" id="hero3dContainer">
+            <canvas id="hero3dCanvas"></canvas>
+        </div>
+        
         <div class="hero-content" id="main-content"  role="main">
             <div class="hero-text">
                 <h1 class="glitch" data-text="FULL STACK DEVELOPER">
@@ -399,6 +422,56 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Dashboard Section -->
+    <section id="stats" class="stats-dashboard">
+        <div class="container">
+            <div class="stats-header">
+                <h2 class="stats-title glitch" data-text="STATISTICS">STATISTICS</h2>
+                <p class="stats-subtitle">Numbers that tell my story</p>
+            </div>
+            
+            <!-- Stat Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🚀</div>
+                    <div class="stat-number" id="projectsCount">0</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-number" id="blogPostsCount">0</div>
+                    <div class="stat-label">Blog Posts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">☕</div>
+                    <div class="stat-number" id="coffeeCount">0</div>
+                    <div class="stat-label">Cups of Coffee</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-number" id="githubStarsCount">0</div>
+                    <div class="stat-label">GitHub Stars</div>
+                </div>
+            </div>
+            
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3 class="chart-title">Skills Radar</h3>
+                    <canvas id="skillsRadarChart" class="chart-canvas"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 class="chart-title">Tech Stack</h3>
+                    <canvas id="techStackChart" class="chart-canvas"></canvas>
+                </div>
+                <div class="chart-container chart-full">
+                    <h3 class="chart-title">Project Timeline (Last 12 Months)</h3>
+                    <canvas id="projectTimelineChart" class="chart-canvas"></canvas>
                 </div>
             </div>
         </div>
@@ -1274,6 +1347,7 @@
         <div class="container">
             <p>&copy; 2026 Maya Smith. All rights reserved.</p>
             <p class="footer-tagline">Built with 💜 in the Cyberpunk Universe</p>
+            <p class="footer-api-link"><a href="api-docs.html" style="color: #00ffff; text-decoration: none;">📡 API Documentation</a></p>
         </div>
     </footer>
 
@@ -1301,16 +1375,24 @@
     <script src="js/polish-features.js"></script>
     <script src="js/glitch-scroll.js"></script>
     
+    <!-- Batch 6: Ultimate Polish Features -->
+    <script src="js/pwa-install.js"></script>
+    <script src="js/global-search.js"></script>
+    <script src="js/3d-hero.js"></script>
+    <script src="js/stats-dashboard.js"></script>
+    <script src="js/resume-generator.js"></script>
+    <script src="js/portfolio-api.js"></script>
+    
     <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js')
+                navigator.serviceWorker.register('/sw.js')
                     .then(registration => {
-                        console.log('Service Worker registered successfully:', registration.scope);
+                        console.log('✅ Service Worker registered successfully:', registration.scope);
                     })
                     .catch(error => {
-                        console.log('Service Worker registration failed:', error);
+                        console.log('❌ Service Worker registration failed:', error);
                     });
             });
         }

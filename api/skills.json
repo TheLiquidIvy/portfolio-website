@@ -1,0 +1,82 @@
+{
+  "skills": [
+    {
+      "category": "Frontend Development",
+      "description": "Building responsive and interactive user interfaces",
+      "skills": [
+        { "name": "React", "level": 92, "years": 4 },
+        { "name": "Vue.js", "level": 88, "years": 3 },
+        { "name": "JavaScript", "level": 95, "years": 5 },
+        { "name": "TypeScript", "level": 90, "years": 3 },
+        { "name": "HTML5", "level": 98, "years": 5 },
+        { "name": "CSS3", "level": 96, "years": 5 },
+        { "name": "Tailwind CSS", "level": 89, "years": 2 },
+        { "name": "Redux", "level": 85, "years": 3 }
+      ]
+    },
+    {
+      "category": "Backend Development",
+      "description": "Creating robust and scalable server-side applications",
+      "skills": [
+        { "name": "Node.js", "level": 91, "years": 4 },
+        { "name": "Express.js", "level": 89, "years": 4 },
+        { "name": "Python", "level": 87, "years": 3 },
+        { "name": "Django", "level": 82, "years": 2 },
+        { "name": "RESTful APIs", "level": 93, "years": 4 },
+        { "name": "GraphQL", "level": 85, "years": 2 }
+      ]
+    },
+    {
+      "category": "Database Management",
+      "description": "Designing and optimizing database systems",
+      "skills": [
+        { "name": "MongoDB", "level": 86, "years": 3 },
+        { "name": "PostgreSQL", "level": 84, "years": 3 },
+        { "name": "MySQL", "level": 81, "years": 2 },
+        { "name": "Redis", "level": 78, "years": 2 }
+      ]
+    },
+    {
+      "category": "DevOps & Cloud",
+      "description": "Deploying and maintaining scalable infrastructure",
+      "skills": [
+        { "name": "Docker", "level": 85, "years": 3 },
+        { "name": "AWS", "level": 82, "years": 3 },
+        { "name": "CI/CD", "level": 80, "years": 3 },
+        { "name": "Kubernetes", "level": 78, "years": 2 },
+        { "name": "Nginx", "level": 76, "years": 2 },
+        { "name": "Git", "level": 94, "years": 5 }
+      ]
+    },
+    {
+      "category": "Design & Tools",
+      "description": "Creating beautiful and functional user experiences",
+      "skills": [
+        { "name": "Figma", "level": 83, "years": 3 },
+        { "name": "Adobe XD", "level": 79, "years": 2 },
+        { "name": "Responsive Design", "level": 95, "years": 5 },
+        { "name": "UI/UX Principles", "level": 88, "years": 4 }
+      ]
+    }
+  ],
+  "summary": {
+    "total_skills": 34,
+    "categories": 5,
+    "average_level": 86.4,
+    "years_experience": 5
+  },
+  "strengths": [
+    "Full stack JavaScript development",
+    "Cloud architecture and deployment",
+    "RESTful API design",
+    "Responsive web design",
+    "Performance optimization",
+    "Team collaboration"
+  ],
+  "currently_learning": [
+    "Three.js for 3D web graphics",
+    "Machine Learning with TensorFlow.js",
+    "Web3 and Blockchain development",
+    "Advanced Kubernetes orchestration"
+  ]
+}

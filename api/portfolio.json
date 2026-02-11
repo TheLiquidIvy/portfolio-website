@@ -1,0 +1,83 @@
+{
+  "name": "Maya Smith",
+  "title": "Full Stack Developer",
+  "tagline": "Crafting digital experiences with cutting-edge technology",
+  "about": {
+    "summary": "A passionate Full Stack Developer with expertise in building scalable web applications. Specializing in React, Node.js, Python, and Cloud Architecture with 5+ years of experience in modern web technologies.",
+    "experience_years": 5,
+    "location": "Cape Town, South Africa",
+    "availability": "Open to opportunities"
+  },
+  "contact": {
+    "email": "maya.smith@example.com",
+    "phone": "+1 (555) 123-4567",
+    "website": "https://theliquidivyfile.github.io/portfolio-website/",
+    "github": "https://github.com/TheLiquidIvy",
+    "linkedin": "https://linkedin.com/in/mayasmith",
+    "twitter": "https://twitter.com/mayasmith"
+  },
+  "skills": [
+    { "category": "Frontend", "name": "React", "level": 92 },
+    { "category": "Frontend", "name": "Vue.js", "level": 88 },
+    { "category": "Frontend", "name": "JavaScript", "level": 95 },
+    { "category": "Frontend", "name": "TypeScript", "level": 90 },
+    { "category": "Backend", "name": "Node.js", "level": 91 },
+    { "category": "Backend", "name": "Python", "level": 87 },
+    { "category": "Backend", "name": "PostgreSQL", "level": 84 },
+    { "category": "Backend", "name": "MongoDB", "level": 86 },
+    { "category": "DevOps", "name": "Docker", "level": 85 },
+    { "category": "DevOps", "name": "AWS", "level": 82 },
+    { "category": "DevOps", "name": "CI/CD", "level": 80 },
+    { "category": "DevOps", "name": "Kubernetes", "level": 78 }
+  ],
+  "stats": {
+    "projects_completed": 14,
+    "blog_posts": 6,
+    "cups_of_coffee": 1247,
+    "github_stars": 89,
+    "years_experience": 5,
+    "certifications": 6
+  },
+  "certifications": [
+    {
+      "name": "AWS Solutions Architect",
+      "issuer": "Amazon Web Services",
+      "date": "2025-01",
+      "icon": "☁️"
+    },
+    {
+      "name": "Azure Fundamentals",
+      "issuer": "Microsoft",
+      "date": "2024-12",
+      "icon": "🔷"
+    },
+    {
+      "name": "Cloud Professional",
+      "issuer": "Google Cloud",
+      "date": "2024-11",
+      "icon": "🌩️"
+    },
+    {
+      "name": "React Advanced",
+      "issuer": "Meta",
+      "date": "2024-10",
+      "icon": "⚛️"
+    },
+    {
+      "name": "Node.js Certified Developer",
+      "issuer": "OpenJS Foundation",
+      "date": "2024-09",
+      "icon": "🟢"
+    },
+    {
+      "name": "Kubernetes Administrator",
+      "issuer": "Cloud Native Computing Foundation",
+      "date": "2024-08",
+      "icon": "⎈"
+    }
+  ],
+  "projects_count": 14,
+  "blog_posts_count": 6,
+  "api_version": "1.0.0",
+  "last_updated": "2025-02-11"
+}
