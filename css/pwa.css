@@ -1,0 +1,312 @@
+/* ==================== PWA STYLES ==================== */
+
+/* PWA Install Prompt */
+.pwa-install-prompt {
+    position: fixed;
+    bottom: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.95), rgba(255, 0, 255, 0.95));
+    padding: 20px 30px;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 -5px 30px rgba(0, 255, 255, 0.5);
+    z-index: 10000;
+    max-width: 500px;
+    width: 90%;
+    transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    backdrop-filter: blur(10px);
+}
+
+.pwa-install-prompt.show {
+    bottom: 0;
+}
+
+.pwa-prompt-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.pwa-icon {
+    font-size: 40px;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.pwa-text {
+    flex: 1;
+}
+
+.pwa-text h3 {
+    color: #0a0a0f;
+    font-size: 1.3em;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.pwa-text p {
+    color: #1a1a2e;
+    font-size: 0.9em;
+    margin: 0;
+}
+
+.pwa-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.pwa-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+}
+
+.pwa-btn-install {
+    background: #0a0a0f;
+    color: #00ffff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.pwa-btn-install:hover {
+    background: #1a1a2e;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+}
+
+.pwa-btn-dismiss {
+    background: transparent;
+    color: #1a1a2e;
+    border: 2px solid #1a1a2e;
+}
+
+.pwa-btn-dismiss:hover {
+    background: rgba(26, 26, 46, 0.1);
+}
+
+/* PWA Install Button in Navbar */
+.pwa-navbar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+    color: #0a0a0f;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    font-size: 0.9em;
+}
+
+.pwa-navbar-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 25px rgba(0, 255, 255, 0.5);
+}
+
+.pwa-navbar-btn:active {
+    transform: translateY(0);
+}
+
+.pwa-navbar-btn .icon {
+    font-size: 1.2em;
+}
+
+/* PWA Status Indicator */
+.pwa-status {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: rgba(10, 10, 15, 0.95);
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    z-index: 9999;
+    transform: translateX(400px);
+    transition: transform 0.5s ease;
+}
+
+.pwa-status.show {
+    transform: translateX(0);
+}
+
+.pwa-status-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.pwa-status-icon {
+    font-size: 24px;
+}
+
+.pwa-status-text {
+    color: #ffffff;
+}
+
+.pwa-status-text h4 {
+    color: #00ffff;
+    margin: 0 0 5px 0;
+    font-size: 1em;
+}
+
+.pwa-status-text p {
+    margin: 0;
+    font-size: 0.85em;
+    color: #cccccc;
+}
+
+/* Update Available Notification */
+.pwa-update-notification {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: linear-gradient(135deg, rgba(255, 0, 255, 0.95), rgba(0, 255, 255, 0.95));
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(255, 0, 255, 0.5);
+    z-index: 9999;
+    transform: translateX(400px);
+    transition: transform 0.5s ease;
+    max-width: 350px;
+}
+
+.pwa-update-notification.show {
+    transform: translateX(0);
+}
+
+.pwa-update-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.pwa-update-icon {
+    font-size: 28px;
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.pwa-update-text h4 {
+    color: #0a0a0f;
+    margin: 0 0 5px 0;
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+.pwa-update-text p {
+    color: #1a1a2e;
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.pwa-update-btn {
+    width: 100%;
+    padding: 10px;
+    background: #0a0a0f;
+    color: #00ffff;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pwa-update-btn:hover {
+    background: #1a1a2e;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Offline Indicator */
+.offline-indicator {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(255, 68, 68, 0.95);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    box-shadow: 0 5px 20px rgba(255, 68, 68, 0.5);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.5s ease;
+    font-weight: 600;
+}
+
+.offline-indicator.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+.offline-indicator.online {
+    background: rgba(0, 255, 65, 0.95);
+    box-shadow: 0 5px 20px rgba(0, 255, 65, 0.5);
+}
+
+.offline-icon {
+    font-size: 20px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .pwa-install-prompt {
+        max-width: 95%;
+        padding: 15px 20px;
+    }
+    
+    .pwa-prompt-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .pwa-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .pwa-btn {
+        width: 100%;
+    }
+    
+    .pwa-navbar-btn {
+        padding: 6px 12px;
+        font-size: 0.8em;
+    }
+    
+    .pwa-status,
+    .pwa-update-notification {
+        right: 10px;
+        left: 10px;
+        max-width: calc(100% - 20px);
+    }
+}
+
+/* Animation for PWA installation success */
+@keyframes installSuccess {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.pwa-install-success {
+    animation: installSuccess 0.5s ease;
+}
