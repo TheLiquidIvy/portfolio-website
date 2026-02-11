@@ -1,0 +1,675 @@
+/* ==================== ATS-OPTIMIZED RESUME STYLES ==================== */
+/* 
+ * This stylesheet is designed for maximum ATS (Applicant Tracking System) compatibility.
+ * - Simple black and white color scheme
+ * - No graphics, images, or complex formatting
+ * - Standard fonts (Arial, Helvetica, sans-serif)
+ * - Clear section headings
+ * - No columns or complex layouts
+ * - Maximum readability for parsing software
+ */
+
+/* ==================== BASE STYLES ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: #000000;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+/* Resume Container */
+.resume-container,
+body {
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 0.5in;
+    background: #ffffff;
+    color: #000000;
+}
+
+/* ==================== TYPOGRAPHY ==================== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 20pt;
+    text-transform: uppercase;
+    margin-bottom: 4pt;
+    text-align: center;
+}
+
+h2 {
+    font-size: 14pt;
+    text-transform: uppercase;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    border-bottom: 1pt solid #000000;
+    padding-bottom: 2pt;
+}
+
+h3 {
+    font-size: 12pt;
+    margin-bottom: 4pt;
+}
+
+h4 {
+    font-size: 11pt;
+    margin-bottom: 2pt;
+}
+
+p {
+    font-size: 11pt;
+    margin: 4pt 0;
+    color: #000000;
+}
+
+/* ==================== HEADER SECTION ==================== */
+.resume-header {
+    text-align: center;
+    margin-bottom: 16pt;
+    padding-bottom: 8pt;
+    border-bottom: 2pt solid #000000;
+}
+
+.profile-section {
+    display: block;
+}
+
+.profile-photo,
+.photo-placeholder,
+.photo-glow {
+    display: none !important;
+}
+
+.header-content {
+    display: block;
+}
+
+.glitch-text,
+.resume-name {
+    font-size: 20pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 4pt;
+    color: #000000;
+    text-align: center;
+}
+
+.subtitle,
+.resume-title {
+    font-size: 12pt;
+    font-weight: normal;
+    margin-bottom: 8pt;
+    color: #000000;
+    text-align: center;
+}
+
+.contact-info,
+.resume-contact {
+    display: block;
+    text-align: center;
+    margin: 8pt 0;
+}
+
+.contact-info span,
+.contact-item {
+    display: inline;
+    margin: 0 8pt;
+    color: #000000;
+    text-decoration: none;
+    font-size: 10pt;
+}
+
+.social-links {
+    display: block;
+    text-align: center;
+    margin-top: 4pt;
+}
+
+.social-links a {
+    display: inline;
+    margin: 0 8pt;
+    color: #000000;
+    text-decoration: none;
+    font-size: 10pt;
+}
+
+/* Hide icons in ATS mode */
+.icon,
+.title-icon,
+span.icon {
+    display: none !important;
+}
+
+/* ==================== SECTIONS ==================== */
+.resume-section {
+    margin-bottom: 16pt;
+    padding: 0;
+    background: #ffffff;
+    border: none;
+    page-break-inside: avoid;
+}
+
+.section-title {
+    font-size: 14pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 12pt;
+    margin-bottom: 8pt;
+    padding-bottom: 2pt;
+    border-bottom: 1pt solid #000000;
+    color: #000000;
+}
+
+.section-content {
+    padding: 0;
+    margin: 0;
+}
+
+/* ==================== PROFESSIONAL SUMMARY ==================== */
+.summary-text {
+    font-size: 11pt;
+    line-height: 1.5;
+    text-align: left;
+    margin: 4pt 0;
+    color: #000000;
+}
+
+/* ==================== SKILLS SECTION ==================== */
+.skills-grid {
+    display: block;
+    margin: 0;
+}
+
+.skill-category {
+    margin-bottom: 8pt;
+    padding: 0;
+    background: #ffffff;
+    border: none;
+}
+
+.skill-category h4 {
+    font-weight: bold;
+    margin-bottom: 4pt;
+    color: #000000;
+}
+
+.skill-item {
+    margin-bottom: 4pt;
+}
+
+.skill-name {
+    font-size: 11pt;
+    color: #000000;
+}
+
+/* Hide skill bars in ATS mode */
+.skill-bar,
+.skill-fill {
+    display: none !important;
+}
+
+.skill-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.skill-list li {
+    padding: 2pt 0;
+    margin: 0;
+    color: #000000;
+}
+
+.skill-list li::before {
+    content: '• ';
+    color: #000000;
+}
+
+/* Tech tags */
+.tech-tags {
+    margin-top: 8pt;
+    display: block;
+}
+
+.tech-tag {
+    display: inline;
+    margin-right: 8pt;
+    padding: 0;
+    border: none;
+    background: none;
+    color: #000000;
+    font-size: 11pt;
+}
+
+.tech-tag::after {
+    content: ' • ';
+}
+
+.tech-tag:last-child::after {
+    content: '';
+}
+
+/* ==================== EXPERIENCE SECTION ==================== */
+.experience-timeline {
+    display: block;
+}
+
+.experience-item,
+.education-item {
+    margin-bottom: 12pt;
+    padding: 0;
+    background: #ffffff;
+    border: none;
+    page-break-inside: avoid;
+}
+
+.timeline-dot {
+    display: none !important;
+}
+
+.experience-content {
+    display: block;
+}
+
+.job-header,
+.experience-header,
+.education-header {
+    display: block;
+    margin-bottom: 4pt;
+}
+
+.job-header h4,
+.experience-role {
+    font-size: 12pt;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 2pt;
+}
+
+.job-period,
+.experience-date,
+.education-date {
+    font-size: 10pt;
+    color: #000000;
+    font-style: italic;
+    display: inline;
+}
+
+.company-info {
+    display: block;
+    margin-bottom: 4pt;
+}
+
+.company-name,
+.experience-company,
+.education-institution {
+    font-size: 11pt;
+    font-weight: bold;
+    color: #000000;
+}
+
+.location {
+    font-size: 10pt;
+    color: #000000;
+    font-style: italic;
+}
+
+.achievements,
+.experience-achievements {
+    list-style: disc;
+    margin-left: 20pt;
+    margin-top: 4pt;
+    padding: 0;
+}
+
+.achievements li,
+.experience-achievements li {
+    font-size: 11pt;
+    margin-bottom: 3pt;
+    padding: 0;
+    color: #000000;
+    line-height: 1.4;
+}
+
+.tech-used {
+    margin-top: 4pt;
+    display: block;
+}
+
+.tech-badge {
+    display: inline;
+    margin-right: 8pt;
+    padding: 0;
+    border: none;
+    background: none;
+    color: #000000;
+    font-size: 10pt;
+}
+
+.tech-badge::before {
+    content: '[';
+}
+
+.tech-badge::after {
+    content: ']';
+}
+
+/* ==================== EDUCATION SECTION ==================== */
+.education-details {
+    display: block;
+    margin-bottom: 4pt;
+}
+
+.institution,
+.education-institution {
+    font-weight: bold;
+}
+
+.year {
+    font-style: italic;
+    margin-left: 8pt;
+}
+
+.education-info,
+.education-degree {
+    font-size: 11pt;
+    color: #000000;
+}
+
+/* ==================== PROJECTS SECTION ==================== */
+.projects-grid {
+    display: block;
+}
+
+.project-item {
+    margin-bottom: 10pt;
+    padding: 0;
+    background: #ffffff;
+    border: none;
+    page-break-inside: avoid;
+}
+
+.project-name {
+    font-size: 11pt;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 2pt;
+}
+
+.project-description {
+    font-size: 11pt;
+    color: #000000;
+    margin-bottom: 4pt;
+}
+
+.project-tech {
+    display: block;
+}
+
+/* ==================== CERTIFICATIONS ==================== */
+.certifications-list,
+.awards-list {
+    list-style: disc;
+    margin-left: 20pt;
+    padding: 0;
+}
+
+.certification-item,
+.award-item {
+    margin-bottom: 6pt;
+    padding: 0;
+    background: #ffffff;
+    border: none;
+}
+
+.certification-name,
+.award-name {
+    font-weight: bold;
+    color: #000000;
+}
+
+.certification-issuer,
+.award-issuer {
+    color: #000000;
+    font-size: 10pt;
+}
+
+/* ==================== FOOTER ==================== */
+.resume-footer {
+    margin-top: 24pt;
+    padding-top: 8pt;
+    border-top: 1pt solid #000000;
+    text-align: center;
+    font-size: 9pt;
+    color: #000000;
+}
+
+.footer-note {
+    display: none;
+}
+
+/* ==================== HIDE DECORATIVE ELEMENTS ==================== */
+/* Remove all animations, effects, and decorative elements */
+*::before,
+*::after {
+    display: none !important;
+}
+
+/* Hide background effects */
+.resume-container::before {
+    display: none !important;
+}
+
+/* ==================== TOGGLE AND DOWNLOAD BUTTONS ==================== */
+/* Keep toggle and download buttons visible in ATS mode for functionality */
+.resume-toggle-container {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #ffffff;
+    border-bottom: 2px solid #000000;
+    margin-bottom: 1rem;
+}
+
+.resume-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: #000000;
+    border: 2px solid #000000;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.resume-toggle-btn:hover {
+    background: #333333;
+}
+
+.mode-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #f5f5f5;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    font-size: 10pt;
+    color: #000000;
+}
+
+.indicator-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #000000;
+}
+
+.resume-download-options {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+
+.btn-download-themed,
+.btn-download-ats {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: #000000;
+    border: 2px solid #000000;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-download-themed:hover,
+.btn-download-ats:hover {
+    background: #333333;
+}
+
+/* ==================== LISTS ==================== */
+ul {
+    list-style: disc;
+    margin-left: 20pt;
+    padding: 0;
+}
+
+ol {
+    list-style: decimal;
+    margin-left: 20pt;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 3pt;
+    color: #000000;
+    font-size: 11pt;
+}
+
+li::marker {
+    color: #000000;
+}
+
+/* ==================== LINKS ==================== */
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* ==================== PRINT STYLES ==================== */
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        background: #ffffff;
+    }
+
+    .resume-container,
+    body {
+        max-width: 100%;
+        padding: 0.5in;
+    }
+
+    /* Hide interactive elements */
+    .resume-download-options,
+    .btn-download-themed,
+    .btn-download-ats,
+    .resume-toggle-container,
+    button {
+        display: none !important;
+    }
+
+    /* Ensure proper page breaks */
+    .resume-section,
+    .experience-item,
+    .education-item,
+    .project-item {
+        page-break-inside: avoid;
+    }
+
+    h1, h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    /* Remove all colors and effects */
+    * {
+        color: #000000 !important;
+        background: #ffffff !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+}
+
+/* ==================== RESPONSIVE (Keep simple for ATS) ==================== */
+@media (max-width: 768px) {
+    body,
+    .resume-container {
+        padding: 0.25in;
+    }
+
+    h1 {
+        font-size: 18pt;
+    }
+
+    h2 {
+        font-size: 13pt;
+    }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Focus styles for interactive elements */
+button:focus,
+a:focus {
+    outline: 2px solid #000000;
+    outline-offset: 2px;
+}
