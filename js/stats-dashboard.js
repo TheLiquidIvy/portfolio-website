@@ -2,6 +2,7 @@
 
 class StatsDashboard {
     constructor() {
+        // Default stats - can be overridden by fetching from API
         this.stats = {
             projects: 14,
             blogPosts: 6,
@@ -20,8 +21,33 @@ class StatsDashboard {
     }
 
     init() {
-        this.setupIntersectionObserver();
+        // Try to fetch stats from API first
+        this.fetchStatsFromAPI().catch(() => {
+            console.log('[Stats] Using default statistics');
+        }).finally(() => {
+            this.setupIntersectionObserver();
+        });
         console.log('[Stats] Dashboard initialized');
+    }
+    
+    async fetchStatsFromAPI() {
+        try {
+            // Use the portfolio API if available
+            if (window.portfolioAPI) {
+                const data = await window.portfolioAPI.getStats();
+                if (data && data.stats && data.stats.overview) {
+                    this.stats = {
+                        projects: data.stats.overview.projects_completed,
+                        blogPosts: data.stats.overview.blog_posts,
+                        coffee: data.stats.overview.cups_of_coffee,
+                        githubStars: data.stats.overview.github_stars
+                    };
+                }
+            }
+        } catch (error) {
+            console.log('[Stats] Could not fetch from API:', error);
+            // Will use default stats
+        }
     }
 
     setupIntersectionObserver() {

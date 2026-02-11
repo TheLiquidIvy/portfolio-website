@@ -239,6 +239,9 @@ class GlobalSearch {
     }
 
     calculateMatchScore(item, query) {
+        // NOTE: This fuzzy search algorithm could benefit from unit tests
+        // to verify search accuracy, score calculation correctness,
+        // and edge cases like empty queries or special characters
         let score = 0;
         const title = item.title.toLowerCase();
         const description = item.description.toLowerCase();

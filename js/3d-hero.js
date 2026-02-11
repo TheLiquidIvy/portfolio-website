@@ -7,7 +7,8 @@ class Hero3D {
         this.renderer = null;
         this.objects = [];
         this.particles = [];
-        this.isDesktop = window.innerWidth > 968;
+        this.DESKTOP_WIDTH_THRESHOLD = 968; // Minimum width for desktop features
+        this.isDesktop = window.innerWidth > this.DESKTOP_WIDTH_THRESHOLD;
         this.animationId = null;
         
         if (this.isDesktop && typeof THREE !== 'undefined') {
@@ -236,7 +237,8 @@ class Hero3D {
 // Project Card 3D Tilt Effect
 class ProjectCard3D {
     constructor() {
-        this.isDesktop = window.innerWidth > 968;
+        this.DESKTOP_WIDTH_THRESHOLD = 968; // Minimum width for desktop features
+        this.isDesktop = window.innerWidth > this.DESKTOP_WIDTH_THRESHOLD;
         if (this.isDesktop) {
             this.init();
         }

@@ -131,6 +131,11 @@ class ResumeGenerator {
             // Small delay to show loading animation
             await new Promise(resolve => setTimeout(resolve, 500));
 
+            // NOTE: PDF generation success is dependent on jsPDF library
+            // Consider adding unit tests for:
+            // - PDF generation success/failure scenarios
+            // - Loading state management
+            // - Toast notification behavior
             const doc = new jsPDF();
             const pageWidth = doc.internal.pageSize.getWidth();
             const pageHeight = doc.internal.pageSize.getHeight();
