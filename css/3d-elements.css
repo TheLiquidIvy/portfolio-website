@@ -1,0 +1,299 @@
+/* ==================== 3D INTERACTIVE ELEMENTS ==================== */
+
+/* 3D Hero Container */
+.hero-3d-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+#hero3dCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* 3D Skills Container */
+.skills-3d-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    margin: 40px 0;
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 15px;
+    overflow: hidden;
+    background: rgba(10, 10, 15, 0.5);
+}
+
+#skills3dCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* 3D Project Cards */
+.project-card-3d {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.project-card-3d:hover {
+    transform: rotateY(5deg) rotateX(5deg) translateZ(20px);
+}
+
+.project-card-3d-content {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+/* Tilt Effect */
+.tilt-container {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+}
+
+.tilt-container .tilt-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                                rgba(0, 255, 255, 0.2) 0%, 
+                                transparent 60%);
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tilt-container:hover .tilt-highlight {
+    opacity: 1;
+}
+
+/* 3D Controls */
+.controls-3d {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    padding: 10px 20px;
+    background: rgba(10, 10, 15, 0.9);
+    border: 2px solid #00ffff;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+}
+
+.control-btn-3d {
+    padding: 8px 16px;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid #00ffff;
+    border-radius: 5px;
+    color: #00ffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.85em;
+    font-family: 'Orbitron', monospace;
+}
+
+.control-btn-3d:hover {
+    background: rgba(0, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+}
+
+.control-btn-3d.active {
+    background: #00ffff;
+    color: #0a0a0f;
+}
+
+/* Performance indicator */
+.performance-indicator-3d {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background: rgba(10, 10, 15, 0.9);
+    border: 1px solid #00ffff;
+    border-radius: 5px;
+    font-size: 0.75em;
+    color: #00ffff;
+    font-family: 'Orbitron', monospace;
+}
+
+/* Desktop-only message */
+.desktop-only-message {
+    display: none;
+    padding: 30px;
+    text-align: center;
+    color: #888888;
+}
+
+.desktop-only-message .icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.desktop-only-message h3 {
+    color: #00ffff;
+    margin-bottom: 10px;
+}
+
+/* Loading state */
+.loading-3d {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #00ffff;
+}
+
+.loading-3d-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(0, 255, 255, 0.1);
+    border-top-color: #00ffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+.loading-3d-text {
+    font-size: 0.9em;
+    font-family: 'Orbitron', monospace;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Particle effects overlay */
+.particles-3d {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle-3d {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #00ffff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ffff;
+    opacity: 0.6;
+    animation: float 10s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    33% {
+        transform: translateY(-50px) translateX(20px);
+    }
+    66% {
+        transform: translateY(50px) translateX(-20px);
+    }
+}
+
+/* Wireframe effect */
+.wireframe-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+/* Glowing edges effect */
+.glow-edges {
+    position: relative;
+}
+
+.glow-edges::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation: glow-rotate 3s linear infinite;
+}
+
+.glow-edges:hover::before {
+    opacity: 1;
+}
+
+@keyframes glow-rotate {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+/* Responsive - Hide 3D on mobile */
+@media (max-width: 968px) {
+    .hero-3d-container,
+    .skills-3d-container {
+        display: none;
+    }
+    
+    .desktop-only-message {
+        display: block;
+    }
+    
+    .project-card-3d {
+        transform: none !important;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .project-card-3d,
+    .tilt-container,
+    .particle-3d,
+    .glow-edges::before {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* Performance optimization classes */
+.gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+.disable-3d {
+    transform: none !important;
+    transition: none !important;
+}

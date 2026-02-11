@@ -1,0 +1,291 @@
+/* ==================== ANIMATED STATISTICS DASHBOARD ==================== */
+
+.stats-dashboard {
+    padding: 80px 0;
+    background: linear-gradient(135deg, rgba(10, 10, 15, 0.95), rgba(26, 26, 46, 0.95));
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-dashboard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+}
+
+.stats-dashboard .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.stats-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.stats-title {
+    font-size: 3em;
+    color: #00ffff;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-family: 'Orbitron', monospace;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.stats-subtitle {
+    color: #888888;
+    font-size: 1.2em;
+}
+
+/* Stat Cards Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.stat-card {
+    background: rgba(10, 10, 15, 0.8);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+}
+
+.stat-card:hover {
+    border-color: #00ffff;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+    transform: translateY(-5px);
+}
+
+.stat-card:hover::before {
+    top: 100%;
+    left: 100%;
+}
+
+.stat-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+    display: inline-block;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.stat-number {
+    font-size: 3em;
+    font-weight: 700;
+    color: #00ffff;
+    font-family: 'Orbitron', monospace;
+    margin-bottom: 10px;
+    line-height: 1;
+}
+
+.stat-label {
+    color: #ffffff;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Charts Grid */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.chart-container {
+    background: rgba(10, 10, 15, 0.8);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 30px;
+    position: relative;
+}
+
+.chart-title {
+    color: #ff00ff;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Orbitron', monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.chart-canvas {
+    max-height: 300px;
+}
+
+/* Full-width charts */
+.chart-full {
+    grid-column: 1 / -1;
+}
+
+.chart-full .chart-canvas {
+    max-height: 400px;
+}
+
+/* Loading state */
+.chart-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}
+
+.chart-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(0, 255, 255, 0.1);
+    border-top-color: #00ffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Odometer Counter Animation */
+.odometer-container {
+    overflow: hidden;
+    position: relative;
+    height: 1.2em;
+}
+
+.odometer-digit {
+    display: inline-block;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Activity Graph */
+.activity-graph {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 5px;
+    padding: 20px 0;
+}
+
+.activity-week {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.activity-day {
+    width: 100%;
+    aspect-ratio: 1;
+    background: rgba(0, 255, 255, 0.1);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.activity-day.level-1 { background: rgba(0, 255, 255, 0.3); }
+.activity-day.level-2 { background: rgba(0, 255, 255, 0.5); }
+.activity-day.level-3 { background: rgba(0, 255, 255, 0.7); }
+.activity-day.level-4 { background: rgba(0, 255, 255, 0.9); }
+
+.activity-day:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stats-title {
+        font-size: 2em;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-card {
+        padding: 20px;
+    }
+    
+    .stat-number {
+        font-size: 2em;
+    }
+    
+    .stat-label {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-icon {
+        font-size: 2em;
+    }
+    
+    .chart-container {
+        padding: 20px 15px;
+    }
+}
+
+/* Animation triggers */
+.stat-card,
+.chart-container {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.stat-card.animate,
+.chart-container.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered animation delays */
+.stat-card:nth-child(1).animate { transition-delay: 0.1s; }
+.stat-card:nth-child(2).animate { transition-delay: 0.2s; }
+.stat-card:nth-child(3).animate { transition-delay: 0.3s; }
+.stat-card:nth-child(4).animate { transition-delay: 0.4s; }
+
+.chart-container:nth-child(1).animate { transition-delay: 0.5s; }
+.chart-container:nth-child(2).animate { transition-delay: 0.6s; }
+.chart-container:nth-child(3).animate { transition-delay: 0.7s; }
