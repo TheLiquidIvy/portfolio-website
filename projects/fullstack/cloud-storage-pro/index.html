@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud Storage Pro | Full Stack Project</title>
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -83,68 +84,82 @@
             </div>
 
             <div id="demo" class="project-demo">
-                <h2 class="section-title glitch" data-text="STORAGE PREVIEW">STORAGE PREVIEW</h2>
-                <div class="demo-grid">
-                    <div class="demo-panel">
-                        <h4>Recent Files</h4>
-                        <table class="demo-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Owner</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Launch Plan.pdf</td>
-                                    <td>Maya</td>
-                                    <td><span class="demo-chip positive">Synced</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Design Kit.zip</td>
-                                    <td>Aria</td>
-                                    <td><span class="demo-chip secondary">Sharing</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Budget.xlsx</td>
-                                    <td>Rex</td>
-                                    <td><span class="demo-chip">Queued</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <h2 class="section-title glitch" data-text="LIVE STORAGE">LIVE STORAGE</h2>
+                
+                <div class="storage-header">
+                    <div class="breadcrumb" id="breadcrumb">
+                        <span onclick="app.navigateToFolder(null)">Home</span>
                     </div>
-                    <div class="demo-panel">
-                        <h4>Storage Usage</h4>
-                        <div class="kpi-grid">
-                            <div class="kpi-card">
-                                <span class="kpi-label">Used</span>
-                                <span class="kpi-value">1.8TB</span>
-                                <span class="kpi-change">65%</span>
-                            </div>
-                            <div class="kpi-card">
-                                <span class="kpi-label">Shared</span>
-                                <span class="kpi-value">214GB</span>
-                                <span class="kpi-change up">+9%</span>
-                            </div>
+                    <div class="storage-actions">
+                        <button class="btn btn-primary" onclick="document.getElementById('file-input').click()">
+                            📁 Upload File
+                        </button>
+                        <input type="file" id="file-input" style="display: none;" multiple>
+                        <button class="btn btn-secondary" onclick="app.showCreateFolder()">
+                            📂 New Folder
+                        </button>
+                    </div>
+                </div>
+
+                <div class="storage-stats">
+                    <div class="stat-card">
+                        <span class="stat-label">Total Files</span>
+                        <span class="stat-value" id="total-files">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Storage Used</span>
+                        <span class="stat-value" id="storage-used">0 KB</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Shared Files</span>
+                        <span class="stat-value" id="shared-files">0</span>
+                    </div>
+                </div>
+
+                <div class="storage-container">
+                    <div class="folders-section" id="folders-section"></div>
+                    <div class="files-section" id="files-section"></div>
+                </div>
+
+                <!-- Create Folder Modal -->
+                <div id="folder-modal" class="modal hidden">
+                    <div class="modal-content">
+                        <h3>Create New Folder</h3>
+                        <input type="text" id="folder-name" placeholder="Folder Name" class="cyber-input">
+                        <div class="modal-actions">
+                            <button class="btn btn-primary" onclick="app.createFolder()">Create</button>
+                            <button class="btn btn-secondary" onclick="app.closeModal('folder-modal')">Cancel</button>
                         </div>
                     </div>
-                    <div class="demo-panel">
-                        <h4>Access</h4>
-                        <div class="demo-list">
-                            <div class="demo-list-item">
-                                <span>Encrypted links</span>
-                                <span class="demo-chip positive">Enabled</span>
-                            </div>
-                            <div class="demo-list-item">
-                                <span>2FA enforcement</span>
-                                <span class="demo-chip secondary">On</span>
-                            </div>
-                            <div class="demo-list-item">
-                                <span>Expired links</span>
-                                <span class="demo-chip">5</span>
-                            </div>
+                </div>
+
+                <!-- File Preview Modal -->
+                <div id="preview-modal" class="modal hidden">
+                    <div class="modal-content large">
+                        <h3 id="preview-title"></h3>
+                        <div id="preview-content"></div>
+                        <div class="file-actions">
+                            <button class="btn btn-primary" onclick="app.shareFile()">🔗 Share</button>
+                            <button class="btn btn-secondary" onclick="app.downloadFile()">⬇️ Download</button>
+                            <button class="btn btn-secondary" onclick="app.closeModal('preview-modal')">Close</button>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Share Modal -->
+                <div id="share-modal" class="modal hidden">
+                    <div class="modal-content">
+                        <h3>Share File</h3>
+                        <p class="share-info">File has been encrypted and is ready to share</p>
+                        <div class="share-link-container">
+                            <input type="text" id="share-link" class="cyber-input" readonly>
+                            <button class="btn btn-primary" onclick="app.copyShareLink()">Copy Link</button>
+                        </div>
+                        <div class="encryption-info">
+                            <p>🔒 End-to-end encryption enabled</p>
+                            <p>Link expires in: <span id="expiry-time">7 days</span></p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="app.closeModal('share-modal')">Close</button>
                     </div>
                 </div>
             </div>
@@ -206,5 +221,6 @@
     </section>
 
     <script src="../../js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
