@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualizer Pro | Frontend Project</title>
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .chart-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .chart-panel { background: rgba(10, 10, 15, 0.8); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 12px; padding: 1.5rem; }
+        .chart-title { font-size: 1.1rem; color: var(--primary); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
+        .pie-chart { width: 200px; height: 200px; border-radius: 50%; margin: 0 auto; position: relative; background: conic-gradient(var(--primary) 0deg 144deg, var(--secondary) 144deg 252deg, var(--neon-green) 252deg 324deg, #ffa502 324deg 360deg); animation: spin 20s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .bar-chart { height: 250px; display: flex; align-items: flex-end; gap: 1rem; padding: 1rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; }
+        .bar { flex: 1; background: linear-gradient(to top, var(--primary), transparent); border-radius: 4px 4px 0 0; position: relative; transition: all 0.3s; }
+        .bar:hover { filter: brightness(1.5); }
+        .line-graph { height: 200px; background: rgba(0, 0, 0, 0.3); border-radius: 8px; position: relative; overflow: hidden; }
+        .line-path { position: absolute; bottom: 0; left: 0; right: 0; height: 100%; }
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table th { background: rgba(0, 255, 255, 0.1); padding: 1rem; text-align: left; border-bottom: 2px solid rgba(0, 255, 255, 0.3); }
+        .data-table td { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(0, 255, 255, 0.1); }
+        .data-table tr:hover { background: rgba(0, 255, 255, 0.05); }
+        .legend { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; }
+        .legend-color { width: 16px; height: 16px; border-radius: 3px; }
+        @media (max-width: 768px) { .chart-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <canvas id="matrix-canvas"></canvas>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo glitch" data-text="<Maya Smith/>"><span>&lt;Maya Smith/&gt;</span></div>
+            <ul class="nav-menu">
+                <li><a href="../../../index.html#home" class="nav-link">Home</a></li>
+                <li><a href="../../../index.html#about" class="nav-link">About</a></li>
+                <li><a href="../../../index.html#skills" class="nav-link">Skills</a></li>
+                <li><a href="../../../index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="../../../index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+    <section id="details" class="project-detail active">
+        <div class="container">
+            <div class="project-detail-header">
+                <a href="../../data-visualizer-pro.html" class="btn btn-secondary back-btn"><span>cd ..</span><div class="btn-glitch"></div></a>
+                <p class="project-kicker">Frontend Project</p>
+                <h1 class="glitch" data-text="Data Visualizer Pro">Data Visualizer Pro</h1>
+                <p class="project-summary">A multi-chart analytics workspace with streaming updates, export tooling, and configurable layouts built for dense, high-impact reporting.</p>
+                <div class="project-meta">
+                    <span class="tech-tag">Vue.js</span>
+                    <span class="tech-tag">D3.js</span>
+                    <span class="tech-tag">Plotly</span>
+                    <span class="tech-tag">WebGL</span>
+                </div>
+            </div>
+            <div class="project-detail-grid">
+                <div class="project-detail-card"><h3>Overview</h3><ul><li>Interactive filters and drill-down views.</li><li>Realtime chart synchronization.</li><li>Custom dashboard templates and themes.</li></ul></div>
+                <div class="project-detail-card"><h3>Highlights</h3><ul><li>Stabilized layout with dynamic chart sizes.</li><li>Reduced render time with virtualized panels.</li><li>Maintained fidelity across multiple libraries.</li></ul></div>
+                <div class="project-detail-card"><h3>Source</h3><ul><li>Vue components and composables.</li><li>Chart configs and data adapters.</li><li>Export utilities and PDF generation.</li></ul></div>
+            </div>
+            <div id="demo" class="project-demo">
+                <h2 class="section-title glitch" data-text="ANALYTICS DASHBOARD">ANALYTICS DASHBOARD</h2>
+                <div class="chart-grid">
+                    <div class="chart-panel">
+                        <div class="chart-title">Revenue Distribution</div>
+                        <div class="pie-chart"></div>
+                        <div class="legend">
+                            <div class="legend-item"><div class="legend-color" style="background: var(--primary);"></div><span>Products 40%</span></div>
+                            <div class="legend-item"><div class="legend-color" style="background: var(--secondary);"></div><span>Services 30%</span></div>
+                            <div class="legend-item"><div class="legend-color" style="background: var(--neon-green);"></div><span>Subscriptions 20%</span></div>
+                            <div class="legend-item"><div class="legend-color" style="background: #ffa502;"></div><span>Other 10%</span></div>
+                        </div>
+                    </div>
+                    <div class="chart-panel">
+                        <div class="chart-title">Monthly Growth</div>
+                        <div class="bar-chart">
+                            <div class="bar" style="height: 60%;"></div>
+                            <div class="bar" style="height: 75%;"></div>
+                            <div class="bar" style="height: 55%;"></div>
+                            <div class="bar" style="height: 85%;"></div>
+                            <div class="bar" style="height: 70%;"></div>
+                            <div class="bar" style="height: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-panel">
+                    <div class="chart-title">Top Performing Products</div>
+                    <table class="data-table">
+                        <thead><tr><th>Product</th><th>Revenue</th><th>Growth</th><th>Units Sold</th></tr></thead>
+                        <tbody>
+                            <tr><td>Premium Plan</td><td>$48,200</td><td style="color: var(--neon-green);">+12.4%</td><td>1,240</td></tr>
+                            <tr><td>Enterprise License</td><td>$36,800</td><td style="color: var(--neon-green);">+8.2%</td><td>184</td></tr>
+                            <tr><td>Starter Package</td><td>$28,500</td><td style="color: #ff4757;">-2.1%</td><td>2,850</td></tr>
+                            <tr><td>Add-on Services</td><td>$19,200</td><td style="color: var(--neon-green);">+15.7%</td><td>960</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="outline" class="project-demo project-outline">
+                <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
+                <div class="project-detail-grid">
+                    <div class="project-detail-card"><h3>Goals</h3><ul><li>Describe the core problem you are solving.</li><li>Define success metrics (latency, adoption, revenue).</li><li>List the primary user personas.</li></ul></div>
+                    <div class="project-detail-card"><h3>Scope</h3><ul><li>Must-have MVP features.</li><li>Nice-to-have enhancements.</li><li>Out-of-scope items for later.</li></ul></div>
+                    <div class="project-detail-card"><h3>Architecture</h3><ul><li>Frontend stack and state management.</li><li>Backend services and data storage.</li><li>Integrations (payments, APIs, auth).</li></ul></div>
+                    <div class="project-detail-card"><h3>Milestones</h3><ul><li>Discovery + wireframes.</li><li>Build core workflows.</li><li>Testing, QA, and launch.</li></ul></div>
+                    <div class="project-detail-card"><h3>Risks</h3><ul><li>Performance constraints.</li><li>Third-party dependency limits.</li><li>Security or compliance needs.</li></ul></div>
+                    <div class="project-detail-card"><h3>Next Steps</h3><ul><li>Define requirements and acceptance criteria.</li><li>Capture analytics + logging events.</li><li>Plan roadmap for v1.1.</li></ul></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../../../js/main.js"></script>
+</body>
+</html>

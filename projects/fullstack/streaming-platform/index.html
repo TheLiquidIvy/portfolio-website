@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaming Platform | Full Stack Project</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <canvas id="matrix-canvas"></canvas>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo glitch" data-text="<Maya Smith/>">
+                <span>&lt;Maya Smith/&gt;</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../../index.html#home" class="nav-link">Home</a></li>
+                <li><a href="../../index.html#about" class="nav-link">About</a></li>
+                <li><a href="../../index.html#skills" class="nav-link">Skills</a></li>
+                <li><a href="../../index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="../../index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="details" class="project-detail active">
+        <div class="container">
+            <div class="project-detail-header">
+                <a href="../../index.html#projects" class="btn btn-secondary back-btn">
+                    <span>Back to Projects</span>
+                    <div class="btn-glitch"></div>
+                </a>
+                <p class="project-kicker">Full Stack Project</p>
+                <h1 class="glitch" data-text="Streaming Platform">Streaming Platform</h1>
+                <p class="project-summary">
+                    A music streaming service with curated playlists, discovery feeds, and social features designed
+                    for dedicated listeners.
+                </p>
+                <div class="project-meta">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">GraphQL</span>
+                    <span class="tech-tag">Redis</span>
+                </div>
+            </div>
+
+            <div class="project-detail-grid">
+                <div class="project-detail-card">
+                    <h3>Overview</h3>
+                    <ul>
+                        <li>Playlist builder with smart recommendations.</li>
+                        <li>Social following and shared listening.</li>
+                        <li>Listening history and analytics.</li>
+                    </ul>
+                </div>
+                <div class="project-detail-card">
+                    <h3>Highlights</h3>
+                    <ul>
+                        <li>GraphQL API for flexible data queries.</li>
+                        <li>Redis caching for low-latency playback.</li>
+                        <li>Realtime activity feed updates.</li>
+                    </ul>
+                </div>
+                <div class="project-detail-card" id="source">
+                    <h3>Source</h3>
+                    <ul>
+                        <li>Schema design and resolvers.</li>
+                        <li>Player UI and playlist components.</li>
+                        <li>Recommendation mock datasets.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="demo" class="project-demo">
+                <h2 class="section-title glitch" data-text="PLAYER PREVIEW">PLAYER PREVIEW</h2>
+                <div class="demo-grid">
+                    <div class="demo-panel">
+                        <h4>Now Playing</h4>
+                        <div class="demo-list">
+                            <div class="demo-list-item">
+                                <span>Neon Skyline</span>
+                                <span class="demo-chip positive">04:12</span>
+                            </div>
+                            <div class="demo-list-item">
+                                <span>Midnight Pulse</span>
+                                <span class="demo-chip">Queued</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="demo-panel">
+                        <h4>Listening Mix</h4>
+                        <div class="demo-list">
+                            <div class="demo-list-item">
+                                <span>Cyberwave Focus</span>
+                                <span class="demo-chip secondary">Updated</span>
+                            </div>
+                            <div class="demo-list-item">
+                                <span>Night Drive</span>
+                                <span class="demo-chip">12 tracks</span>
+                            </div>
+                            <div class="demo-list-item">
+                                <span>Top 50 Synth</span>
+                                <span class="demo-chip positive">Trending</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="demo-panel">
+                        <h4>Engagement</h4>
+                        <div class="kpi-grid">
+                            <div class="kpi-card">
+                                <span class="kpi-label">Daily Plays</span>
+                                <span class="kpi-value">84k</span>
+                                <span class="kpi-change up">+6%</span>
+                            </div>
+                            <div class="kpi-card">
+                                <span class="kpi-label">Retention</span>
+                                <span class="kpi-value">71%</span>
+                                <span class="kpi-change up">+2%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="outline" class="project-demo project-outline">
+                <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
+                <div class="project-detail-grid">
+                    <div class="project-detail-card">
+                        <h3>Goals</h3>
+                        <ul>
+                            <li>Describe the core problem you are solving.</li>
+                            <li>Define success metrics (latency, adoption, revenue).</li>
+                            <li>List the primary user personas.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Scope</h3>
+                        <ul>
+                            <li>Must-have MVP features.</li>
+                            <li>Nice-to-have enhancements.</li>
+                            <li>Out-of-scope items for later.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Architecture</h3>
+                        <ul>
+                            <li>Frontend stack and state management.</li>
+                            <li>Backend services and data storage.</li>
+                            <li>Integrations (payments, APIs, auth).</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Milestones</h3>
+                        <ul>
+                            <li>Discovery + wireframes.</li>
+                            <li>Build core workflows.</li>
+                            <li>Testing, QA, and launch.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Risks</h3>
+                        <ul>
+                            <li>Performance constraints.</li>
+                            <li>Third-party dependency limits.</li>
+                            <li>Security or compliance needs.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Next Steps</h3>
+                        <ul>
+                            <li>Define requirements and acceptance criteria.</li>
+                            <li>Capture analytics + logging events.</li>
+                            <li>Plan roadmap for v1.1.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../../js/main.js"></script>
+</body>
+</html>

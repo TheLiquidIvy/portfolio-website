@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Tracker | Frontend Project</title>
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Crypto Trading Terminal Styles */
+        .trading-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.05));
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .market-status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--neon-green);
+            animation: pulse 2s infinite;
+        }
+
+        .market-cap {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        .market-cap span {
+            color: var(--primary);
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+
+        /* Price Ticker Ribbon */
+        .ticker-ribbon {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .ticker-scroll {
+            display: flex;
+            gap: 2rem;
+            animation: scroll 30s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            min-width: 180px;
+        }
+
+        .ticker-symbol {
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+            color: var(--primary);
+        }
+
+        .ticker-price {
+            font-family: 'Orbitron', monospace;
+            color: var(--text);
+        }
+
+        .ticker-change {
+            font-size: 0.85rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .ticker-change.up {
+            color: var(--neon-green);
+            background: rgba(0, 255, 65, 0.15);
+        }
+
+        .ticker-change.down {
+            color: #ff4757;
+            background: rgba(255, 71, 87, 0.15);
+        }
+
+        /* Trading Grid */
+        .trading-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Watchlist Panel */
+        .watchlist-panel {
+            background: rgba(10, 10, 15, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .panel-title {
+            font-size: 1rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .crypto-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 3px solid;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .crypto-card:hover {
+            background: rgba(0, 0, 0, 0.6);
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .crypto-card.btc { border-color: #f7931a; }
+        .crypto-card.eth { border-color: #627eea; }
+        .crypto-card.sol { border-color: #14f195; }
+        .crypto-card.ada { border-color: #0033ad; }
+        .crypto-card.dot { border-color: #e6007a; }
+
+        .crypto-info {
+            flex: 1;
+        }
+
+        .crypto-symbol {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+
+        .crypto-name {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .crypto-data {
+            text-align: right;
+        }
+
+        .crypto-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+
+        .crypto-change {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .crypto-change.positive {
+            color: var(--neon-green);
+        }
+
+        .crypto-change.negative {
+            color: #ff4757;
+        }
+
+        /* Chart Panel */
+        .chart-panel {
+            background: rgba(10, 10, 15, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chart-tab {
+            padding: 0.5rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .chart-tab.active {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .chart-canvas {
+            height: 300px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .candlestick-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            padding: 1rem;
+        }
+
+        .candlestick {
+            flex: 1;
+            max-width: 40px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .wick {
+            width: 2px;
+            background: var(--primary);
+            margin-bottom: -5px;
+        }
+
+        .body {
+            width: 100%;
+            border-radius: 2px;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .body.green {
+            background: var(--neon-green);
+            border: 1px solid var(--neon-green);
+        }
+
+        .body.red {
+            background: #ff4757;
+            border: 1px solid #ff4757;
+        }
+
+        /* Portfolio Panel */
+        .portfolio-panel {
+            background: rgba(10, 10, 15, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .portfolio-total {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.05));
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .portfolio-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-family: 'Orbitron', monospace;
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-change {
+            font-size: 1rem;
+            color: var(--neon-green);
+            font-weight: 600;
+        }
+
+        .holdings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .holding-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+        }
+
+        .holding-crypto {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .holding-value {
+            text-align: right;
+        }
+
+        .holding-amount {
+            font-size: 0.9rem;
+            font-family: 'Orbitron', monospace;
+            color: var(--text);
+        }
+
+        .holding-percent {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* Alerts Section */
+        .alerts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .alert-card {
+            background: rgba(10, 10, 15, 0.8);
+            border: 1px solid;
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: currentColor;
+        }
+
+        .alert-card.queued {
+            border-color: rgba(255, 165, 2, 0.5);
+            color: #ffa502;
+        }
+
+        .alert-card.high {
+            border-color: rgba(255, 71, 87, 0.5);
+            color: #ff4757;
+        }
+
+        .alert-card.bullish {
+            border-color: rgba(0, 255, 65, 0.5);
+            color: var(--neon-green);
+        }
+
+        .alert-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .alert-description {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .alert-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 1200px) {
+            .trading-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .trading-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .ticker-scroll {
+                animation-duration: 20s;
+            }
+
+            .portfolio-value {
+                font-size: 2rem;
+            }
+        }
+
+        /* Project Outline Section */
+        .project-outline {
+            margin-top: 4rem;
+            padding-top: 4rem;
+            border-top: 2px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .project-outline .section-title {
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <canvas id="matrix-canvas"></canvas>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo glitch" data-text="<Maya Smith/>">
+                <span>&lt;Maya Smith/&gt;</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../../../index.html#home" class="nav-link">Home</a></li>
+                <li><a href="../../../index.html#about" class="nav-link">About</a></li>
+                <li><a href="../../../index.html#skills" class="nav-link">Skills</a></li>
+                <li><a href="../../../index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="../../../index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="details" class="project-detail active">
+        <div class="container">
+            <div class="project-detail-header">
+                <a href="../../crypto-tracker.html" class="btn btn-secondary back-btn">
+                    <span>cd ..</span>
+                    <div class="btn-glitch"></div>
+                </a>
+                <p class="project-kicker">Frontend Project</p>
+                <h1 class="glitch" data-text="Crypto Tracker">Crypto Tracker</h1>
+                <p class="project-summary">
+                    A live crypto watchlist with portfolio insights, alerting, and interactive charting optimized for quick market decisions.
+                </p>
+                <div class="project-meta">
+                    <span class="tech-tag">Vue.js</span>
+                    <span class="tech-tag">Chart.js</span>
+                    <span class="tech-tag">REST API</span>
+                    <span class="tech-tag">Pinia</span>
+                </div>
+            </div>
+
+            <div class="project-detail-grid">
+                <div class="project-detail-card">
+                    <h3>Overview</h3>
+                    <ul>
+                        <li>Live price cards with trend indicators.</li>
+                        <li>Personalized watchlists and alerts.</li>
+                        <li>Portfolio breakdown with allocation charts.</li>
+                    </ul>
+                </div>
+                <div class="project-detail-card">
+                    <h3>Highlights</h3>
+                    <ul>
+                        <li>Cached API layer for rapid refresh.</li>
+                        <li>Responsive layouts for mobile trading.</li>
+                        <li>Custom tooltips and sparkline views.</li>
+                    </ul>
+                </div>
+                <div class="project-detail-card" id="source">
+                    <h3>Source</h3>
+                    <ul>
+                        <li>Vue component system and store modules.</li>
+                        <li>Mock data payloads for demo mode.</li>
+                        <li>Alert logic and formatting helpers.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="demo" class="project-demo">
+                <h2 class="section-title glitch" data-text="MARKET PREVIEW">MARKET PREVIEW</h2>
+                
+                <!-- Trading Header -->
+                <div class="trading-header">
+                    <div class="market-status">
+                        <div class="status-dot"></div>
+                        <span style="font-family: 'Orbitron', monospace; color: var(--primary); font-size: 1.1rem;">MARKETS OPEN</span>
+                    </div>
+                    <div class="market-cap">
+                        Global Market Cap <span id="marketCap">$2.48T</span>
+                    </div>
+                    <div class="market-cap">
+                        24h Volume <span id="volume24h">$124.6B</span>
+                    </div>
+                </div>
+
+                <!-- Price Ticker Ribbon -->
+                <div class="ticker-ribbon">
+                    <div class="ticker-scroll">
+                        <div class="ticker-item">
+                            <span class="ticker-symbol">BTC</span>
+                            <span class="ticker-price" data-crypto="btc">$62,480</span>
+                            <span class="ticker-change up">+3.4%</span>
+                        </div>
+                        <div class="ticker-item">
+                            <span class="ticker-symbol">ETH</span>
+                            <span class="ticker-price" data-crypto="eth">$3,210</span>
+                            <span class="ticker-change down">-1.2%</span>
+                        </div>
+                        <div class="ticker-item">
+                            <span class="ticker-symbol">SOL</span>
+                            <span class="ticker-price" data-crypto="sol">$138.40</span>
+                            <span class="ticker-change up">+6.8%</span>
+                        </div>
+                        <div class="ticker-item">
+                            <span class="ticker-symbol">ADA</span>
+                            <span class="ticker-price">$0.58</span>
+                            <span class="ticker-change up">+2.1%</span>
+                        </div>
+                        <div class="ticker-item">
+                            <span class="ticker-symbol">DOT</span>
+                            <span class="ticker-price">$7.84</span>
+                            <span class="ticker-change down">-0.8%</span>
+                        </div>
+                        <!-- Duplicate for seamless scroll -->
+                        <div class="ticker-item">
+                            <span class="ticker-symbol">BTC</span>
+                            <span class="ticker-price">$62,480</span>
+                            <span class="ticker-change up">+3.4%</span>
+                        </div>
+                        <div class="ticker-item">
+                            <span class="ticker-symbol">ETH</span>
+                            <span class="ticker-price">$3,210</span>
+                            <span class="ticker-change down">-1.2%</span>
+                        </div>
+                        <div class="ticker-item">
+                            <span class="ticker-symbol">SOL</span>
+                            <span class="ticker-price">$138.40</span>
+                            <span class="ticker-change up">+6.8%</span>
+                        </div>
+                        <div class="ticker-item">
+                            <span class="ticker-symbol">ADA</span>
+                            <span class="ticker-price">$0.58</span>
+                            <span class="ticker-change up">+2.1%</span>
+                        </div>
+                        <div class="ticker-item">
+                            <span class="ticker-symbol">DOT</span>
+                            <span class="ticker-price">$7.84</span>
+                            <span class="ticker-change down">-0.8%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trading Grid -->
+                <div class="trading-grid">
+                    <!-- Watchlist Panel -->
+                    <div class="watchlist-panel">
+                        <div class="panel-title">Watchlist</div>
+                        <div class="crypto-card btc">
+                            <div class="crypto-info">
+                                <div class="crypto-symbol">BTC</div>
+                                <div class="crypto-name">Bitcoin</div>
+                            </div>
+                            <div class="crypto-data">
+                                <div class="crypto-price" data-crypto="btc">$62,480</div>
+                                <div class="crypto-change positive">▲ +3.4%</div>
+                            </div>
+                        </div>
+                        <div class="crypto-card eth">
+                            <div class="crypto-info">
+                                <div class="crypto-symbol">ETH</div>
+                                <div class="crypto-name">Ethereum</div>
+                            </div>
+                            <div class="crypto-data">
+                                <div class="crypto-price" data-crypto="eth">$3,210</div>
+                                <div class="crypto-change negative">▼ -1.2%</div>
+                            </div>
+                        </div>
+                        <div class="crypto-card sol">
+                            <div class="crypto-info">
+                                <div class="crypto-symbol">SOL</div>
+                                <div class="crypto-name">Solana</div>
+                            </div>
+                            <div class="crypto-data">
+                                <div class="crypto-price" data-crypto="sol">$138.40</div>
+                                <div class="crypto-change positive">▲ +6.8%</div>
+                            </div>
+                        </div>
+                        <div class="crypto-card ada">
+                            <div class="crypto-info">
+                                <div class="crypto-symbol">ADA</div>
+                                <div class="crypto-name">Cardano</div>
+                            </div>
+                            <div class="crypto-data">
+                                <div class="crypto-price">$0.58</div>
+                                <div class="crypto-change positive">▲ +2.1%</div>
+                            </div>
+                        </div>
+                        <div class="crypto-card dot">
+                            <div class="crypto-info">
+                                <div class="crypto-symbol">DOT</div>
+                                <div class="crypto-name">Polkadot</div>
+                            </div>
+                            <div class="crypto-data">
+                                <div class="crypto-price">$7.84</div>
+                                <div class="crypto-change negative">▼ -0.8%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Panel -->
+                    <div class="chart-panel">
+                        <div class="chart-header">
+                            <div class="panel-title">BTC/USD</div>
+                            <div class="chart-tabs">
+                                <div class="chart-tab active">1D</div>
+                                <div class="chart-tab">1W</div>
+                                <div class="chart-tab">1M</div>
+                                <div class="chart-tab">1Y</div>
+                            </div>
+                        </div>
+                        <div class="chart-canvas">
+                            <div class="candlestick-container">
+                                <div class="candlestick">
+                                    <div class="wick" style="height: 40px;"></div>
+                                    <div class="body green" style="height: 60px;"></div>
+                                </div>
+                                <div class="candlestick">
+                                    <div class="wick" style="height: 35px;"></div>
+                                    <div class="body green" style="height: 75px;"></div>
+                                </div>
+                                <div class="candlestick">
+                                    <div class="wick" style="height: 30px;"></div>
+                                    <div class="body red" style="height: 55px;"></div>
+                                </div>
+                                <div class="candlestick">
+                                    <div class="wick" style="height: 50px;"></div>
+                                    <div class="body green" style="height: 85px;"></div>
+                                </div>
+                                <div class="candlestick">
+                                    <div class="wick" style="height: 45px;"></div>
+                                    <div class="body red" style="height: 65px;"></div>
+                                </div>
+                                <div class="candlestick">
+                                    <div class="wick" style="height: 55px;"></div>
+                                    <div class="body green" style="height: 90px;"></div>
+                                </div>
+                                <div class="candlestick">
+                                    <div class="wick" style="height: 40px;"></div>
+                                    <div class="body green" style="height: 70px;"></div>
+                                </div>
+                                <div class="candlestick">
+                                    <div class="wick" style="height: 38px;"></div>
+                                    <div class="body red" style="height: 58px;"></div>
+                                </div>
+                                <div class="candlestick">
+                                    <div class="wick" style="height: 48px;"></div>
+                                    <div class="body green" style="height: 95px;"></div>
+                                </div>
+                                <div class="candlestick">
+                                    <div class="wick" style="height: 42px;"></div>
+                                    <div class="body green" style="height: 80px;"></div>
+                                </div>
+                                <div class="candlestick">
+                                    <div class="wick" style="height: 35px;"></div>
+                                    <div class="body red" style="height: 52px;"></div>
+                                </div>
+                                <div class="candlestick">
+                                    <div class="wick" style="height: 52px;"></div>
+                                    <div class="body green" style="height: 100px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Panel -->
+                    <div class="portfolio-panel">
+                        <div class="panel-title">Portfolio</div>
+                        <div class="portfolio-total">
+                            <div class="portfolio-label">Total Value</div>
+                            <div class="portfolio-value" id="portfolioValue">$42.9k</div>
+                            <div class="portfolio-change">▲ +5.1% ($2,340)</div>
+                        </div>
+                        <div class="panel-title" style="margin-top: 1rem;">Holdings</div>
+                        <div class="holdings-list">
+                            <div class="holding-item">
+                                <span class="holding-crypto">BTC</span>
+                                <div class="holding-value">
+                                    <div class="holding-amount">$18.2k</div>
+                                    <div class="holding-percent">42.4%</div>
+                                </div>
+                            </div>
+                            <div class="holding-item">
+                                <span class="holding-crypto">ETH</span>
+                                <div class="holding-value">
+                                    <div class="holding-amount">$12.8k</div>
+                                    <div class="holding-percent">29.8%</div>
+                                </div>
+                            </div>
+                            <div class="holding-item">
+                                <span class="holding-crypto">SOL</span>
+                                <div class="holding-value">
+                                    <div class="holding-amount">$6.4k</div>
+                                    <div class="holding-percent">14.9%</div>
+                                </div>
+                            </div>
+                            <div class="holding-item">
+                                <span class="holding-crypto">Others</span>
+                                <div class="holding-value">
+                                    <div class="holding-amount">$5.5k</div>
+                                    <div class="holding-percent">12.9%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alerts Section -->
+                <div style="margin-top: 2rem;">
+                    <h3 class="panel-title" style="margin-bottom: 1.5rem;">Active Alerts</h3>
+                    <div class="alerts-grid">
+                        <div class="alert-card queued">
+                            <div class="alert-title">BTC crosses $63k</div>
+                            <div class="alert-description">Notify when Bitcoin reaches target price</div>
+                            <span class="alert-status">
+                                <span style="width: 6px; height: 6px; background: currentColor; border-radius: 50%; display: inline-block;"></span>
+                                Queued
+                            </span>
+                        </div>
+                        <div class="alert-card high">
+                            <div class="alert-title">ETH volatility</div>
+                            <div class="alert-description">High price fluctuation detected</div>
+                            <span class="alert-status">
+                                <span style="width: 6px; height: 6px; background: currentColor; border-radius: 50%; display: inline-block;"></span>
+                                High
+                            </span>
+                        </div>
+                        <div class="alert-card bullish">
+                            <div class="alert-title">SOL momentum</div>
+                            <div class="alert-description">Strong bullish trend identified</div>
+                            <span class="alert-status">
+                                <span style="width: 6px; height: 6px; background: currentColor; border-radius: 50%; display: inline-block;"></span>
+                                Bullish
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="outline" class="project-demo project-outline">
+                <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
+                <div class="project-detail-grid">
+                    <div class="project-detail-card">
+                        <h3>Goals</h3>
+                        <ul>
+                            <li>Describe the core problem you are solving.</li>
+                            <li>Define success metrics (latency, adoption, revenue).</li>
+                            <li>List the primary user personas.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Scope</h3>
+                        <ul>
+                            <li>Must-have MVP features.</li>
+                            <li>Nice-to-have enhancements.</li>
+                            <li>Out-of-scope items for later.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Architecture</h3>
+                        <ul>
+                            <li>Frontend stack and state management.</li>
+                            <li>Backend services and data storage.</li>
+                            <li>Integrations (payments, APIs, auth).</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Milestones</h3>
+                        <ul>
+                            <li>Discovery + wireframes.</li>
+                            <li>Build core workflows.</li>
+                            <li>Testing, QA, and launch.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Risks</h3>
+                        <ul>
+                            <li>Performance constraints.</li>
+                            <li>Third-party dependency limits.</li>
+                            <li>Security or compliance needs.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Next Steps</h3>
+                        <ul>
+                            <li>Define requirements and acceptance criteria.</li>
+                            <li>Capture analytics + logging events.</li>
+                            <li>Plan roadmap for v1.1.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../../../js/main.js"></script>
+    <script>
+        // Crypto price simulation data
+        const cryptoPrices = {
+            btc: { base: 62480, variance: 500 },
+            eth: { base: 3210, variance: 50 },
+            sol: { base: 138.40, variance: 5 }
+        };
+
+        // Update crypto prices with realistic fluctuations
+        function updatePrices() {
+            Object.keys(cryptoPrices).forEach(crypto => {
+                const priceElements = document.querySelectorAll(`[data-crypto="${crypto}"]`);
+                const { base, variance } = cryptoPrices[crypto];
+                const change = (Math.random() - 0.5) * variance;
+                const newPrice = base + change;
+                
+                priceElements.forEach(el => {
+                    const formattedPrice = crypto === 'btc' 
+                        ? `$${newPrice.toFixed(0).toLocaleString()}`
+                        : crypto === 'eth'
+                        ? `$${newPrice.toFixed(0).toLocaleString()}`
+                        : `$${newPrice.toFixed(2)}`;
+                    
+                    // Animate price change
+                    el.style.transition = 'color 0.3s';
+                    el.style.color = change > 0 ? 'var(--neon-green)' : '#ff4757';
+                    el.textContent = formattedPrice;
+                    
+                    setTimeout(() => {
+                        el.style.color = 'var(--text)';
+                    }, 300);
+                });
+            });
+        }
+
+        // Update market cap and volume
+        function updateMarketStats() {
+            const marketCapEl = document.getElementById('marketCap');
+            const volumeEl = document.getElementById('volume24h');
+            
+            if (marketCapEl) {
+                const baseCap = 2.48;
+                const capChange = (Math.random() - 0.5) * 0.05;
+                marketCapEl.textContent = `$${(baseCap + capChange).toFixed(2)}T`;
+            }
+            
+            if (volumeEl) {
+                const baseVolume = 124.6;
+                const volChange = (Math.random() - 0.5) * 5;
+                volumeEl.textContent = `$${(baseVolume + volChange).toFixed(1)}B`;
+            }
+        }
+
+        // Update portfolio value
+        function updatePortfolio() {
+            const portfolioEl = document.getElementById('portfolioValue');
+            if (portfolioEl) {
+                const baseValue = 42.9;
+                const change = (Math.random() - 0.5) * 0.5;
+                portfolioEl.textContent = `$${(baseValue + change).toFixed(1)}k`;
+            }
+        }
+
+        // Chart tab switching
+        document.querySelectorAll('.chart-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Animate candlesticks
+                document.querySelectorAll('.candlestick').forEach((candle, index) => {
+                    setTimeout(() => {
+                        const body = candle.querySelector('.body');
+                        const randomHeight = Math.floor(Math.random() * 60 + 40);
+                        body.style.transition = 'height 0.3s';
+                        body.style.height = `${randomHeight}px`;
+                        
+                        // Randomly change color
+                        if (Math.random() > 0.5) {
+                            body.classList.remove('red');
+                            body.classList.add('green');
+                        } else {
+                            body.classList.remove('green');
+                            body.classList.add('red');
+                        }
+                    }, index * 50);
+                });
+            });
+        });
+
+        // Crypto card hover effects
+        document.querySelectorAll('.crypto-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.borderLeftWidth = '5px';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.borderLeftWidth = '3px';
+            });
+        });
+
+        // Initialize updates
+        updatePrices();
+        updateMarketStats();
+        updatePortfolio();
+
+        // Set intervals for live updates
+        setInterval(updatePrices, 3000); // Update prices every 3 seconds
+        setInterval(updateMarketStats, 5000); // Update market stats every 5 seconds
+        setInterval(updatePortfolio, 4000); // Update portfolio every 4 seconds
+
+        // Animate candlesticks periodically
+        setInterval(() => {
+            document.querySelectorAll('.candlestick').forEach(candle => {
+                const body = candle.querySelector('.body');
+                const currentHeight = parseInt(body.style.height);
+                const newHeight = currentHeight + (Math.random() - 0.5) * 20;
+                const clampedHeight = Math.max(40, Math.min(100, newHeight));
+                body.style.transition = 'height 0.5s ease';
+                body.style.height = `${clampedHeight}px`;
+            });
+        }, 2000);
+
+        // Scroll animations for cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '0';
+                        entry.target.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            entry.target.style.transition = 'all 0.5s ease-out';
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, 50);
+                    }, index * 100);
+                    cardObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.crypto-card, .alert-card').forEach(card => {
+            cardObserver.observe(card);
+        });
+
+        // Pause ticker scroll on hover
+        const tickerScroll = document.querySelector('.ticker-scroll');
+        if (tickerScroll) {
+            tickerScroll.addEventListener('mouseenter', () => {
+                tickerScroll.style.animationPlayState = 'paused';
+            });
+            
+            tickerScroll.addEventListener('mouseleave', () => {
+                tickerScroll.style.animationPlayState = 'running';
+            });
+        }
+    </script>
+</body>
+</html>

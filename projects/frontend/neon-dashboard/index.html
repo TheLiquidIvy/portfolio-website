@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Dashboard | Frontend Project</title>
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Neon Dashboard Specific Styles */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .widget {
+            background: rgba(10, 10, 15, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .widget::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .widget-title {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .widget-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--neon-green);
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* Stat Widget */
+        .widget-stat {
+            grid-column: span 3;
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 900;
+            font-family: 'Orbitron', monospace;
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary);
+            margin: 1rem 0;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 255, 65, 0.15);
+            border: 1px solid var(--neon-green);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--neon-green);
+        }
+
+        .stat-trend.down {
+            background: rgba(255, 71, 87, 0.15);
+            border-color: #ff4757;
+            color: #ff4757;
+        }
+
+        /* Gauge Widget */
+        .widget-gauge {
+            grid-column: span 4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gauge-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 1rem 0;
+        }
+
+        .gauge-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--primary) 0deg,
+                var(--secondary) 180deg,
+                rgba(255, 255, 255, 0.1) 180deg
+            );
+            position: relative;
+            animation: gaugeRotate 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes gaugeRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(5deg); }
+        }
+
+        .gauge-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 75%;
+            height: 75%;
+            background: rgba(10, 10, 15, 0.95);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gauge-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-family: 'Orbitron', monospace;
+            color: var(--secondary);
+            text-shadow: 0 0 15px var(--secondary);
+        }
+
+        .gauge-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            margin-top: 0.3rem;
+        }
+
+        /* Stream Widget */
+        .widget-stream {
+            grid-column: span 8;
+        }
+
+        .stream-graph {
+            height: 200px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .stream-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            padding: 1rem;
+        }
+
+        .stream-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--primary), transparent);
+            border-radius: 2px 2px 0 0;
+            animation: streamPulse 2s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .stream-bar:nth-child(odd) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes streamPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Activity Feed Widget */
+        .widget-activity {
+            grid-column: span 4;
+        }
+
+        .activity-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .activity-feed::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .activity-feed::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .activity-feed::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 0.8rem;
+            padding: 0.8rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 2px solid;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .activity-item:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: translateX(5px);
+        }
+
+        .activity-item.info { border-color: var(--primary); }
+        .activity-item.success { border-color: var(--neon-green); }
+        .activity-item.warning { border-color: #ffa502; }
+        .activity-item.error { border-color: #ff4757; }
+
+        .activity-icon {
+            font-size: 1.2rem;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-text {
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .activity-time {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        /* Heat Map Widget */
+        .widget-heatmap {
+            grid-column: span 6;
+        }
+
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .heatmap-cell {
+            aspect-ratio: 1;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .heatmap-cell:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .heatmap-cell.level-1 { background: rgba(0, 255, 255, 0.2); }
+        .heatmap-cell.level-2 { background: rgba(0, 255, 255, 0.4); }
+        .heatmap-cell.level-3 { background: rgba(0, 255, 255, 0.6); }
+        .heatmap-cell.level-4 { background: rgba(0, 255, 255, 0.8); box-shadow: 0 0 15px var(--primary); }
+
+        /* Progress Rings Widget */
+        .widget-progress {
+            grid-column: span 6;
+        }
+
+        .progress-rings {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1rem;
+        }
+
+        .progress-ring {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        .progress-ring-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid rgba(255, 255, 255, 0.1);
+            border-top: 8px solid var(--primary);
+            animation: spin 3s linear infinite;
+            position: relative;
+        }
+
+        .progress-ring:nth-child(2) .progress-ring-circle {
+            border-top-color: var(--secondary);
+            animation-duration: 2.5s;
+        }
+
+        .progress-ring:nth-child(3) .progress-ring-circle {
+            border-top-color: var(--neon-green);
+            animation-duration: 2s;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .progress-ring-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .progress-ring-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .progress-ring-text {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 1200px) {
+            .widget-stat,
+            .widget-gauge,
+            .widget-stream,
+            .widget-activity,
+            .widget-heatmap,
+            .widget-progress {
+                grid-column: span 12;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gauge-container {
+                width: 150px;
+                height: 150px;
+            }
+
+            .stat-value {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Project Outline Section */
+        .project-outline {
+            margin-top: 4rem;
+            padding-top: 4rem;
+            border-top: 2px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .project-outline .section-title {
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <canvas id="matrix-canvas"></canvas>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo glitch" data-text="<Maya Smith/>">
+                <span>&lt;Maya Smith/&gt;</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../../../index.html#home" class="nav-link">Home</a></li>
+                <li><a href="../../../index.html#about" class="nav-link">About</a></li>
+                <li><a href="../../../index.html#skills" class="nav-link">Skills</a></li>
+                <li><a href="../../../index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="../../../index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="details" class="project-detail active">
+        <div class="container">
+            <div class="project-detail-header">
+                <a href="../../neon-dashboard.html" class="btn btn-secondary back-btn">
+                    <span>cd ..</span>
+                    <div class="btn-glitch"></div>
+                </a>
+                <p class="project-kicker">Frontend Project</p>
+                <h1 class="glitch" data-text="Neon Dashboard">Neon Dashboard</h1>
+                <p class="project-summary">
+                    A futuristic analytics dashboard that surfaces real-time KPIs with modular widgets, neon accents, and high-density layouts.
+                </p>
+                <div class="project-meta">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">D3.js</span>
+                    <span class="tech-tag">SCSS</span>
+                    <span class="tech-tag">WebSockets</span>
+                </div>
+            </div>
+
+            <div class="project-detail-grid">
+                <div class="project-detail-card">
+                    <h3>Overview</h3>
+                    <ul>
+                        <li>Real-time KPI tiles with streaming data.</li>
+                        <li>Widget-based layout builder for teams.</li>
+                        <li>Dark-mode first typography and spacing.</li>
+                    </ul>
+                </div>
+                <div class="project-detail-card">
+                    <h3>Highlights</h3>
+                    <ul>
+                        <li>Custom D3 charts with smooth transitions.</li>
+                        <li>Theme presets with accessible contrast.</li>
+                        <li>Optimized rendering for large datasets.</li>
+                    </ul>
+                </div>
+                <div class="project-detail-card" id="source">
+                    <h3>Source</h3>
+                    <ul>
+                        <li>Component library and dashboard layouts.</li>
+                        <li>Mock data services and API adapters.</li>
+                        <li>Design tokens and motion guidelines.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="demo" class="project-demo">
+                <h2 class="section-title glitch" data-text="DASHBOARD PREVIEW">DASHBOARD PREVIEW</h2>
+                
+                <!-- Mission Control Header -->
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div style="display: inline-flex; align-items: center; gap: 1rem; padding: 1rem 2rem; background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 8px;">
+                        <div class="pulse-dot"></div>
+                        <span style="font-family: 'Orbitron', monospace; color: var(--primary); font-size: 1.2rem;">SYSTEM STATUS: ACTIVE</span>
+                        <span style="color: var(--text-dim); font-size: 0.9rem;" id="systemTime">Loading...</span>
+                    </div>
+                </div>
+
+                <!-- Dashboard Grid -->
+                <div class="dashboard-grid">
+                    <!-- Stat Widget 1 -->
+                    <div class="widget widget-stat">
+                        <div class="widget-header">
+                            <span class="widget-title">Revenue</span>
+                            <span class="widget-status">
+                                <div class="pulse-dot"></div>
+                                LIVE
+                            </span>
+                        </div>
+                        <div class="stat-label">Total Monthly</div>
+                        <div class="stat-value" id="revenueValue">$128k</div>
+                        <span class="stat-trend">
+                            ▲ +12.4%
+                        </span>
+                    </div>
+
+                    <!-- Stat Widget 2 -->
+                    <div class="widget widget-stat">
+                        <div class="widget-header">
+                            <span class="widget-title">Users</span>
+                            <span class="widget-status">
+                                <div class="pulse-dot"></div>
+                                LIVE
+                            </span>
+                        </div>
+                        <div class="stat-label">Active Now</div>
+                        <div class="stat-value" id="usersValue">24.6k</div>
+                        <span class="stat-trend">
+                            ▲ +7.2%
+                        </span>
+                    </div>
+
+                    <!-- Stat Widget 3 -->
+                    <div class="widget widget-stat">
+                        <div class="widget-header">
+                            <span class="widget-title">Latency</span>
+                            <span class="widget-status">
+                                <div class="pulse-dot"></div>
+                                LIVE
+                            </span>
+                        </div>
+                        <div class="stat-label">Average Response</div>
+                        <div class="stat-value" id="latencyValue">180ms</div>
+                        <span class="stat-trend">
+                            ▼ -12.1%
+                        </span>
+                    </div>
+
+                    <!-- Stat Widget 4 -->
+                    <div class="widget widget-stat">
+                        <div class="widget-header">
+                            <span class="widget-title">Uptime</span>
+                            <span class="widget-status">
+                                <div class="pulse-dot"></div>
+                                LIVE
+                            </span>
+                        </div>
+                        <div class="stat-label">Last 30 Days</div>
+                        <div class="stat-value" id="uptimeValue">99.8%</div>
+                        <span class="stat-trend down">
+                            ▼ -0.1%
+                        </span>
+                    </div>
+
+                    <!-- Gauge Widget -->
+                    <div class="widget widget-gauge">
+                        <div class="widget-header">
+                            <span class="widget-title">CPU Load</span>
+                            <span class="widget-status">
+                                <div class="pulse-dot"></div>
+                                MONITORING
+                            </span>
+                        </div>
+                        <div class="gauge-container">
+                            <div class="gauge-circle">
+                                <div class="gauge-inner">
+                                    <div class="gauge-value">68%</div>
+                                    <div class="gauge-label">Utilization</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stream Widget -->
+                    <div class="widget widget-stream">
+                        <div class="widget-header">
+                            <span class="widget-title">Real-Time Data Stream</span>
+                            <span class="widget-status">
+                                <div class="pulse-dot"></div>
+                                STREAMING
+                            </span>
+                        </div>
+                        <div class="stream-graph">
+                            <div class="stream-line">
+                                <div class="stream-bar" style="height: 45%;"></div>
+                                <div class="stream-bar" style="height: 62%;"></div>
+                                <div class="stream-bar" style="height: 38%;"></div>
+                                <div class="stream-bar" style="height: 75%;"></div>
+                                <div class="stream-bar" style="height: 55%;"></div>
+                                <div class="stream-bar" style="height: 88%;"></div>
+                                <div class="stream-bar" style="height: 42%;"></div>
+                                <div class="stream-bar" style="height: 68%;"></div>
+                                <div class="stream-bar" style="height: 52%;"></div>
+                                <div class="stream-bar" style="height: 78%;"></div>
+                                <div class="stream-bar" style="height: 35%;"></div>
+                                <div class="stream-bar" style="height: 92%;"></div>
+                                <div class="stream-bar" style="height: 48%;"></div>
+                                <div class="stream-bar" style="height: 65%;"></div>
+                                <div class="stream-bar" style="height: 58%;"></div>
+                                <div class="stream-bar" style="height: 82%;"></div>
+                                <div class="stream-bar" style="height: 44%;"></div>
+                                <div class="stream-bar" style="height: 71%;"></div>
+                                <div class="stream-bar" style="height: 39%;"></div>
+                                <div class="stream-bar" style="height: 85%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activity Feed Widget -->
+                    <div class="widget widget-activity">
+                        <div class="widget-header">
+                            <span class="widget-title">System Events</span>
+                            <span class="widget-status">
+                                <div class="pulse-dot"></div>
+                                ACTIVE
+                            </span>
+                        </div>
+                        <div class="activity-feed">
+                            <div class="activity-item error">
+                                <div class="activity-icon">⚠️</div>
+                                <div class="activity-content">
+                                    <div class="activity-text">Latency spike detected</div>
+                                    <div class="activity-time">2 min ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item success">
+                                <div class="activity-icon">✓</div>
+                                <div class="activity-content">
+                                    <div class="activity-text">Deployment successful</div>
+                                    <div class="activity-time">8 min ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item info">
+                                <div class="activity-icon">ℹ️</div>
+                                <div class="activity-content">
+                                    <div class="activity-text">Cache refresh initiated</div>
+                                    <div class="activity-time">15 min ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item warning">
+                                <div class="activity-icon">⚡</div>
+                                <div class="activity-content">
+                                    <div class="activity-text">High traffic detected</div>
+                                    <div class="activity-time">23 min ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item success">
+                                <div class="activity-icon">✓</div>
+                                <div class="activity-content">
+                                    <div class="activity-text">Backup completed</div>
+                                    <div class="activity-time">34 min ago</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Heat Map Widget -->
+                    <div class="widget widget-heatmap">
+                        <div class="widget-header">
+                            <span class="widget-title">Usage Heatmap</span>
+                            <span class="widget-status">
+                                <div class="pulse-dot"></div>
+                                TRACKING
+                            </span>
+                        </div>
+                        <div class="heatmap-grid">
+                            <div class="heatmap-cell level-2">M</div>
+                            <div class="heatmap-cell level-3">T</div>
+                            <div class="heatmap-cell level-1">W</div>
+                            <div class="heatmap-cell level-4">T</div>
+                            <div class="heatmap-cell level-2">F</div>
+                            <div class="heatmap-cell level-4">S</div>
+                            <div class="heatmap-cell level-3">S</div>
+                            <div class="heatmap-cell level-3">00</div>
+                            <div class="heatmap-cell level-1">04</div>
+                            <div class="heatmap-cell level-2">08</div>
+                            <div class="heatmap-cell level-4">12</div>
+                            <div class="heatmap-cell level-3">16</div>
+                            <div class="heatmap-cell level-4">20</div>
+                            <div class="heatmap-cell level-2">24</div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Rings Widget -->
+                    <div class="widget widget-progress">
+                        <div class="widget-header">
+                            <span class="widget-title">Service Health</span>
+                            <span class="widget-status">
+                                <div class="pulse-dot"></div>
+                                MONITORING
+                            </span>
+                        </div>
+                        <div class="progress-rings">
+                            <div class="progress-ring">
+                                <div class="progress-ring-circle"></div>
+                                <div class="progress-ring-label">
+                                    <div class="progress-ring-value">94%</div>
+                                    <div class="progress-ring-text">API</div>
+                                </div>
+                            </div>
+                            <div class="progress-ring">
+                                <div class="progress-ring-circle"></div>
+                                <div class="progress-ring-label">
+                                    <div class="progress-ring-value">88%</div>
+                                    <div class="progress-ring-text">DB</div>
+                                </div>
+                            </div>
+                            <div class="progress-ring">
+                                <div class="progress-ring-circle"></div>
+                                <div class="progress-ring-label">
+                                    <div class="progress-ring-value">97%</div>
+                                    <div class="progress-ring-text">CDN</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="outline" class="project-demo project-outline">
+                <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
+                <div class="project-detail-grid">
+                    <div class="project-detail-card">
+                        <h3>Goals</h3>
+                        <ul>
+                            <li>Describe the core problem you are solving.</li>
+                            <li>Define success metrics (latency, adoption, revenue).</li>
+                            <li>List the primary user personas.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Scope</h3>
+                        <ul>
+                            <li>Must-have MVP features.</li>
+                            <li>Nice-to-have enhancements.</li>
+                            <li>Out-of-scope items for later.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Architecture</h3>
+                        <ul>
+                            <li>Frontend stack and state management.</li>
+                            <li>Backend services and data storage.</li>
+                            <li>Integrations (payments, APIs, auth).</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Milestones</h3>
+                        <ul>
+                            <li>Discovery + wireframes.</li>
+                            <li>Build core workflows.</li>
+                            <li>Testing, QA, and launch.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Risks</h3>
+                        <ul>
+                            <li>Performance constraints.</li>
+                            <li>Third-party dependency limits.</li>
+                            <li>Security or compliance needs.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Next Steps</h3>
+                        <ul>
+                            <li>Define requirements and acceptance criteria.</li>
+                            <li>Capture analytics + logging events.</li>
+                            <li>Plan roadmap for v1.1.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../../../js/main.js"></script>
+    <script>
+        // Update system time display
+        function updateSystemTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            const dateString = now.toLocaleDateString('en-US', {
+                month: 'short',
+                day: '2-digit',
+                year: 'numeric'
+            });
+            const element = document.getElementById('systemTime');
+            if (element) {
+                element.textContent = `${dateString} ${timeString}`;
+            }
+        }
+
+        // Simulate live data updates
+        function simulateLiveData() {
+            // Revenue
+            const revenueEl = document.getElementById('revenueValue');
+            if (revenueEl) {
+                const baseRevenue = 128;
+                const variance = (Math.random() - 0.5) * 2;
+                revenueEl.textContent = `$${(baseRevenue + variance).toFixed(1)}k`;
+            }
+
+            // Users
+            const usersEl = document.getElementById('usersValue');
+            if (usersEl) {
+                const baseUsers = 24.6;
+                const variance = (Math.random() - 0.5) * 0.5;
+                usersEl.textContent = `${(baseUsers + variance).toFixed(1)}k`;
+            }
+
+            // Latency
+            const latencyEl = document.getElementById('latencyValue');
+            if (latencyEl) {
+                const baseLatency = 180;
+                const variance = Math.floor((Math.random() - 0.5) * 40);
+                latencyEl.textContent = `${baseLatency + variance}ms`;
+            }
+
+            // Uptime
+            const uptimeEl = document.getElementById('uptimeValue');
+            if (uptimeEl) {
+                const uptime = 99.8 + (Math.random() - 0.5) * 0.2;
+                uptimeEl.textContent = `${uptime.toFixed(1)}%`;
+            }
+        }
+
+        // Animate stream bars
+        function animateStreamBars() {
+            const bars = document.querySelectorAll('.stream-bar');
+            bars.forEach(bar => {
+                const randomHeight = Math.random() * 70 + 30;
+                bar.style.height = `${randomHeight}%`;
+            });
+        }
+
+        // Initialize
+        updateSystemTime();
+        setInterval(updateSystemTime, 1000);
+        
+        // Update data every 2 seconds
+        setInterval(simulateLiveData, 2000);
+        
+        // Animate stream bars every 1.5 seconds
+        setInterval(animateStreamBars, 1500);
+
+        // Add hover effects to widgets
+        document.querySelectorAll('.widget').forEach(widget => {
+            widget.addEventListener('mouseenter', function() {
+                this.style.borderColor = 'var(--primary)';
+                this.style.boxShadow = '0 8px 32px rgba(0, 255, 255, 0.3)';
+            });
+            
+            widget.addEventListener('mouseleave', function() {
+                this.style.borderColor = 'rgba(0, 255, 255, 0.3)';
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Animate heatmap cells on load
+        const heatmapCells = document.querySelectorAll('.heatmap-cell');
+        heatmapCells.forEach((cell, index) => {
+            setTimeout(() => {
+                cell.style.opacity = '0';
+                cell.style.transform = 'scale(0)';
+                setTimeout(() => {
+                    cell.style.transition = 'all 0.3s';
+                    cell.style.opacity = '1';
+                    cell.style.transform = 'scale(1)';
+                }, 50);
+            }, index * 50);
+        });
+
+        // Scroll animation for widgets
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const widgetObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(30px)';
+                    setTimeout(() => {
+                        entry.target.style.transition = 'all 0.6s ease-out';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100);
+                    widgetObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.widget').forEach(widget => {
+            widgetObserver.observe(widget);
+        });
+    </script>
+</body>
+</html>

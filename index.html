@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maya Smith | Cyberpunk Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="cyber-grid"></div>
+    <canvas id="matrix-canvas"></canvas>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo glitch" data-text="<Maya Smith/>">
+                <span>&lt;Maya Smith/&gt;</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="glitch" data-text="FULL STACK DEVELOPER">
+                    FULL STACK DEVELOPER
+                </h1>
+                <div class="typing-container">
+                    <span class="typing-text"></span>
+                    <span class="cursor">|</span>
+                </div>
+                <p class="hero-description">
+                    Crafting digital experiences with cutting-edge technology
+                </p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        <span>View Projects</span>
+                        <div class="btn-glitch"></div>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <span>Get In Touch</span>
+                        <div class="btn-glitch"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hologram">
+                    <div class="hologram-ring"></div>
+                    <div class="hologram-ring"></div>
+                    <div class="hologram-ring"></div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="ABOUT ME">ABOUT ME</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <span class="terminal-button red"></span>
+                            <span class="terminal-button yellow"></span>
+                            <span class="terminal-button green"></span>
+                            <span class="terminal-title">about.sh</span>
+                        </div>
+                        <div class="terminal-body">
+                            <p><span class="prompt">$</span> whoami</p>
+                            <p class="output">A passionate Full Stack Developer with expertise in building scalable web applications</p>
+                            <p><span class="prompt">$</span> cat experience.txt</p>
+                            <p class="output">5+ years of experience in modern web technologies</p>
+                            <p class="output">Specializing in React, Node.js, Python, and Cloud Architecture</p>
+                            <p><span class="prompt">$</span> ls strengths/</p>
+                            <p class="output">problem-solving  clean-code  team-collaboration  innovation</p>
+                            <p><span class="prompt">$</span> <span class="cursor-blink">_</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="50">0</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="100">0</div>
+                        <div class="stat-label">Happy Clients</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="5">0</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="1000">0</div>
+                        <div class="stat-label">Cups of Coffee</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="TECH STACK">TECH STACK</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Frontend</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">React</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Vue.js</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">TypeScript</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="88"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">CSS/SASS</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="92"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Backend</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Node.js</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="89"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Python</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="87"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">PostgreSQL</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="84"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">MongoDB</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="86"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>DevOps</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span class="skill-name">Docker</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">AWS</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="82"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">CI/CD</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="80"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Kubernetes</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="78"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="PROJECTS">PROJECTS</h2>
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="frontend">Frontend</button>
+                <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+            </div>
+            <div class="projects-grid">
+                <!-- Frontend Projects -->
+                <div class="project-card" data-category="frontend">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="projects/frontend/neon-dashboard/index.html#demo" class="project-link">
+                                    <span>Live Demo</span>
+                                </a>
+                                <a href="projects/frontend/neon-dashboard/index.html#details" class="project-link">
+                                    <span>Details</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <div class="code-symbol">&lt;/&gt;</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Neon Dashboard</h3>
+                        <p>A futuristic analytics dashboard with real-time data visualization and interactive charts.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">D3.js</span>
+                            <span class="tech-tag">SCSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="frontend">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="projects/frontend/crypto-tracker/index.html#demo" class="project-link">
+                                    <span>Live Demo</span>
+                                </a>
+                                <a href="projects/frontend/crypto-tracker/index.html#details" class="project-link">
+                                    <span>Details</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <div class="code-symbol">{ }</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Crypto Tracker</h3>
+                        <p>Real-time cryptocurrency price tracking app with portfolio management and market analytics.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Chart.js</span>
+                            <span class="tech-tag">API</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="frontend">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="projects/frontend/task-matrix/index.html#demo" class="project-link">
+                                    <span>Live Demo</span>
+                                </a>
+                                <a href="projects/frontend/task-matrix/index.html#details" class="project-link">
+                                    <span>Details</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <div class="code-symbol">[ ]</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Task Matrix</h3>
+                        <p>Advanced task management system with drag-and-drop, kanban boards, and team collaboration.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Redux</span>
+                            <span class="tech-tag">DnD Kit</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Full Stack Projects -->
+                <div class="project-card" data-category="fullstack">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="projects/fullstack/social-nexus/index.html#demo" class="project-link">
+                                    <span>Live Demo</span>
+                                </a>
+                                <a href="projects/fullstack/social-nexus/index.html#details" class="project-link">
+                                    <span>Details</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <div class="code-symbol">⚡</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Social Nexus</h3>
+                        <p>Full-featured social media platform with real-time messaging, posts, likes, and user authentication.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Socket.io</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="fullstack">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="projects/fullstack/ecommerce-engine/index.html#demo" class="project-link">
+                                    <span>Live Demo</span>
+                                </a>
+                                <a href="projects/fullstack/ecommerce-engine/index.html#details" class="project-link">
+                                    <span>Details</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <div class="code-symbol">🛒</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>E-Commerce Engine</h3>
+                        <p>Scalable e-commerce platform with payment processing, inventory management, and admin dashboard.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Next.js</span>
+                            <span class="tech-tag">Stripe</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">Redis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="fullstack">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="projects/fullstack/cloud-storage-pro/index.html#demo" class="project-link">
+                                    <span>Live Demo</span>
+                                </a>
+                                <a href="projects/fullstack/cloud-storage-pro/index.html#details" class="project-link">
+                                    <span>Details</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <div class="code-symbol">☁️</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Cloud Storage Pro</h3>
+                        <p>Secure cloud storage solution with file sharing, encryption, and multi-device sync capabilities.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">AWS S3</span>
+                            <span class="tech-tag">Docker</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="frontend">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="projects/frontend/neural-game-hub/index.html#demo" class="project-link">
+                                    <span>Live Demo</span>
+                                </a>
+                                <a href="projects/frontend/neural-game-hub/index.html#details" class="project-link">
+                                    <span>Details</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <div class="code-symbol">🎮</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Neural Game Hub</h3>
+                        <p>Interactive gaming platform with WebGL graphics, real-time multiplayer capabilities, and leaderboards.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Three.js</span>
+                            <span class="tech-tag">WebGL</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">WebSocket</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="fullstack">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="projects/fullstack/ai-content-generator/index.html#demo" class="project-link">
+                                    <span>Live Demo</span>
+                                </a>
+                                <a href="projects/fullstack/ai-content-generator/index.html#details" class="project-link">
+                                    <span>Details</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <div class="code-symbol">🤖</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>AI Content Generator</h3>
+                        <p>AI-powered content creation platform with natural language processing, image generation, and API integration.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Next.js</span>
+                            <span class="tech-tag">OpenAI</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">FastAPI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="frontend">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="projects/frontend/data-visualizer-pro/index.html#demo" class="project-link">
+                                    <span>Live Demo</span>
+                                </a>
+                                <a href="projects/frontend/data-visualizer-pro/index.html#details" class="project-link">
+                                    <span>Details</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <div class="code-symbol">📊</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Data Visualizer Pro</h3>
+                        <p>Advanced data visualization tool with interactive charts, real-time updates, and customizable dashboards.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">D3.js</span>
+                            <span class="tech-tag">Plotly</span>
+                            <span class="tech-tag">WebGL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="fullstack">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="projects/fullstack/streaming-platform/index.html#demo" class="project-link">
+                                    <span>Live Demo</span>
+                                </a>
+                                <a href="projects/fullstack/streaming-platform/index.html#details" class="project-link">
+                                    <span>Details</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <div class="code-symbol">🎵</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Streaming Platform</h3>
+                        <p>Full-featured music streaming service with playlists, recommendations, and social features for music lovers.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">GraphQL</span>
+                            <span class="tech-tag">Redis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="frontend">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="projects/frontend/portfolio-builder/index.html#demo" class="project-link">
+                                    <span>Live Demo</span>
+                                </a>
+                                <a href="projects/frontend/portfolio-builder/index.html#details" class="project-link">
+                                    <span>Details</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <div class="code-symbol">🌐</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Portfolio Builder</h3>
+                        <p>Drag-and-drop portfolio website builder with templates, animations, and one-click deployment.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">DnD Kit</span>
+                            <span class="tech-tag">Framer Motion</span>
+                            <span class="tech-tag">SCSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="fullstack">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="projects/fullstack/devops-dashboard/index.html#demo" class="project-link">
+                                    <span>Live Demo</span>
+                                </a>
+                                <a href="projects/fullstack/devops-dashboard/index.html#details" class="project-link">
+                                    <span>Details</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <div class="code-symbol">🔐</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>DevOps Dashboard</h3>
+                        <p>Comprehensive DevOps monitoring platform with CI/CD pipeline visualization, logs, and alerts.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Go</span>
+                            <span class="tech-tag">Prometheus</span>
+                            <span class="tech-tag">K8s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="fullstack">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="projects/fullstack/team-collaboration-hub/index.html#demo" class="project-link">
+                                    <span>Live Demo</span>
+                                </a>
+                                <a href="projects/fullstack/team-collaboration-hub/index.html#details" class="project-link">
+                                    <span>Details</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <div class="code-symbol">💬</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Team Collaboration Hub</h3>
+                        <p>Real-time team collaboration tool with video calls, screen sharing, whiteboard, and project management.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Next.js</span>
+                            <span class="tech-tag">WebRTC</span>
+                            <span class="tech-tag">Socket.io</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="frontend">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="projects/frontend/design-system-studio/index.html#demo" class="project-link">
+                                    <span>Live Demo</span>
+                                </a>
+                                <a href="projects/frontend/design-system-studio/index.html#details" class="project-link">
+                                    <span>Details</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <div class="code-symbol">🎨</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Design System Studio</h3>
+                        <p>Component library and design system builder with live preview, code generation, and theming.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Storybook</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">CSS-in-JS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="GET IN TOUCH">GET IN TOUCH</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <h3>Email</h3>
+                        <p>developer@cyberpunk.dev</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <h3>Phone</h3>
+                        <p>+27 652 460 760</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <h3>Location</h3>
+                        <p>Cape Town, WC </p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link">GitHub</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">Dev.to</a>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Name" required>
+                        <div class="input-border"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" required>
+                        <div class="input-border"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Subject" required>
+                        <div class="input-border"></div>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Message" rows="5" required></textarea>
+                        <div class="input-border"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span>Send Message</span>
+                        <div class="btn-glitch"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Maya Smith. All rights reserved.</p>
+            <p class="footer-tagline">Built with 💜 in the Cyberpunk Universe</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

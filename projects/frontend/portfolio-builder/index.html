@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Builder | Frontend Project</title>
+    <link rel="stylesheet" href="../../../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .builder-layout { display: grid; grid-template-columns: 250px 1fr 300px; gap: 1.5rem; margin: 2rem 0; min-height: 600px; }
+        .builder-sidebar { background: rgba(10, 10, 15, 0.8); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 12px; padding: 1.5rem; }
+        .sidebar-title { font-size: 1.1rem; color: var(--primary); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .block-list { display: flex; flex-direction: column; gap: 0.75rem; }
+        .block-item { padding: 0.75rem; background: rgba(0, 255, 255, 0.1); border: 1px solid rgba(0, 255, 255, 0.2); border-radius: 8px; cursor: grab; transition: all 0.2s; text-align: center; }
+        .block-item:hover { background: rgba(0, 255, 255, 0.2); border-color: var(--primary); transform: translateX(5px); }
+        .canvas-area { background: rgba(10, 10, 15, 0.5); border: 2px dashed rgba(0, 255, 255, 0.3); border-radius: 12px; padding: 2rem; display: flex; flex-direction: column; gap: 1rem; min-height: 500px; }
+        .canvas-block { background: rgba(0, 255, 255, 0.05); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 8px; padding: 1.5rem; position: relative; transition: all 0.3s; }
+        .canvas-block:hover { border-color: var(--primary); background: rgba(0, 255, 255, 0.1); }
+        .canvas-block::before { content: '⋮⋮'; position: absolute; top: 0.5rem; left: 50%; transform: translateX(-50%); color: rgba(0, 255, 255, 0.4); font-size: 1.2rem; }
+        .properties-panel { background: rgba(10, 10, 15, 0.8); border: 1px solid rgba(255, 0, 255, 0.3); border-radius: 12px; padding: 1.5rem; }
+        .property-group { margin-bottom: 1.5rem; }
+        .property-label { font-size: 0.9rem; color: var(--secondary); margin-bottom: 0.5rem; display: block; }
+        .property-input { width: 100%; padding: 0.5rem; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 0, 255, 0.3); border-radius: 6px; color: white; font-family: 'Rajdhani', sans-serif; }
+        .toolbar { background: rgba(0, 255, 255, 0.1); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+        .tool-btn { padding: 0.5rem 1rem; background: rgba(0, 255, 255, 0.1); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 6px; color: var(--primary); cursor: pointer; transition: all 0.2s; font-size: 0.9rem; }
+        .tool-btn:hover { background: rgba(0, 255, 255, 0.2); transform: translateY(-2px); }
+        @media (max-width: 1200px) { .builder-layout { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <canvas id="matrix-canvas"></canvas>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo glitch" data-text="<Maya Smith/>"><span>&lt;Maya Smith/&gt;</span></div>
+            <ul class="nav-menu">
+                <li><a href="../../../index.html#home" class="nav-link">Home</a></li>
+                <li><a href="../../../index.html#about" class="nav-link">About</a></li>
+                <li><a href="../../../index.html#skills" class="nav-link">Skills</a></li>
+                <li><a href="../../../index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="../../../index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+    <section id="details" class="project-detail active">
+        <div class="container">
+            <div class="project-detail-header">
+                <a href="../../portfolio-builder.html" class="btn btn-secondary back-btn"><span>cd ..</span><div class="btn-glitch"></div></a>
+                <p class="project-kicker">Frontend Project</p>
+                <h1 class="glitch" data-text="Portfolio Builder">Portfolio Builder</h1>
+                <p class="project-summary">A drag-and-drop page builder with real-time previews, theme customization, and export functionality for rapid portfolio creation.</p>
+                <div class="project-meta">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">DnD Kit</span>
+                    <span class="tech-tag">Framer Motion</span>
+                    <span class="tech-tag">SCSS</span>
+                </div>
+            </div>
+            <div class="project-detail-grid">
+                <div class="project-detail-card"><h3>Overview</h3><ul><li>Intuitive drag-and-drop interface.</li><li>Pre-built component library.</li><li>Theme editor with live preview.</li></ul></div>
+                <div class="project-detail-card"><h3>Highlights</h3><ul><li>Implemented smooth animations with Framer.</li><li>Reduced build time with component templates.</li><li>Responsive across all device sizes.</li></ul></div>
+                <div class="project-detail-card"><h3>Source</h3><ul><li>Builder canvas and property panels.</li><li>Component registry and theme system.</li><li>Export logic for HTML/CSS/JS.</li></ul></div>
+            </div>
+            <div id="demo" class="project-demo">
+                <h2 class="section-title glitch" data-text="VISUAL EDITOR">VISUAL EDITOR</h2>
+                <div class="toolbar">
+                    <button class="tool-btn">💾 Save</button>
+                    <button class="tool-btn">👁️ Preview</button>
+                    <button class="tool-btn">📤 Export</button>
+                    <button class="tool-btn">🎨 Themes</button>
+                    <button class="tool-btn">⚙️ Settings</button>
+                </div>
+                <div class="builder-layout">
+                    <div class="builder-sidebar">
+                        <div class="sidebar-title">Components</div>
+                        <div class="block-list">
+                            <div class="block-item">📄 Hero Section</div>
+                            <div class="block-item">💼 Project Grid</div>
+                            <div class="block-item">📝 Text Block</div>
+                            <div class="block-item">🖼️ Image Gallery</div>
+                            <div class="block-item">📊 Stats Counter</div>
+                            <div class="block-item">📮 Contact Form</div>
+                        </div>
+                    </div>
+                    <div class="canvas-area">
+                        <div class="canvas-block">
+                            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Hero Section</h3>
+                            <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Welcome to my portfolio. I'm a creative developer.</p>
+                        </div>
+                        <div class="canvas-block">
+                            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Project Grid</h3>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;">
+                                <div style="aspect-ratio: 1; background: rgba(0,255,255,0.1); border-radius: 6px;"></div>
+                                <div style="aspect-ratio: 1; background: rgba(255,0,255,0.1); border-radius: 6px;"></div>
+                                <div style="aspect-ratio: 1; background: rgba(0,255,65,0.1); border-radius: 6px;"></div>
+                            </div>
+                        </div>
+                        <div class="canvas-block">
+                            <h3 style="color: var(--primary); margin-bottom: 0.5rem;">Contact Form</h3>
+                            <p style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">Name, Email, Message fields</p>
+                        </div>
+                    </div>
+                    <div class="properties-panel">
+                        <div class="sidebar-title">Properties</div>
+                        <div class="property-group">
+                            <label class="property-label">Background</label>
+                            <input type="color" class="property-input" value="#0a0a0f">
+                        </div>
+                        <div class="property-group">
+                            <label class="property-label">Text Color</label>
+                            <input type="color" class="property-input" value="#00ffff">
+                        </div>
+                        <div class="property-group">
+                            <label class="property-label">Padding</label>
+                            <input type="number" class="property-input" value="24" placeholder="px">
+                        </div>
+                        <div class="property-group">
+                            <label class="property-label">Animation</label>
+                            <select class="property-input">
+                                <option>Fade In</option>
+                                <option>Slide Up</option>
+                                <option>Scale</option>
+                                <option>None</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="outline" class="project-demo project-outline">
+                <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
+                <div class="project-detail-grid">
+                    <div class="project-detail-card"><h3>Goals</h3><ul><li>Describe the core problem you are solving.</li><li>Define success metrics (latency, adoption, revenue).</li><li>List the primary user personas.</li></ul></div>
+                    <div class="project-detail-card"><h3>Scope</h3><ul><li>Must-have MVP features.</li><li>Nice-to-have enhancements.</li><li>Out-of-scope items for later.</li></ul></div>
+                    <div class="project-detail-card"><h3>Architecture</h3><ul><li>Frontend stack and state management.</li><li>Backend services and data storage.</li><li>Integrations (payments, APIs, auth).</li></ul></div>
+                    <div class="project-detail-card"><h3>Milestones</h3><ul><li>Discovery + wireframes.</li><li>Build core workflows.</li><li>Testing, QA, and launch.</li></ul></div>
+                    <div class="project-detail-card"><h3>Risks</h3><ul><li>Performance constraints.</li><li>Third-party dependency limits.</li><li>Security or compliance needs.</li></ul></div>
+                    <div class="project-detail-card"><h3>Next Steps</h3><ul><li>Define requirements and acceptance criteria.</li><li>Capture analytics + logging events.</li><li>Plan roadmap for v1.1.</li></ul></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../../../js/main.js"></script>
+</body>
+</html>
