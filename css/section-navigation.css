@@ -1,0 +1,338 @@
+/* ==================== SECTION NAVIGATION DOTS ==================== */
+
+.nav-dots {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    opacity: 0;
+    animation: fadeInDots 0.5s ease-out 1s forwards;
+}
+
+@keyframes fadeInDots {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+}
+
+.nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(0, 243, 255, 0.3);
+    border: 2px solid rgba(0, 243, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-dot::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    right: calc(100% + 15px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 243, 255, 0.95);
+    color: #0a0a0a;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.nav-dot::after {
+    content: '';
+    position: absolute;
+    right: calc(100% + 5px);
+    top: 50%;
+    transform: translateY(-50%);
+    border: 5px solid transparent;
+    border-left-color: rgba(0, 243, 255, 0.95);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.nav-dot:hover::before,
+.nav-dot:hover::after {
+    opacity: 1;
+}
+
+.nav-dot:hover::before {
+    transform: translateY(-50%) translateX(-5px);
+}
+
+.nav-dot.active {
+    width: 16px;
+    height: 16px;
+    background: #00f3ff;
+    box-shadow: 0 0 20px #00f3ff,
+                0 0 40px rgba(0, 243, 255, 0.5);
+    animation: pulse 2s infinite;
+    border-color: #00f3ff;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px #00f3ff,
+                    0 0 40px rgba(0, 243, 255, 0.5);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 30px #00f3ff,
+                    0 0 60px rgba(0, 243, 255, 0.7);
+    }
+}
+
+.nav-dot:hover:not(.active) {
+    transform: scale(1.3);
+    background: #ff00ff;
+    border-color: #ff00ff;
+    box-shadow: 0 0 15px #ff00ff;
+}
+
+.nav-dot:focus {
+    outline: 2px solid #00f3ff;
+    outline-offset: 4px;
+}
+
+/* ==================== SCROLL DOWN ARROW ==================== */
+
+.scroll-down-arrow {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeInArrow 0.5s ease-out 1.5s forwards;
+    transition: opacity 0.3s ease;
+}
+
+@keyframes fadeInArrow {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.scroll-down-arrow.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.arrow-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.arrow-icon {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #00f3ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: arrowPulse 2s ease-in-out infinite;
+    position: relative;
+    background: rgba(0, 243, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.arrow-icon::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 243, 255, 0.3) 0%, transparent 70%);
+    animation: arrowGlow 2s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes arrowPulse {
+    0%, 100% {
+        transform: translateY(0);
+        box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+    }
+    50% {
+        transform: translateY(10px);
+        box-shadow: 0 0 30px rgba(0, 243, 255, 0.8);
+    }
+}
+
+@keyframes arrowGlow {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+.arrow-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: #00f3ff;
+    transition: transform 0.3s ease;
+}
+
+.arrow-container:hover .arrow-icon {
+    border-color: #ff00ff;
+    background: rgba(255, 0, 255, 0.1);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.6);
+}
+
+.arrow-container:hover .arrow-icon svg {
+    fill: #ff00ff;
+    transform: scale(1.1);
+}
+
+.arrow-text {
+    font-size: 12px;
+    color: #00f3ff;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.arrow-container:hover .arrow-text {
+    opacity: 1;
+    color: #ff00ff;
+}
+
+/* Rotate arrow when at bottom */
+.scroll-down-arrow.at-bottom .arrow-icon svg {
+    transform: rotate(180deg);
+}
+
+.scroll-down-arrow.at-bottom .arrow-text::after {
+    content: ' Up';
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .nav-dots {
+        right: 15px;
+        gap: 12px;
+    }
+    
+    .nav-dot {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .nav-dot.active {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .nav-dot::before {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+    
+    .scroll-down-arrow {
+        bottom: 30px;
+    }
+    
+    .arrow-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .arrow-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .arrow-text {
+        font-size: 11px;
+    }
+}
+
+/* Hide on very small screens */
+@media (max-width: 480px) {
+    .arrow-text {
+        display: none;
+    }
+}
+
+/* Landscape mobile adjustments */
+@media (max-height: 500px) {
+    .nav-dots {
+        gap: 10px;
+        right: 15px;
+    }
+    
+    .nav-dot {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .nav-dot.active {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .scroll-down-arrow {
+        bottom: 20px;
+    }
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .nav-dots,
+    .scroll-down-arrow {
+        animation: none !important;
+        opacity: 1;
+    }
+    
+    .nav-dot.active,
+    .arrow-icon,
+    .arrow-icon::before {
+        animation: none !important;
+    }
+    
+    .arrow-container:hover .arrow-icon svg {
+        transform: none;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .nav-dots,
+    .scroll-down-arrow {
+        display: none;
+    }
+}

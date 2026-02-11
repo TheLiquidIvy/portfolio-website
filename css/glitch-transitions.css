@@ -1,0 +1,251 @@
+/* ==================== GLITCH SECTION TRANSITIONS ==================== */
+
+/* Phase 1: Glitch Out Effect - Current section glitches away */
+@keyframes rgbSplit {
+    0% { 
+        transform: translate(0, 0); 
+        filter: blur(0); 
+        opacity: 1;
+    }
+    33% { 
+        transform: translate(-5px, -10px); 
+        filter: blur(2px);
+        opacity: 0.9;
+    }
+    66% { 
+        transform: translate(5px, 5px); 
+        filter: blur(1px);
+        opacity: 0.7;
+    }
+    100% { 
+        transform: translate(0, -20px); 
+        opacity: 0.3;
+        filter: blur(0);
+    }
+}
+
+.glitch-out {
+    animation: rgbSplit 0.3s ease-out forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+.glitch-out::before,
+.glitch-out::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.glitch-out::before {
+    animation: glitchColorSplit1 0.3s ease-out;
+    mix-blend-mode: screen;
+}
+
+.glitch-out::after {
+    animation: glitchColorSplit2 0.3s ease-out;
+    mix-blend-mode: screen;
+}
+
+@keyframes glitchColorSplit1 {
+    0%, 100% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+    33% {
+        transform: translate(-5px, 0);
+        opacity: 0.8;
+        filter: hue-rotate(-30deg);
+    }
+    66% {
+        transform: translate(5px, 0);
+        opacity: 0.5;
+    }
+}
+
+@keyframes glitchColorSplit2 {
+    0%, 100% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+    33% {
+        transform: translate(5px, 0);
+        opacity: 0.8;
+        filter: hue-rotate(30deg);
+    }
+    66% {
+        transform: translate(-5px, 0);
+        opacity: 0.5;
+    }
+}
+
+/* Displacement Bars */
+.glitch-bar {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: rgba(0, 243, 255, 0.3);
+    pointer-events: none;
+    z-index: 2;
+    animation: displace 0.3s steps(3) forwards;
+    will-change: transform;
+}
+
+@keyframes displace {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    50% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Scan Lines */
+.scan-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        transparent 50%,
+        rgba(0, 243, 255, 0.1) 50%
+    );
+    background-size: 100% 4px;
+    animation: scanline 0.3s linear forwards;
+    pointer-events: none;
+    z-index: 3;
+    will-change: transform;
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+/* Phase 2: Glitch In Effect - New section materializes */
+@keyframes glitchIn {
+    0% { 
+        transform: translate(0, 30px);
+        opacity: 0;
+        filter: blur(5px);
+    }
+    30% {
+        transform: translate(-3px, 20px);
+        opacity: 0.3;
+        filter: blur(3px);
+    }
+    60% {
+        transform: translate(3px, 10px);
+        opacity: 0.6;
+        filter: blur(1px);
+    }
+    100% { 
+        transform: translate(0, 0);
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+.glitch-in {
+    animation: glitchIn 0.3s ease-out forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Static Noise Overlay */
+.static-noise {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.3"/></svg>');
+    animation: staticNoise 0.1s steps(5) forwards;
+    pointer-events: none;
+    z-index: 4;
+    opacity: 0;
+}
+
+@keyframes staticNoise {
+    0% {
+        opacity: 0.8;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(10px, 10px);
+    }
+}
+
+/* Neon Flash Effect */
+@keyframes neonFlash {
+    0%, 100% {
+        box-shadow: none;
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 243, 255, 0.5),
+                    inset 0 0 20px rgba(0, 243, 255, 0.2);
+    }
+}
+
+.neon-flash {
+    animation: neonFlash 0.3s ease-out;
+}
+
+/* Ensure smooth transitions */
+section {
+    will-change: transform, opacity;
+    transition: none;
+}
+
+section.glitch-transitioning {
+    pointer-events: none;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .glitch-out,
+    .glitch-in,
+    .glitch-bar,
+    .scan-lines,
+    .static-noise,
+    .neon-flash {
+        animation: none !important;
+    }
+    
+    section {
+        scroll-behavior: smooth;
+        will-change: auto;
+    }
+    
+    .glitch-out {
+        opacity: 0.3;
+    }
+    
+    .glitch-in {
+        opacity: 1;
+    }
+}

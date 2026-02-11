@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Building a Cyberpunk Portfolio | Maya Smith</title>
+    <title>Building a Cyberpunk Portfolio with HTML, CSS, and JavaScript | Maya Smith</title>
+    <meta name="description" content="Learn how to create a stunning cyberpunk-themed portfolio website with neon effects, glitch animations, and interactive elements using HTML, CSS, and JavaScript.">
+    <meta name="keywords" content="cyberpunk portfolio, HTML, CSS, JavaScript, web design, neon effects, glitch animation, tutorial">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/themes.css">
+    <link rel="stylesheet" href="css/blog-post.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -39,21 +42,27 @@
         .blog-hero {
             width: 100%;
             height: 300px;
-            background: linear-gradient(135deg, #00f3ff 0%, #7b00ff 100%);
+            background: linear-gradient(135deg, #00f3ff 0%, #ff00ff 50%, #ff1493 100%);
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 40px;
-            border: 2px solid var(--primary);
+            border: 2px solid #00f3ff;
+            position: relative;
+            overflow: hidden;
         }
 
         .blog-hero::before {
-            content: '</>';
+            content: '◉';
             font-size: 6rem;
-            font-family: 'Orbitron', sans-serif;
-            color: rgba(255, 255, 255, 0.4);
-            font-weight: bold;
+            opacity: 0.4;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.1); opacity: 0.6; }
         }
 
         .post-title {
@@ -82,9 +91,9 @@
             display: inline-block;
             padding: 8px 20px;
             background: rgba(0, 243, 255, 0.2);
-            border: 2px solid var(--primary);
+            border: 2px solid #00f3ff;
             border-radius: 25px;
-            color: var(--primary);
+            color: #00f3ff;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -140,6 +149,7 @@
             border-radius: 4px;
             color: var(--primary);
             font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
         }
 
         .blog-content pre {
@@ -156,6 +166,8 @@
             border: none;
             padding: 0;
             color: var(--neon-green);
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
         .blog-content blockquote {
@@ -166,11 +178,30 @@
             color: var(--text);
         }
 
+        .blog-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 40px 0 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--primary);
+        }
+
+        .tag {
+            padding: 6px 15px;
+            background: rgba(255, 0, 255, 0.1);
+            border: 1px solid var(--secondary);
+            border-radius: 20px;
+            color: var(--secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
         .social-share {
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin: 50px 0 30px;
+            margin: 30px 0;
             padding-top: 30px;
             border-top: 1px solid var(--primary);
         }
@@ -192,7 +223,39 @@
             box-shadow: 0 0 20px var(--primary);
         }
 
-        .comments-section {
+        .author-bio {
+            max-width: 800px;
+            margin: 40px auto 0;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            flex-shrink: 0;
+        }
+
+        .author-info h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .author-info p {
+            color: var(--text-dim);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .related-posts {
             max-width: 800px;
             margin: 40px auto 0;
             padding: 40px;
@@ -200,7 +263,44 @@
             backdrop-filter: blur(10px);
             border: 2px solid var(--primary);
             border-radius: 15px;
-            text-align: center;
+        }
+
+        .related-posts h3 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+
+        .related-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .related-item {
+            padding: 15px;
+            background: rgba(255, 0, 255, 0.1);
+            border: 1px solid var(--secondary);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .related-item:hover {
+            border-color: var(--primary);
+            background: rgba(0, 243, 255, 0.1);
+            transform: translateX(10px);
+        }
+
+        .related-item-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .related-item-meta {
+            color: var(--text-dim);
+            font-size: 0.85rem;
         }
 
         @media (max-width: 768px) {
@@ -224,8 +324,18 @@
                 padding: 30px 25px;
             }
 
-            .comments-section {
-                padding: 30px 20px;
+            .author-bio {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px;
+            }
+
+            .related-posts {
+                padding: 25px;
+            }
+
+            .post-meta {
+                gap: 15px;
             }
         }
     </style>
@@ -248,33 +358,328 @@
                 <div class="post-meta">
                     <span>📅 January 15, 2026</span>
                     <span>👤 Maya Smith</span>
-                    <span>⏱️ 8 min read</span>
+                    <span>⏱️ 12 min read</span>
                 </div>
                 
                 <span class="post-category">Web Development</span>
             </div>
 
             <article class="blog-content">
-                <p>Creating a portfolio website is an essential step for any developer, but why settle for a generic template when you can build something that truly stands out? In this post, I'll walk you through the process of creating an interactive cyberpunk-themed portfolio from scratch.</p>
+                <h2>Introduction: Why Cyberpunk?</h2>
+                <p>When I decided to rebuild my portfolio from scratch, I knew I wanted something that would make recruiters pause mid-scroll. Something that screamed "this person knows their craft" before they even read a single line of my resume. That's when I fell down the cyberpunk rabbit hole.</p>
 
-                <h2>The Vision</h2>
-                <p>I wanted to create something that combined my love for cyberpunk aesthetics with modern web development practices. The goal was to build a portfolio that not only showcases my work but also demonstrates my skills in creating immersive, interactive web experiences.</p>
+                <p>The cyberpunk aesthetic isn't just visually striking—it's a statement. It says you're not afraid to push boundaries, that you understand design principles beyond basic Bootstrap templates, and that you can create immersive digital experiences. My inspiration came from three iconic sources: the neon-drenched streets of <em>Blade Runner</em>, the digital rain and green terminals of <em>The Matrix</em>, and the stunning UI design of <em>Cyberpunk 2077</em>.</p>
 
-                <h2>Key Features</h2>
-                <ul>
-                    <li><strong>Glitch Effects:</strong> Creating authentic cyberpunk glitch animations using CSS</li>
-                    <li><strong>Interactive Terminal:</strong> A functional terminal interface for the about section</li>
-                    <li><strong>Neon Aesthetics:</strong> Glowing effects and neon color schemes</li>
-                    <li><strong>Smooth Animations:</strong> 60fps animations throughout the site</li>
-                    <li><strong>Responsive Design:</strong> Perfect experience on all devices</li>
-                </ul>
+                <p>The goals for this project were clear: create a portfolio that would stand out in a sea of minimalist white backgrounds, showcase my technical skills through the implementation itself, and express my personality through bold design choices. What started as a weekend project turned into a deep dive into advanced CSS techniques, JavaScript animations, and performance optimization.</p>
 
-                <h2>The Glitch Effect</h2>
-                <p>One of the signature elements of the cyberpunk aesthetic is the glitch effect. Here's how I implemented it using pure CSS:</p>
+                <p>In this comprehensive guide, I'll walk you through every step of building your own cyberpunk portfolio. Whether you're a beginner looking to level up your skills or an experienced developer seeking fresh inspiration, you'll find practical code examples, real-world advice, and techniques you can start using immediately. Let's jack in and get started.</p>
 
-                <pre><code>.glitch {
+                <h2>Planning & Design: The Foundation</h2>
+                <p>Before writing a single line of code, I spent hours researching and planning. Good design doesn't happen by accident—it requires intentional choices backed by solid reasoning. The cyberpunk aesthetic is defined by specific visual elements, and understanding these would be crucial to pulling off an authentic look.</p>
+
+                <h3>Selecting the Color Palette</h3>
+                <p>Color is everything in cyberpunk design. I settled on a triadic scheme built around three core colors: electric cyan (#00f3ff), hot magenta (#ff00ff), and deep purple (#9d00ff). These create that signature neon glow when used against a dark background. I also added accent colors: a bright green (#39ff14) for success states and critical information, and a deep navy (#0a0e27) for the background.</p>
+
+                <p>The key insight here is that cyberpunk isn't about using every bright color you can find—it's about creating contrast. Dark backgrounds make the neon colors pop. I used an 80-20 rule: 80% dark space, 20% glowing elements. This prevents the design from becoming overwhelming while maintaining that electric atmosphere.</p>
+
+                <h3>Typography Choices</h3>
+                <p>Fonts make or break the cyberpunk vibe. I went with Orbitron for headings—it's a geometric sans-serif that feels futuristic without being difficult to read. For body text, I chose Rajdhani, which is clean and legible while maintaining a technological feel. The contrast between the bold, angular headings and the smoother body text creates visual hierarchy.</p>
+
+                <p>A crucial mistake many make is using overly stylized fonts that sacrifice readability. Your portfolio needs to be read by actual humans (and recruiters), so legibility always comes first, aesthetic second.</p>
+
+                <h3>Wireframing the Layout</h3>
+                <p>I sketched out the basic structure on paper first: a fixed navigation bar with glitch effects, a hero section with animated text, project cards with hover effects, a skills section with progress bars, and a contact form with neon borders. The layout follows the classic F-pattern that eyes naturally follow when scanning web pages.</p>
+
+                <p>Each section would have its own entrance animation using the Intersection Observer API, creating a sense of progression as users scroll. The wireframe also helped me identify where I could add subtle interactive elements—like a particle cursor trail and animated grid background—without cluttering the design.</p>
+
+                <h2>HTML Structure: Building the Skeleton</h2>
+                <p>The foundation of any great website is semantic, accessible HTML. Even with all the flashy effects we're going to add, the underlying structure needs to be solid. This isn't just about best practices—it affects SEO, accessibility, and maintainability.</p>
+
+                <h3>Semantic HTML5 Elements</h3>
+                <p>I structured the portfolio using proper semantic elements: <code>&lt;header&gt;</code> for navigation, <code>&lt;main&gt;</code> for content, <code>&lt;section&gt;</code> for distinct areas, and <code>&lt;article&gt;</code> for project cards. Each section has a descriptive ID for anchor linking and includes appropriate ARIA labels where needed.</p>
+
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;meta name="description" content="Maya Smith - Full Stack Developer specializing in cyberpunk web experiences"&gt;
+    &lt;title&gt;Maya Smith | Cyberpunk Portfolio&lt;/title&gt;
+    &lt;link rel="stylesheet" href="css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="cyber-grid"&gt;&lt;/div&gt;
+    &lt;canvas id="matrix-canvas"&gt;&lt;/canvas&gt;
+    
+    &lt;header class="navbar"&gt;
+        &lt;nav&gt;
+            &lt;a href="#" class="logo glitch" data-text="MAYA.SMITH"&gt;MAYA.SMITH&lt;/a&gt;
+            &lt;ul class="nav-links"&gt;
+                &lt;li&gt;&lt;a href="#about"&gt;About&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#projects"&gt;Projects&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#skills"&gt;Skills&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#contact" class="cta-btn"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;section id="hero" class="hero"&gt;
+            &lt;h1 class="glitch" data-text="WELCOME TO THE GRID"&gt;WELCOME TO THE GRID&lt;/h1&gt;
+            &lt;p class="subtitle"&gt;Full Stack Developer | Cyberpunk Enthusiast&lt;/p&gt;
+            &lt;a href="#projects" class="neon-btn"&gt;View My Work&lt;/a&gt;
+        &lt;/section&gt;
+
+        &lt;section id="projects" class="projects"&gt;
+            &lt;h2&gt;Projects&lt;/h2&gt;
+            &lt;div class="project-grid"&gt;
+                &lt;article class="project-card"&gt;
+                    &lt;h3&gt;Project Title&lt;/h3&gt;
+                    &lt;p&gt;Project description&lt;/p&gt;
+                    &lt;a href="#" class="project-link"&gt;View Project&lt;/a&gt;
+                &lt;/article&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&copy; 2026 Maya Smith. All rights reserved.&lt;/p&gt;
+    &lt;/footer&gt;
+
+    &lt;script src="js/main.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                <h3>Accessibility Considerations</h3>
+                <p>Cyberpunk designs can be accessibility nightmares if you're not careful. I ensured all text met WCAG AA contrast ratios (at minimum 4.5:1 for body text), added <code>aria-label</code> attributes to icon-only buttons, and made sure the site was fully keyboard navigable. The glitch effects are purely decorative and don't interfere with screen readers.</p>
+
+                <p>I also included a <code>prefers-reduced-motion</code> media query to disable animations for users who have motion sensitivity. This is crucial—your cool effects shouldn't make people sick.</p>
+
+                <h2>CSS Styling: Bringing the Neon to Life</h2>
+                <p>This is where the magic happens. CSS is the paintbrush that transforms our semantic HTML skeleton into a glowing, pulsing cyberpunk masterpiece. The key is layering effects: base styles, color schemes, layout systems, and finally the special effects that make it pop.</p>
+
+                <h3>CSS Custom Properties for Theming</h3>
+                <p>I started by defining CSS variables for the entire color scheme, spacing system, and timing functions. This makes the code maintainable and allows for easy theme switching later. Here's the foundation:</p>
+
+                <pre><code>:root {
+    /* Colors */
+    --primary: #00f3ff;
+    --secondary: #ff00ff;
+    --accent: #9d00ff;
+    --neon-green: #39ff14;
+    --bg-dark: #0a0e27;
+    --bg-darker: #050810;
+    --text: #ffffff;
+    --text-dim: #b4b4b4;
+    
+    /* Spacing */
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 48px;
+    --spacing-xl: 96px;
+    
+    /* Timing */
+    --transition-fast: 0.2s;
+    --transition-normal: 0.3s;
+    --transition-slow: 0.5s;
+    
+    /* Effects */
+    --glow-primary: 0 0 20px var(--primary);
+    --glow-secondary: 0 0 20px var(--secondary);
+}
+
+body {
+    background: var(--bg-dark);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}</code></pre>
+
+                <h3>Glassmorphism Effects</h3>
+                <p>Glassmorphism—that frosted glass effect—pairs beautifully with cyberpunk design. It adds depth without cluttering the visual hierarchy. I used it for cards, navigation, and modals:</p>
+
+                <pre><code>.glass-card {
+    background: rgba(10, 14, 39, 0.7);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(0, 243, 255, 0.3);
+    border-radius: 15px;
+    padding: var(--spacing-md);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}</code></pre>
+
+                <h3>Neon Glow Techniques</h3>
+                <p>The signature cyberpunk glow effect requires layered box shadows. A single shadow looks flat, but multiple shadows at different blur radiuses create that authentic neon tube look:</p>
+
+                <pre><code>.neon-btn {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all var(--transition-normal) ease;
     position: relative;
-    animation: glitch-skew 1s infinite;
+    overflow: hidden;
+}
+
+.neon-btn:hover {
+    background: var(--primary);
+    color: var(--bg-dark);
+    box-shadow: 
+        0 0 10px var(--primary),
+        0 0 20px var(--primary),
+        0 0 40px var(--primary),
+        inset 0 0 20px rgba(0, 243, 255, 0.3);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.neon-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.neon-btn:hover::before {
+    left: 100%;
+}</code></pre>
+
+                <h3>Grid and Flexbox Layouts</h3>
+                <p>Modern CSS layout systems make responsive design straightforward. I used CSS Grid for the overall page structure and project galleries, and Flexbox for components like navigation and card interiors:</p>
+
+                <pre><code>.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(10, 14, 39, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--primary);
+}</code></pre>
+
+                <h2>JavaScript Interactivity: Making It Alive</h2>
+                <p>Static pages are boring. JavaScript breathes life into our cyberpunk world, adding smooth interactions, dynamic animations, and that sense of being in a living, breathing digital environment. The key is making everything feel responsive and fluid without sacrificing performance.</p>
+
+                <h3>Smooth Scrolling</h3>
+                <p>Modern browsers support smooth scrolling natively, but I enhanced it with custom easing for that cyberpunk feel. Here's a simple implementation that handles anchor links:</p>
+
+                <pre><code>// Smooth scroll for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});</code></pre>
+
+                <h3>Intersection Observer for Animations</h3>
+                <p>The Intersection Observer API is perfect for triggering animations when elements enter the viewport. It's performant and doesn't require scroll event listeners that fire constantly:</p>
+
+                <pre><code>// Animate elements on scroll
+const observerOptions = {
+    threshold: 0.2,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Observe all sections and cards
+document.querySelectorAll('section, .project-card, .skill-bar').forEach(el => {
+    observer.observe(el);
+});</code></pre>
+
+                <p>In the CSS, I defined the <code>animate-in</code> class to fade in and slide up elements. The combination of JavaScript for detection and CSS for animation keeps the code clean and maintainable.</p>
+
+                <h3>Event Handling and Delegation</h3>
+                <p>Instead of attaching event listeners to every button, I used event delegation to handle clicks on a parent element. This is more performant and handles dynamically added elements:</p>
+
+                <pre><code>// Event delegation for project cards
+document.querySelector('.project-grid').addEventListener('click', (e) => {
+    if (e.target.classList.contains('project-link')) {
+        e.preventDefault();
+        const projectId = e.target.dataset.project;
+        openProjectModal(projectId);
+    }
+});</code></pre>
+
+                <h3>LocalStorage for User Preferences</h3>
+                <p>I added a theme toggle that lets users switch between different neon color schemes. The preference is saved to localStorage so it persists across sessions:</p>
+
+                <pre><code>// Theme switcher with persistence
+const themeToggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+
+// Load saved theme or default
+const currentTheme = localStorage.getItem('theme') || 'cyan';
+setTheme(currentTheme);
+
+themeToggle.addEventListener('click', () => {
+    const newTheme = currentTheme === 'cyan' ? 'magenta' : 'cyan';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+});
+
+function setTheme(theme) {
+    if (theme === 'cyan') {
+        root.style.setProperty('--primary', '#00f3ff');
+        root.style.setProperty('--secondary', '#ff00ff');
+    } else {
+        root.style.setProperty('--primary', '#ff00ff');
+        root.style.setProperty('--secondary', '#00f3ff');
+    }
+    currentTheme = theme;
+}</code></pre>
+
+                <h2>Advanced Effects: The Wow Factor</h2>
+                <p>This is where we separate good portfolios from unforgettable ones. These advanced effects require more code and careful performance consideration, but they transform the experience from "nice website" to "I need to hire this person immediately."</p>
+
+                <h3>Glitch Text Effect Tutorial</h3>
+                <p>The glitch effect is iconic in cyberpunk design. Here's how to implement it using CSS animations and data attributes:</p>
+
+                <pre><code>/* CSS for glitch effect */
+.glitch {
+    position: relative;
+    color: var(--text);
 }
 
 .glitch::before,
@@ -283,111 +688,351 @@
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .glitch::before {
     left: 2px;
-    text-shadow: -2px 0 #ff00ff;
+    text-shadow: -2px 0 var(--primary);
     clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim 5s infinite;
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--secondary);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
 }
 
 @keyframes glitch-anim {
-    0%, 100% { clip: rect(42px, 9999px, 44px, 0); }
-    25% { clip: rect(12px, 9999px, 59px, 0); }
-    50% { clip: rect(82px, 9999px, 31px, 0); }
-    75% { clip: rect(25px, 9999px, 70px, 0); }
-}</code></pre>
-
-                <p>This creates a layered effect with color shifting and random clipping that mimics digital glitches.</p>
-
-                <h2>Interactive Terminal</h2>
-                <p>The terminal interface adds an interactive element to the about section. I used JavaScript to simulate typing effects and command execution:</p>
-
-                <pre><code>class Terminal {
-    constructor() {
-        this.commands = {
-            'help': 'Available commands: help, about, skills, projects',
-            'about': 'Full Stack Developer with 5+ years experience',
-            'skills': 'React, Node.js, Python, AWS, Docker...'
-        };
-    }
-
-    execute(command) {
-        return this.commands[command] || 'Command not found';
-    }
-}</code></pre>
-
-                <h2>Color Scheme and Theming</h2>
-                <p>The cyberpunk aesthetic relies heavily on neon colors against dark backgrounds. I used CSS custom properties to make theming flexible:</p>
-
-                <pre><code>:root {
-    --primary: #00f3ff;
-    --secondary: #ff00ff;
-    --accent: #7b00ff;
-    --bg-dark: #0a0a0a;
-    --text: #ffffff;
-}</code></pre>
-
-                <blockquote>
-                    "The key to a great cyberpunk design is contrast - bright neon colors that pop against deep, dark backgrounds."
-                </blockquote>
-
-                <h2>Performance Considerations</h2>
-                <p>With all these animations and effects, performance was a key concern. Here are some optimizations I implemented:</p>
-                <ul>
-                    <li>Using CSS transforms instead of position changes for animations</li>
-                    <li>Implementing will-change property for smooth animations</li>
-                    <li>Lazy loading images and content below the fold</li>
-                    <li>Minimizing DOM manipulation in JavaScript</li>
-                    <li>Using requestAnimationFrame for custom animations</li>
-                </ul>
-
-                <h2>Responsive Design</h2>
-                <p>Making the portfolio responsive was crucial. I used a mobile-first approach with CSS Grid and Flexbox:</p>
-
-                <pre><code>.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    0% { clip: rect(31px, 9999px, 94px, 0); }
+    10% { clip: rect(84px, 9999px, 14px, 0); }
+    20% { clip: rect(52px, 9999px, 68px, 0); }
+    30% { clip: rect(18px, 9999px, 42px, 0); }
+    40% { clip: rect(95px, 9999px, 33px, 0); }
+    50% { clip: rect(67px, 9999px, 88px, 0); }
+    60% { clip: rect(23px, 9999px, 71px, 0); }
+    70% { clip: rect(44px, 9999px, 19px, 0); }
+    80% { clip: rect(89px, 9999px, 56px, 0); }
+    90% { clip: rect(12px, 9999px, 77px, 0); }
+    100% { clip: rect(61px, 9999px, 38px, 0); }
 }
 
-@media (max-width: 768px) {
-    .project-grid {
-        grid-template-columns: 1fr;
-    }
+@keyframes glitch-anim2 {
+    0% { clip: rect(65px, 9999px, 23px, 0); }
+    10% { clip: rect(12px, 9999px, 89px, 0); }
+    20% { clip: rect(77px, 9999px, 45px, 0); }
+    30% { clip: rect(34px, 9999px, 91px, 0); }
+    40% { clip: rect(58px, 9999px, 16px, 0); }
+    50% { clip: rect(82px, 9999px, 51px, 0); }
+    60% { clip: rect(29px, 9999px, 73px, 0); }
+    70% { clip: rect(94px, 9999px, 37px, 0); }
+    80% { clip: rect(41px, 9999px, 69px, 0); }
+    90% { clip: rect(86px, 9999px, 22px, 0); }
+    100% { clip: rect(53px, 9999px, 8px, 0); }
 }</code></pre>
 
-                <h2>Lessons Learned</h2>
-                <p>Building this portfolio taught me several valuable lessons:</p>
-                <ol>
-                    <li><strong>Balance is key:</strong> Too many effects can be overwhelming</li>
-                    <li><strong>Performance matters:</strong> Beautiful designs must also be fast</li>
-                    <li><strong>Accessibility first:</strong> Ensure the site works for everyone</li>
-                    <li><strong>Test everywhere:</strong> What works in Chrome might not work in Safari</li>
-                </ol>
+                <p>The effect works by creating two pseudo-elements that are slightly offset and clipped at random positions, creating that characteristic RGB split and jitter.</p>
 
-                <h2>Conclusion</h2>
-                <p>Creating a cyberpunk-themed portfolio was an exciting challenge that pushed my skills in CSS animations, JavaScript interactivity, and responsive design. The result is a unique, memorable website that showcases both my projects and my technical abilities.</p>
+                <h3>Matrix Rain Background</h3>
+                <p>The falling characters effect from The Matrix is a must-have. I implemented it using Canvas for optimal performance:</p>
 
-                <p>If you're building your own portfolio, don't be afraid to experiment with bold design choices. Your portfolio is a reflection of your creativity and skills - make it count!</p>
+                <pre><code>// Matrix rain effect
+const canvas = document.getElementById('matrix-canvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const characters = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ01';
+const fontSize = 16;
+const columns = canvas.width / fontSize;
+
+const drops = [];
+for (let i = 0; i < columns; i++) {
+    drops[i] = Math.random() * -100;
+}
+
+function drawMatrix() {
+    ctx.fillStyle = 'rgba(10, 14, 39, 0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.fillStyle = '#0f0';
+    ctx.font = fontSize + 'px monospace';
+    
+    for (let i = 0; i < drops.length; i++) {
+        const text = characters.charAt(Math.floor(Math.random() * characters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+        drops[i]++;
+    }
+}
+
+setInterval(drawMatrix, 35);
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});</code></pre>
+
+                <h3>Particle Cursor Trail</h3>
+                <p>A particle trail following the cursor adds interactivity and visual interest. This effect uses requestAnimationFrame for smooth 60fps animation:</p>
+
+                <pre><code>// Particle cursor trail
+class Particle {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 3 - 1.5;
+        this.speedY = Math.random() * 3 - 1.5;
+        this.life = 100;
+    }
+    
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.life -= 2;
+        if (this.size > 0.2) this.size -= 0.05;
+    }
+    
+    draw(ctx) {
+        ctx.fillStyle = `rgba(0, 243, 255, ${this.life / 100})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+const particles = [];
+let mouseX = 0;
+let mouseY = 0;
+
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    for (let i = 0; i < 3; i++) {
+        particles.push(new Particle(mouseX, mouseY));
+    }
+});
+
+function animateParticles() {
+    const particleCanvas = document.getElementById('particle-canvas');
+    const ctx = particleCanvas.getContext('2d');
+    
+    ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+    
+    for (let i = particles.length - 1; i >= 0; i--) {
+        particles[i].update();
+        particles[i].draw(ctx);
+        
+        if (particles[i].life <= 0) {
+            particles.splice(i, 1);
+        }
+    }
+    
+    requestAnimationFrame(animateParticles);
+}
+
+animateParticles();</code></pre>
+
+                <h3>Loading Screen Animation</h3>
+                <p>A cyberpunk loading screen sets the tone immediately. I created one with animated text and a progress bar:</p>
+
+                <pre><code>// Loading screen
+const loadingScreen = document.createElement('div');
+loadingScreen.className = 'loading-screen';
+loadingScreen.innerHTML = `
+    &lt;div class="loading-content"&gt;
+        &lt;h2 class="glitch" data-text="INITIALIZING..."&gt;INITIALIZING...&lt;/h2&gt;
+        &lt;div class="loading-bar"&gt;
+            &lt;div class="loading-progress"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p class="loading-text"&gt;LOADING ASSETS...&lt;/p&gt;
+    &lt;/div&gt;
+`;
+document.body.appendChild(loadingScreen);
+
+let progress = 0;
+const loadingProgress = document.querySelector('.loading-progress');
+const loadingText = document.querySelector('.loading-text');
+
+const messages = [
+    'LOADING ASSETS...',
+    'CONNECTING TO MAINFRAME...',
+    'BYPASSING SECURITY...',
+    'ACCESS GRANTED'
+];
+
+const loadingInterval = setInterval(() => {
+    progress += Math.random() * 10;
+    if (progress > 100) progress = 100;
+    
+    loadingProgress.style.width = progress + '%';
+    loadingText.textContent = messages[Math.floor(progress / 25)] || messages[3];
+    
+    if (progress >= 100) {
+        clearInterval(loadingInterval);
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => loadingScreen.remove(), 500);
+        }, 500);
+    }
+}, 100);</code></pre>
+
+                <h2>Performance Optimization: Keeping It Fast</h2>
+                <p>All these effects look amazing, but they're worthless if the site loads slowly or feels janky. Performance optimization isn't optional—it's essential. Here's how I kept the cyberpunk portfolio running smoothly even with all the visual effects.</p>
+
+                <h3>Lazy Loading Images</h3>
+                <p>Project screenshots and images can be large. I used native lazy loading for images below the fold:</p>
+
+                <pre><code>&lt;img src="project-thumbnail.jpg" 
+     alt="Project screenshot" 
+     loading="lazy"
+     decoding="async"&gt;</code></pre>
+
+                <p>For older browsers, I implemented a simple JavaScript fallback using IntersectionObserver to load images only when they're about to enter the viewport.</p>
+
+                <h3>Debouncing Events</h3>
+                <p>Resize and scroll events fire rapidly. Debouncing ensures functions only run after the user has finished their action:</p>
+
+                <pre><code>function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Use debounce for resize handler
+window.addEventListener('resize', debounce(() => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    recalculateLayout();
+}, 250));</code></pre>
+
+                <h3>CSS Animations vs JavaScript</h3>
+                <p>CSS animations run on the compositor thread and are much more performant than JavaScript animations. I used CSS for simple animations (fades, slides, rotations) and only used JavaScript for complex interactive effects that required dynamic calculations.</p>
+
+                <blockquote>
+                    <p>"The best performance optimization is often not doing the work at all. Use CSS animations for everything you can, and JavaScript only when necessary."</p>
+                </blockquote>
+
+                <h3>RequestAnimationFrame Usage</h3>
+                <p>For JavaScript animations, always use requestAnimationFrame instead of setInterval. It syncs with the browser's repaint cycle and pauses when the tab isn't visible:</p>
+
+                <pre><code>// Good: Using requestAnimationFrame
+function animate() {
+    updateParticles();
+    renderFrame();
+    requestAnimationFrame(animate);
+}
+animate();
+
+// Bad: Using setInterval
+setInterval(() => {
+    updateParticles();
+    renderFrame();
+}, 16); // Don't do this!</code></pre>
+
+                <h2>Deployment: Launching Your Creation</h2>
+                <p>Building an amazing portfolio means nothing if it's sitting on your local machine. Deployment should be straightforward, free, and support custom domains. Here's how I deployed mine using GitHub Pages.</p>
+
+                <h3>GitHub Pages Setup</h3>
+                <p>GitHub Pages is perfect for static portfolios—it's free, fast, and integrates seamlessly with your development workflow. After pushing your code to GitHub, enable Pages in the repository settings and select your main branch. Your site will be live at <code>yourusername.github.io</code> within minutes.</p>
+
+                <pre><code># Initialize git repository
+git init
+git add .
+git commit -m "Initial commit: Cyberpunk portfolio"
+
+# Create GitHub repository and push
+git remote add origin https://github.com/yourusername/portfolio.git
+git branch -M main
+git push -u origin main</code></pre>
+
+                <h3>Custom Domain Configuration</h3>
+                <p>I purchased a custom domain and configured it by adding a CNAME file to my repository root and updating my DNS settings with my domain registrar. The CNAME file contains just your domain name, and you'll add a CNAME record pointing to <code>yourusername.github.io</code>.</p>
+
+                <h3>SEO Optimization</h3>
+                <p>Don't forget the meta tags! I added Open Graph tags for social media sharing, a proper sitemap, and schema.org markup for better search engine understanding:</p>
+
+                <pre><code>&lt;meta property="og:title" content="Maya Smith | Full Stack Developer"&gt;
+&lt;meta property="og:description" content="Cyberpunk-themed portfolio showcasing web development projects"&gt;
+&lt;meta property="og:image" content="https://yourdomain.com/preview.jpg"&gt;
+&lt;meta property="og:type" content="website"&gt;</code></pre>
+
+                <h3>Analytics Integration</h3>
+                <p>I added Google Analytics to track visitors and understand which projects get the most attention. This data is invaluable for iterating on your portfolio and knowing what resonates with potential employers.</p>
+
+                <h2>Conclusion: Your Turn to Build</h2>
+                <p>Building a cyberpunk portfolio taught me more than just how to create cool effects—it showed me that your portfolio itself is a project worth showcasing. The design choices, technical implementations, and attention to detail demonstrate your skills better than any resume bullet point ever could.</p>
+
+                <p>The key takeaways? Start with solid fundamentals (semantic HTML, maintainable CSS), layer on effects gradually, and never sacrifice usability for aesthetics. Test on real devices, optimize for performance, and remember that accessibility matters. Your portfolio should be impressive to look at but also functional and professional.</p>
+
+                <p>Now it's your turn. Take these techniques, make them your own, and build something that represents who you are as a developer. The cyberpunk aesthetic isn't for everyone—maybe your style is brutalist minimalism, or retro 8-bit, or organic nature themes. Whatever you choose, commit to it fully and execute it well.</p>
+
+                <p>The code examples in this guide are starting points, not finished products. Experiment, break things, and learn from the process. That's how you grow as a developer. And when you finish? Share it with the world. Post it on Twitter, Reddit, and dev communities. You never know who might see it and reach out with your dream job opportunity.</p>
+
+                <blockquote>
+                    <p>"The future is already here—it's just not evenly distributed. Make your portfolio a glimpse of that future."</p>
+                </blockquote>
+
+                <div class="blog-tags">
+                    <span class="tag">#HTML</span>
+                    <span class="tag">#CSS</span>
+                    <span class="tag">#JavaScript</span>
+                    <span class="tag">#Design</span>
+                    <span class="tag">#Portfolio</span>
+                    <span class="tag">#Tutorial</span>
+                </div>
 
                 <div class="social-share">
-                    <span style="color: var(--text);">Share this post:</span>
-                    <a href="#" class="share-btn">Twitter</a>
-                    <a href="#" class="share-btn">LinkedIn</a>
-                    <a href="#" class="share-btn">Facebook</a>
+                    <a href="https://twitter.com/intent/tweet?text=Building%20a%20Cyberpunk%20Portfolio&url=" class="share-btn">Share on Twitter</a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=" class="share-btn">Share on LinkedIn</a>
+                    <a href="https://dev.to/new?prefill=Building%20a%20Cyberpunk%20Portfolio" class="share-btn">Share on DEV</a>
                 </div>
             </article>
 
-            <div class="comments-section">
-                <h3 style="color: var(--primary); margin-bottom: 15px;">Comments</h3>
-                <p style="color: var(--text-dim);">Comments section coming soon! For now, feel free to reach out via the contact form.</p>
+            <div class="author-bio">
+                <img src="https://via.placeholder.com/100" alt="Maya Smith" class="author-avatar">
+                <div class="author-info">
+                    <h3>About Maya Smith</h3>
+                    <p>Full-stack developer with a passion for creating immersive digital experiences. When I'm not coding, you'll find me exploring cyberpunk aesthetics, contributing to open source, or playing retro video games. Currently building the future, one neon-lit website at a time.</p>
+                </div>
+            </div>
+
+            <div class="related-posts">
+                <h3>Related Posts</h3>
+                <div class="related-list">
+                    <a href="css-animation-tips.html" class="related-item">
+                        <div class="related-item-title">CSS Animation Performance Tips</div>
+                        <div class="related-item-meta">Web Development • 8 min read</div>
+                    </a>
+                    <a href="websockets-guide.html" class="related-item">
+                        <div class="related-item-title">Real-Time Features with WebSockets</div>
+                        <div class="related-item-meta">Backend • 10 min read</div>
+                    </a>
+                    <a href="jamstack-architecture.html" class="related-item">
+                        <div class="related-item-title">JAMstack Architecture Guide</div>
+                        <div class="related-item-meta">Architecture • 15 min read</div>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <script src="../js/theme-switcher.js"></script>
     <script src="../js/main.js"></script>
+    <script src="js/blog-post.js"></script>
 </body>
 </html>
