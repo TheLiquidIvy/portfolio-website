@@ -82,16 +82,16 @@ ${this.getASCIILogo()}
         
         bootSteps.forEach((step, index) => {
             setTimeout(() => {
-                if (step.status === 'loading' && currentLineElement) {
-                    // Update existing line with loading status
-                    const statusSpan = currentLineElement.querySelector('.boot-status');
-                    statusSpan.textContent = '[...]';
-                    statusSpan.className = 'boot-status loading';
-                } else if (step.status === 'ok' && currentLineElement) {
+                // Skip if loading screen has been removed
+                if (!document.getElementById('loading-screen')) return;
+
+                if (step.status === 'ok' && currentLineElement) {
                     // Update existing line with OK status
                     const statusSpan = currentLineElement.querySelector('.boot-status');
-                    statusSpan.textContent = '[OK]';
-                    statusSpan.className = 'boot-status ok';
+                    if (statusSpan) {
+                        statusSpan.textContent = '[OK]';
+                        statusSpan.className = 'boot-status ok';
+                    }
                 } else {
                     // Create new line
                     const line = document.createElement('div');
@@ -104,7 +104,9 @@ ${this.getASCIILogo()}
                         line.textContent = step.text;
                     }
                     
-                    bootSequence.appendChild(line);
+                    if (bootSequence) {
+                        bootSequence.appendChild(line);
+                    }
                     currentLineElement = line;
                 }
                 
@@ -117,8 +119,10 @@ ${this.getASCIILogo()}
         // Show welcome message and complete
         setTimeout(() => {
             const welcomeEl = document.getElementById('loading-welcome');
-            welcomeEl.textContent = 'System ready. Welcome.';
-            welcomeEl.style.opacity = '1';
+            if (welcomeEl) {
+                welcomeEl.textContent = 'System ready. Welcome.';
+                welcomeEl.style.opacity = '1';
+            }
             
             // Ensure minimum display time
             const elapsed = Date.now() - this.startTime;

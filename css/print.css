@@ -370,7 +370,7 @@
     /* Add contact info to every page */
     @page {
         @top-right {
-            content: "Maya Smith | developer@cyberpunk.dev";
+            content: "Maya Smith | TheLiquidIvy@gmail.com";
             font-size: 9pt;
         }
         
@@ -382,7 +382,7 @@
     
     /* Resume-style header on first page */
     .hero::before {
-        content: "MAYA SMITH\A Full Stack Developer\A developer@cyberpunk.dev | +27 652 460 760 | Cape Town, WC";
+        content: "MAYA SMITH\A Full Stack Developer\A TheLiquidIvy@gmail.com | +27 652 460 760 | Cape Town, WC";
         white-space: pre;
         display: block;
         text-align: center;
