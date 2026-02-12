@@ -797,8 +797,13 @@ section.active {
 }
 
 .project-links {
+    position: absolute;
+    bottom: 35%;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     gap: 1rem;
+    z-index: 6;
 }
 
 .project-link {
