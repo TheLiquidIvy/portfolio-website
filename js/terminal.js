@@ -383,7 +383,7 @@ DEVOPS:
             'contact.txt': `
 CONTACT INFORMATION:
 
-Email: maya.smith@example.com
+Email: TheLiquidIvy@gmail.com
 Phone: +1 (555) 123-4567
 LinkedIn: linkedin.com/in/mayasmith
 GitHub: github.com/mayasmith

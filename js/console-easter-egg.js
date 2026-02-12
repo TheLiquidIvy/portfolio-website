@@ -90,7 +90,7 @@
     
     console.log(
         '%c' +
-        '📧 Email: developer@cyberpunk.dev\n' +
+        '📧 Email: TheLiquidIvy@gmail.com\n' +
         '💼 LinkedIn: linkedin.com/in/mayasmith\n' +
         '🐙 GitHub: github.com/TheLiquidIvy\n' +
         '🐦 Twitter: twitter.com/mayasmith',
@@ -176,7 +176,7 @@
                 'color: #ff00ff; font-size: 14px; font-weight: bold;'
             );
             console.log(
-                '%c📧 Email: developer@cyberpunk.dev\n' +
+                '%c📧 Email: TheLiquidIvy@gmail.com\n' +
                 '📱 Phone: +27 652 460 760\n' +
                 '📍 Location: Cape Town, WC',
                 'color: #00f3ff; font-size: 12px; line-height: 1.8;'

@@ -6,7 +6,7 @@ class ResumeDownload {
         this.resumeData = {
             name: 'Maya Smith',
             title: 'Full Stack Developer',
-            email: 'maya.smith@email.com',
+            email: 'TheLiquidIvy@gmail.com',
             phone: '+27 123 456 789',
             location: 'Cape Town, South Africa',
             github: 'github.com/TheLiquidIvy',

@@ -268,41 +268,20 @@ class ContactFormHandler {
     }
 
     async submitToService(data) {
-        // Simulate API call
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                // 90% success rate for demo
-                if (Math.random() > 0.1) {
-                    resolve({ success: true });
-                } else {
-                    reject(new Error('Network error. Please try again.'));
-                }
-            }, 2000);
-        });
-
-        // For production with Formspree:
-        /*
-        const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        const response = await fetch('https://formsubmit.co/ajax/TheLiquidIvy@gmail.com', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify(data)
         });
 
         if (!response.ok) {
-            throw new Error('Failed to send message');
+            throw new Error('Failed to send message. Please try again.');
         }
 
         return await response.json();
-        */
-
-        // For production with EmailJS:
-        /*
-        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', data)
-            .then(response => resolve(response))
-            .catch(error => reject(error));
-        */
     }
 
     setLoadingState(loading) {

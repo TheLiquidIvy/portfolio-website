@@ -114,7 +114,7 @@
             It looks like you've lost your internet connection. 
             Don't worry, some content may still be available from your cache.
         </p>
-        <a href="/" class="btn" onclick="location.reload(); return false;">Try Again</a>
+        <a href="." class="btn" onclick="location.reload(); return false;">Try Again</a>
         
         <div class="offline-tips">
             <h3>While You're Offline:</h3>
@@ -131,13 +131,13 @@
         // Periodically check if we're back online
         setInterval(() => {
             if (navigator.onLine) {
-                window.location.href = '/';
+                window.location.href = '.';
             }
         }, 5000);
 
         // Immediate check when online event fires
         window.addEventListener('online', () => {
-            window.location.href = '/';
+            window.location.href = '.';
         });
     </script>
 </body>

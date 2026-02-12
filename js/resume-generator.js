@@ -5,7 +5,7 @@ class ResumeGenerator {
         this.portfolioData = {
             name: 'Maya Smith',
             title: 'Full Stack Developer',
-            email: 'maya.smith@example.com',
+            email: 'TheLiquidIvy@gmail.com',
             phone: '+1 (555) 123-4567',
             location: 'Cape Town, South Africa',
             website: 'https://theliquidivyfile.github.io/portfolio-website/',
