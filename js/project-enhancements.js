@@ -142,10 +142,178 @@ class ProjectEnhancements {
                 symbol: '🛒'
             },
             {
+                id: 'cloud-storage-pro',
+                name: 'Cloud Storage Pro',
+                category: 'fullstack',
+                description: 'Secure cloud storage solution with file sharing, encryption, and multi-device sync capabilities.',
+                fullDescription: 'A secure cloud storage platform with file sharing, end-to-end encryption, and seamless multi-device synchronization.',
+                features: [
+                    'End-to-end file encryption',
+                    'Multi-device synchronization',
+                    'Team file sharing and permissions',
+                    'Version history and recovery',
+                    'Automated backup scheduling'
+                ],
+                tech: [
+                    { name: 'React', icon: '⚛️', version: 'v18.2' },
+                    { name: 'Python', icon: '🐍', version: 'v3.11' },
+                    { name: 'AWS S3', icon: '☁️', version: 'v3.0' },
+                    { name: 'Docker', icon: '🐳', version: 'v24.0' }
+                ],
+                stats: {
+                    stars: 178,
+                    forks: 45,
+                    language: 'Python',
+                    linesOfCode: '24.1k',
+                    lastUpdated: '3 days ago'
+                },
+                symbol: '☁️'
+            },
+            {
+                id: 'neural-game-hub',
+                name: 'Neural Game Hub',
+                category: 'frontend',
+                description: 'Interactive gaming platform with WebGL graphics, real-time multiplayer capabilities, and leaderboards.',
+                fullDescription: 'An interactive gaming platform featuring WebGL-powered graphics, real-time multiplayer gameplay, and competitive leaderboards.',
+                features: [
+                    'WebGL-powered 3D graphics',
+                    'Real-time multiplayer gameplay',
+                    'Global leaderboards and rankings',
+                    'Custom game room creation',
+                    'Cross-platform compatibility'
+                ],
+                tech: [
+                    { name: 'Three.js', icon: '🎮', version: 'v0.155' },
+                    { name: 'WebGL', icon: '🖥️', version: 'v2.0' },
+                    { name: 'React', icon: '⚛️', version: 'v18.2' },
+                    { name: 'WebSocket', icon: '🔌', version: 'v8.13' }
+                ],
+                stats: {
+                    stars: 356,
+                    forks: 78,
+                    language: 'JavaScript',
+                    linesOfCode: '19.6k',
+                    lastUpdated: '2 days ago'
+                },
+                symbol: '🎮'
+            },
+            {
+                id: 'ai-content-generator',
+                name: 'AI Content Generator',
+                category: 'fullstack',
+                description: 'AI-powered content creation platform with natural language processing, image generation, and API integration.',
+                fullDescription: 'An AI-powered content creation platform leveraging natural language processing and image generation for automated content workflows.',
+                features: [
+                    'AI text generation with GPT models',
+                    'Image generation and editing',
+                    'Content scheduling and publishing',
+                    'SEO optimization suggestions',
+                    'Multi-language support'
+                ],
+                tech: [
+                    { name: 'Next.js', icon: '▲', version: 'v13.4' },
+                    { name: 'OpenAI', icon: '🤖', version: 'v4.0' },
+                    { name: 'Python', icon: '🐍', version: 'v3.11' },
+                    { name: 'FastAPI', icon: '⚡', version: 'v0.100' }
+                ],
+                stats: {
+                    stars: 489,
+                    forks: 112,
+                    language: 'TypeScript',
+                    linesOfCode: '32.1k',
+                    lastUpdated: '1 day ago'
+                },
+                symbol: '🤖'
+            },
+            {
+                id: 'data-visualizer-pro',
+                name: 'Data Visualizer Pro',
+                category: 'frontend',
+                description: 'Advanced data visualization tool with interactive charts, real-time updates, and customizable dashboards.',
+                fullDescription: 'An advanced data visualization tool with interactive charts, real-time data updates, and fully customizable dashboard layouts.',
+                features: [
+                    'Interactive chart types and graphs',
+                    'Real-time data streaming',
+                    'Custom dashboard builder',
+                    'Data import from multiple sources',
+                    'Export to PDF and image formats'
+                ],
+                tech: [
+                    { name: 'Vue.js', icon: '💚', version: 'v3.3' },
+                    { name: 'D3.js', icon: '📊', version: 'v7.8' },
+                    { name: 'Plotly', icon: '📈', version: 'v2.24' },
+                    { name: 'WebGL', icon: '🖥️', version: 'v2.0' }
+                ],
+                stats: {
+                    stars: 267,
+                    forks: 63,
+                    language: 'JavaScript',
+                    linesOfCode: '18.3k',
+                    lastUpdated: '5 days ago'
+                },
+                symbol: '📊'
+            },
+            {
+                id: 'streaming-platform',
+                name: 'Streaming Platform',
+                category: 'fullstack',
+                description: 'Full-featured music streaming service with playlists, recommendations, and social features for music lovers.',
+                fullDescription: 'A full-featured music streaming service with playlist management, personalized recommendations, and social features.',
+                features: [
+                    'Music streaming with adaptive quality',
+                    'Personalized recommendations',
+                    'Playlist creation and sharing',
+                    'Social features and followers',
+                    'Offline download support'
+                ],
+                tech: [
+                    { name: 'React', icon: '⚛️', version: 'v18.2' },
+                    { name: 'Node.js', icon: '🟢', version: 'v18.16' },
+                    { name: 'GraphQL', icon: '◆', version: 'v16.7' },
+                    { name: 'Redis', icon: '🔴', version: 'v7.0' }
+                ],
+                stats: {
+                    stars: 398,
+                    forks: 87,
+                    language: 'TypeScript',
+                    linesOfCode: '41.2k',
+                    lastUpdated: '6 hours ago'
+                },
+                symbol: '🎵'
+            },
+            {
+                id: 'portfolio-builder',
+                name: 'Portfolio Builder',
+                category: 'frontend',
+                description: 'Drag-and-drop portfolio website builder with templates, animations, and one-click deployment.',
+                fullDescription: 'A drag-and-drop portfolio website builder with customizable templates, animations, and one-click deployment to popular hosting platforms.',
+                features: [
+                    'Drag-and-drop page builder',
+                    'Customizable templates library',
+                    'Animation and transition editor',
+                    'One-click deployment',
+                    'Custom domain support'
+                ],
+                tech: [
+                    { name: 'React', icon: '⚛️', version: 'v18.2' },
+                    { name: 'DnD Kit', icon: '🎯', version: 'v6.0' },
+                    { name: 'Framer Motion', icon: '🎬', version: 'v10.12' },
+                    { name: 'SCSS', icon: '🎨', version: 'v1.62' }
+                ],
+                stats: {
+                    stars: 215,
+                    forks: 52,
+                    language: 'JavaScript',
+                    linesOfCode: '16.7k',
+                    lastUpdated: '1 week ago'
+                },
+                symbol: '🌐'
+            },
+            {
                 id: 'devops-dashboard',
                 name: 'DevOps Dashboard',
                 category: 'fullstack',
-                description: 'Comprehensive DevOps monitoring dashboard for CI/CD pipelines, server metrics, and deployment tracking.',
+                description: 'Comprehensive DevOps monitoring platform with CI/CD pipeline visualization, logs, and alerts.',
                 fullDescription: 'Monitor your entire DevOps infrastructure with real-time metrics, CI/CD pipeline status, and deployment tracking.',
                 features: [
                     'CI/CD pipeline monitoring',
@@ -156,18 +324,74 @@ class ProjectEnhancements {
                 ],
                 tech: [
                     { name: 'React', icon: '⚛️', version: 'v18.2' },
-                    { name: 'Python', icon: '🐍', version: 'v3.11' },
-                    { name: 'Docker', icon: '🐳', version: 'v24.0' },
-                    { name: 'Redis', icon: '🔴', version: 'v7.0' }
+                    { name: 'Go', icon: '🔵', version: 'v1.21' },
+                    { name: 'Prometheus', icon: '🔥', version: 'v2.45' },
+                    { name: 'K8s', icon: '☸️', version: 'v1.27' }
                 ],
                 stats: {
                     stars: 201,
                     forks: 56,
-                    language: 'Python',
+                    language: 'Go',
                     linesOfCode: '28.4k',
                     lastUpdated: '4 days ago'
                 },
-                symbol: '🔧'
+                symbol: '🔐'
+            },
+            {
+                id: 'team-collaboration-hub',
+                name: 'Team Collaboration Hub',
+                category: 'fullstack',
+                description: 'Real-time team collaboration tool with video calls, screen sharing, whiteboard, and project management.',
+                fullDescription: 'A real-time team collaboration platform with video conferencing, screen sharing, interactive whiteboard, and project management tools.',
+                features: [
+                    'HD video conferencing',
+                    'Screen sharing and recording',
+                    'Interactive whiteboard',
+                    'Project and task management',
+                    'Real-time document editing'
+                ],
+                tech: [
+                    { name: 'Next.js', icon: '▲', version: 'v13.4' },
+                    { name: 'WebRTC', icon: '📹', version: 'v1.0' },
+                    { name: 'Socket.io', icon: '🔌', version: 'v4.6' },
+                    { name: 'MongoDB', icon: '🍃', version: 'v6.0' }
+                ],
+                stats: {
+                    stars: 334,
+                    forks: 76,
+                    language: 'TypeScript',
+                    linesOfCode: '35.8k',
+                    lastUpdated: '12 hours ago'
+                },
+                symbol: '💬'
+            },
+            {
+                id: 'design-system-studio',
+                name: 'Design System Studio',
+                category: 'frontend',
+                description: 'Component library and design system builder with live preview, code generation, and theming.',
+                fullDescription: 'A comprehensive design system builder with component library management, live preview, automatic code generation, and theming support.',
+                features: [
+                    'Component library management',
+                    'Live preview and editing',
+                    'Automatic code generation',
+                    'Theme customization engine',
+                    'Design token management'
+                ],
+                tech: [
+                    { name: 'React', icon: '⚛️', version: 'v18.2' },
+                    { name: 'Storybook', icon: '📖', version: 'v7.0' },
+                    { name: 'TypeScript', icon: '🔷', version: 'v5.1' },
+                    { name: 'CSS-in-JS', icon: '💅', version: 'v6.0' }
+                ],
+                stats: {
+                    stars: 287,
+                    forks: 69,
+                    language: 'TypeScript',
+                    linesOfCode: '21.5k',
+                    lastUpdated: '3 days ago'
+                },
+                symbol: '🎨'
             }
         ];
         
@@ -459,7 +683,7 @@ class ProjectEnhancements {
     }
 
     setupProjectFilters() {
-        const existingFilters = document.querySelectorAll('.filter-btn:not(.favorites-filter)');
+        const existingFilters = document.querySelectorAll('.project-filters .filter-btn:not(.favorites-filter)');
         
         existingFilters.forEach(filter => {
             filter.addEventListener('click', () => {

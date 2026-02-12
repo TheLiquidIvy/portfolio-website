@@ -4,7 +4,7 @@ class BlogManager {
     constructor() {
         this.searchInput = document.getElementById('blog-search-input');
         this.searchClear = document.getElementById('search-clear');
-        this.filterButtons = document.querySelectorAll('.filter-btn');
+        this.filterButtons = document.querySelectorAll('.blog-filters .filter-btn');
         this.blogCards = document.querySelectorAll('.blog-card');
         this.noResults = document.getElementById('no-results');
         this.currentFilter = 'all';
