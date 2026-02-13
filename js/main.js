@@ -130,6 +130,27 @@ navLinks.forEach(link => {
     });
 });
 
+// Handle dropdown links
+document.querySelectorAll('.dropdown-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+        const targetId = link.getAttribute('href');
+        if (!targetId || !targetId.startsWith('#')) {
+            return;
+        }
+        e.preventDefault();
+        showSection(targetId);
+        // Highlight parent nav-link for dropdown items
+        const parentNavLink = link.closest('.nav-dropdown')?.querySelector('.nav-link');
+        if (parentNavLink) {
+            navLinks.forEach(nl => nl.classList.remove('active'));
+            parentNavLink.classList.add('active');
+        }
+        if (navMenu) {
+            navMenu.classList.remove('active');
+        }
+    });
+});
+
 // ==================== TYPING EFFECT ====================
 const typingText = document.querySelector('.typing-text');
 const phrases = [

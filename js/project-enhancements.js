@@ -708,4 +708,22 @@ class ProjectEnhancements {
 let projectEnhancements;
 document.addEventListener('DOMContentLoaded', () => {
     projectEnhancements = new ProjectEnhancements();
+
+    // Animate XP bars on scroll into view
+    const xpBars = document.querySelectorAll('.xp-fill');
+    if (xpBars.length > 0) {
+        const xpObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bar = entry.target;
+                    const xp = bar.getAttribute('data-xp');
+                    bar.style.setProperty('--xp-width', xp + '%');
+                    bar.classList.add('animated');
+                    xpObserver.unobserve(bar);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        xpBars.forEach(bar => xpObserver.observe(bar));
+    }
 });
