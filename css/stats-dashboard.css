@@ -81,8 +81,9 @@
 
 .stat-card:hover {
     border-color: #00ffff;
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3), 0 0 60px rgba(255, 0, 255, 0.2);
     transform: translateY(-5px);
+    background: rgba(10, 10, 15, 0.95);
 }
 
 .stat-card:hover::before {
@@ -109,6 +110,14 @@
     font-family: 'Orbitron', monospace;
     margin-bottom: 10px;
     line-height: 1;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.stat-card:hover .stat-number {
+    color: #ff00ff;
+    text-shadow: 0 0 30px rgba(255, 0, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.4);
+    font-size: 3.3em;
 }
 
 .stat-label {
