@@ -1,0 +1,194 @@
+/* ==================== SERVICES SECTION ==================== */
+
+.services {
+    padding: 6rem 2rem;
+    position: relative;
+}
+
+.services .section-subtitle {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 3rem;
+}
+
+.service-card {
+    background: rgba(10, 10, 20, 0.8);
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(0, 255, 255, 0.4);
+    box-shadow: 0 12px 35px rgba(0, 255, 255, 0.15);
+}
+
+.service-card:hover::before {
+    opacity: 1;
+}
+
+.service-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.service-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.service-card p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Availability Banner */
+.availability-banner {
+    background: linear-gradient(135deg, rgba(0, 255, 65, 0.05), rgba(0, 255, 255, 0.05));
+    border: 1px solid rgba(0, 255, 65, 0.25);
+    border-radius: 16px;
+    padding: 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.availability-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 255, 65, 0.03) 0%, transparent 70%);
+    animation: pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+.availability-pulse {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: #00ff41;
+    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    box-shadow: 0 0 10px #00ff41;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 5px #00ff41; }
+    50% { box-shadow: 0 0 20px #00ff41, 0 0 40px rgba(0, 255, 65, 0.3); }
+}
+
+.availability-content {
+    position: relative;
+    z-index: 1;
+}
+
+.availability-content h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    color: #00ff41;
+    margin-bottom: 0.5rem;
+}
+
+.availability-content > p {
+    color: var(--text-dim);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.availability-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.availability-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(0, 255, 65, 0.08);
+    border: 1px solid rgba(0, 255, 65, 0.2);
+    border-radius: 20px;
+    color: #b0ffb0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.availability-tag:hover {
+    background: rgba(0, 255, 65, 0.15);
+    border-color: #00ff41;
+    box-shadow: 0 0 12px rgba(0, 255, 65, 0.2);
+    transform: translateY(-2px);
+}
+
+.services-cta {
+    display: inline-flex;
+    margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .availability-banner {
+        padding: 1.5rem;
+    }
+
+    .availability-tags {
+        gap: 8px;
+    }
+
+    .availability-tag {
+        font-size: 0.8rem;
+        padding: 5px 12px;
+    }
+}

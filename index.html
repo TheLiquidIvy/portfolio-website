@@ -5,28 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary Meta Tags -->
-    <title>Maya Smith | Full Stack Developer Portfolio</title>
-    <meta name="title" content="Maya Smith | Full Stack Developer Portfolio">
-    <meta name="description" content="Cyberpunk-themed portfolio showcasing full stack web development projects with React, Node.js, Python, and cloud technologies.">
-    <meta name="keywords" content="full stack developer, web developer, React, Node.js, portfolio, Maya Smith, cyberpunk, web development">
+    <title>Maya Smith | Full Stack Developer – React, Node.js, Python, Cloud</title>
+    <meta name="title" content="Maya Smith | Full Stack Developer – React, Node.js, Python, Cloud">
+    <meta name="description" content="Full Stack Developer portfolio by Maya Smith. Hire me for React, Node.js, Python, and cloud projects. Available for fast-turnaround work, team augmentation, and overflow projects. Cape Town, South Africa.">
+    <meta name="keywords" content="full stack developer, web developer, React, Node.js, Python, portfolio, Maya Smith, hire developer, freelance developer, Cape Town, cloud, AWS, TypeScript, web development services">
     <meta name="author" content="Maya Smith">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://theliquidivyfile.github.io/portfolio-website/">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://theliquidivyfile.github.io/portfolio-website/">
-    <meta property="og:title" content="Maya Smith | Full Stack Developer Portfolio">
-    <meta property="og:description" content="Explore my cyberpunk-themed portfolio featuring cutting-edge web development projects.">
+    <meta property="og:title" content="Maya Smith | Full Stack Developer – React, Node.js, Python">
+    <meta property="og:description" content="Hire a Full Stack Developer. Explore 50+ projects built with React, Node.js, Python, AWS. Available for fast-turnaround and overflow work.">
     <meta property="og:image" content="https://theliquidivyfile.github.io/portfolio-website/assets/og-image.jpg">
     <meta property="og:site_name" content="Maya Smith Portfolio">
+    <meta property="og:locale" content="en_US">
     
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://theliquidivyfile.github.io/portfolio-website/">
-    <meta property="twitter:title" content="Maya Smith | Full Stack Developer Portfolio">
-    <meta property="twitter:description" content="Explore my cyberpunk-themed portfolio featuring cutting-edge web development projects.">
-    <meta property="twitter:image" content="https://theliquidivyfile.github.io/portfolio-website/assets/twitter-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://theliquidivyfile.github.io/portfolio-website/">
+    <meta name="twitter:title" content="Maya Smith | Full Stack Developer – React, Node.js, Python">
+    <meta name="twitter:description" content="Hire a Full Stack Developer. Explore 50+ projects built with React, Node.js, Python, AWS. Available for fast-turnaround and overflow work.">
+    <meta name="twitter:image" content="https://theliquidivyfile.github.io/portfolio-website/assets/twitter-image.jpg">
     
     <!-- Theme Color -->
     <meta name="theme-color" content="#00f3ff">
@@ -50,6 +51,7 @@
     <link rel="stylesheet" href="css/testimonials.css">
     <link rel="stylesheet" href="css/music-player.css">
     <link rel="stylesheet" href="css/social-feed.css">
+    <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/glitch-transitions.css">
     <link rel="stylesheet" href="css/section-navigation.css">
     <link rel="stylesheet" href="css/pwa.css">
@@ -64,6 +66,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://api.github.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" as="style" crossorigin>
+    
+    <!-- DNS Prefetch for external domains -->
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -86,8 +95,32 @@
         "https://linkedin.com/in/mayasmith",
         "https://twitter.com/mayasmith"
       ],
-      "knowsAbout": ["React", "Node.js", "Python", "Web Development", "Cloud Computing", "JavaScript", "TypeScript"],
-      "description": "Full Stack Developer specializing in creating innovative web experiences with modern technologies and cutting-edge design."
+      "knowsAbout": ["React", "Node.js", "Python", "Web Development", "Cloud Computing", "JavaScript", "TypeScript", "AWS", "Docker", "Kubernetes"],
+      "description": "Full Stack Developer specializing in creating innovative web experiences with modern technologies and cutting-edge design.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Cape Town",
+        "addressRegion": "Western Cape",
+        "addressCountry": "ZA"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Full Stack Web Development",
+      "provider": {
+        "@type": "Person",
+        "name": "Maya Smith",
+        "url": "https://theliquidivyfile.github.io/portfolio-website/"
+      },
+      "areaServed": "Worldwide",
+      "description": "Full Stack Development, Frontend Engineering, Backend APIs, Cloud & DevOps, AI Integration, and Progressive Web Apps.",
+      "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/InStock"
+      }
     }
     </script>
 </head>
@@ -107,15 +140,31 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#timeline" class="nav-link">Journey</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#certifications" class="nav-link">Certifications</a></li>
+                <li class="nav-dropdown">
+                    <a href="#about" class="nav-link">About</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#about" class="dropdown-link">Profile</a></li>
+                        <li><a href="#timeline" class="dropdown-link">Journey</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown">
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#skills" class="dropdown-link">Tech Stack</a></li>
+                        <li><a href="#certifications" class="dropdown-link">Certifications</a></li>
+                    </ul>
+                </li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
                 <li><a href="#blog" class="nav-link">Blog</a></li>
                 <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
-                <li><a href="#social-feed" class="nav-link">Connect</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li class="nav-dropdown">
+                    <a href="#contact" class="nav-link">Contact</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#social-feed" class="dropdown-link">Connect</a></li>
+                        <li><a href="#contact" class="dropdown-link">Get in Touch</a></li>
+                    </ul>
+                </li>
             </ul>
             <div class="hamburger" role="button" aria-label="Toggle navigation menu" aria-expanded="false" tabindex="0">
                 <span></span>
@@ -656,8 +705,9 @@
                     </div>
                 </div>
 
-                <!-- Full Stack Projects -->
-                <div class="project-card" data-category="fullstack">
+                <!-- Full Stack Projects (Gamified) -->
+                <div class="project-card fullstack-gamified" data-category="fullstack">
+                    <div class="project-level-badge legendary">⚡ LEGENDARY</div>
                     <div class="project-image">
                         <div class="project-overlay">
                             <div class="project-links">
@@ -676,6 +726,15 @@
                     <div class="project-info">
                         <h3>Social Nexus</h3>
                         <p>Full-featured social media platform with real-time messaging, posts, likes, and user authentication.</p>
+                        <div class="project-xp-bar">
+                            <div class="xp-fill" data-xp="92"></div>
+                            <span class="xp-label">XP 9200 / 10000</span>
+                        </div>
+                        <div class="project-achievements">
+                            <span class="achievement-badge" title="Real-time Features">🔴 Live</span>
+                            <span class="achievement-badge" title="10K+ Users">👥 10K+</span>
+                            <span class="achievement-badge" title="Full Auth System">🔐 Auth</span>
+                        </div>
                         <div class="project-tech">
                             <span class="tech-tag">React</span>
                             <span class="tech-tag">Node.js</span>
@@ -685,7 +744,8 @@
                     </div>
                 </div>
 
-                <div class="project-card" data-category="fullstack">
+                <div class="project-card fullstack-gamified" data-category="fullstack">
+                    <div class="project-level-badge legendary">🏆 LEGENDARY</div>
                     <div class="project-image">
                         <div class="project-overlay">
                             <div class="project-links">
@@ -704,6 +764,15 @@
                     <div class="project-info">
                         <h3>E-Commerce Engine</h3>
                         <p>Scalable e-commerce platform with payment processing, inventory management, and admin dashboard.</p>
+                        <div class="project-xp-bar">
+                            <div class="xp-fill" data-xp="95"></div>
+                            <span class="xp-label">XP 9500 / 10000</span>
+                        </div>
+                        <div class="project-achievements">
+                            <span class="achievement-badge" title="Payment Integration">💳 Payments</span>
+                            <span class="achievement-badge" title="Scalable Architecture">📈 Scalable</span>
+                            <span class="achievement-badge" title="Admin Dashboard">🖥️ Dashboard</span>
+                        </div>
                         <div class="project-tech">
                             <span class="tech-tag">Next.js</span>
                             <span class="tech-tag">Stripe</span>
@@ -713,7 +782,8 @@
                     </div>
                 </div>
 
-                <div class="project-card" data-category="fullstack">
+                <div class="project-card fullstack-gamified" data-category="fullstack">
+                    <div class="project-level-badge epic">☁️ EPIC</div>
                     <div class="project-image">
                         <div class="project-overlay">
                             <div class="project-links">
@@ -732,6 +802,15 @@
                     <div class="project-info">
                         <h3>Cloud Storage Pro</h3>
                         <p>Secure cloud storage solution with file sharing, encryption, and multi-device sync capabilities.</p>
+                        <div class="project-xp-bar">
+                            <div class="xp-fill" data-xp="85"></div>
+                            <span class="xp-label">XP 8500 / 10000</span>
+                        </div>
+                        <div class="project-achievements">
+                            <span class="achievement-badge" title="Cloud Native">☁️ Cloud</span>
+                            <span class="achievement-badge" title="Encryption">🔒 Encrypted</span>
+                            <span class="achievement-badge" title="Multi-device Sync">📱 Sync</span>
+                        </div>
                         <div class="project-tech">
                             <span class="tech-tag">React</span>
                             <span class="tech-tag">Python</span>
@@ -769,7 +848,8 @@
                     </div>
                 </div>
 
-                <div class="project-card" data-category="fullstack">
+                <div class="project-card fullstack-gamified" data-category="fullstack">
+                    <div class="project-level-badge legendary">🤖 LEGENDARY</div>
                     <div class="project-image">
                         <div class="project-overlay">
                             <div class="project-links">
@@ -788,6 +868,15 @@
                     <div class="project-info">
                         <h3>AI Content Generator</h3>
                         <p>AI-powered content creation platform with natural language processing, image generation, and API integration.</p>
+                        <div class="project-xp-bar">
+                            <div class="xp-fill" data-xp="97"></div>
+                            <span class="xp-label">XP 9700 / 10000</span>
+                        </div>
+                        <div class="project-achievements">
+                            <span class="achievement-badge" title="AI Powered">🧠 AI</span>
+                            <span class="achievement-badge" title="NLP Processing">💬 NLP</span>
+                            <span class="achievement-badge" title="Image Generation">🎨 GenAI</span>
+                        </div>
                         <div class="project-tech">
                             <span class="tech-tag">Next.js</span>
                             <span class="tech-tag">OpenAI</span>
@@ -825,7 +914,8 @@
                     </div>
                 </div>
 
-                <div class="project-card" data-category="fullstack">
+                <div class="project-card fullstack-gamified" data-category="fullstack">
+                    <div class="project-level-badge epic">🎵 EPIC</div>
                     <div class="project-image">
                         <div class="project-overlay">
                             <div class="project-links">
@@ -844,6 +934,15 @@
                     <div class="project-info">
                         <h3>Streaming Platform</h3>
                         <p>Full-featured music streaming service with playlists, recommendations, and social features for music lovers.</p>
+                        <div class="project-xp-bar">
+                            <div class="xp-fill" data-xp="88"></div>
+                            <span class="xp-label">XP 8800 / 10000</span>
+                        </div>
+                        <div class="project-achievements">
+                            <span class="achievement-badge" title="Streaming">🎧 Stream</span>
+                            <span class="achievement-badge" title="GraphQL API">📡 GraphQL</span>
+                            <span class="achievement-badge" title="Social Features">👥 Social</span>
+                        </div>
                         <div class="project-tech">
                             <span class="tech-tag">React</span>
                             <span class="tech-tag">Node.js</span>
@@ -881,7 +980,8 @@
                     </div>
                 </div>
 
-                <div class="project-card" data-category="fullstack">
+                <div class="project-card fullstack-gamified" data-category="fullstack">
+                    <div class="project-level-badge epic">🔐 EPIC</div>
                     <div class="project-image">
                         <div class="project-overlay">
                             <div class="project-links">
@@ -900,6 +1000,15 @@
                     <div class="project-info">
                         <h3>DevOps Dashboard</h3>
                         <p>Comprehensive DevOps monitoring platform with CI/CD pipeline visualization, logs, and alerts.</p>
+                        <div class="project-xp-bar">
+                            <div class="xp-fill" data-xp="82"></div>
+                            <span class="xp-label">XP 8200 / 10000</span>
+                        </div>
+                        <div class="project-achievements">
+                            <span class="achievement-badge" title="DevOps">⚙️ DevOps</span>
+                            <span class="achievement-badge" title="Kubernetes">☸️ K8s</span>
+                            <span class="achievement-badge" title="Monitoring">📊 Monitor</span>
+                        </div>
                         <div class="project-tech">
                             <span class="tech-tag">React</span>
                             <span class="tech-tag">Go</span>
@@ -909,7 +1018,8 @@
                     </div>
                 </div>
 
-                <div class="project-card" data-category="fullstack">
+                <div class="project-card fullstack-gamified" data-category="fullstack">
+                    <div class="project-level-badge rare">💬 RARE</div>
                     <div class="project-image">
                         <div class="project-overlay">
                             <div class="project-links">
@@ -928,6 +1038,15 @@
                     <div class="project-info">
                         <h3>Team Collaboration Hub</h3>
                         <p>Real-time team collaboration tool with video calls, screen sharing, whiteboard, and project management.</p>
+                        <div class="project-xp-bar">
+                            <div class="xp-fill" data-xp="78"></div>
+                            <span class="xp-label">XP 7800 / 10000</span>
+                        </div>
+                        <div class="project-achievements">
+                            <span class="achievement-badge" title="WebRTC">📹 WebRTC</span>
+                            <span class="achievement-badge" title="Real-time">🔴 Live</span>
+                            <span class="achievement-badge" title="Team Tools">🤝 Teams</span>
+                        </div>
                         <div class="project-tech">
                             <span class="tech-tag">Next.js</span>
                             <span class="tech-tag">WebRTC</span>
@@ -1276,6 +1395,67 @@
                 <!-- Progress indicator -->
                 <div class="carousel-progress">
                     <div class="progress-bar"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title glitch" data-text="SERVICES">SERVICES</h2>
+            <p class="section-subtitle">What I can build for you</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🚀</div>
+                    <h3>Full Stack Development</h3>
+                    <p>End-to-end web applications with React, Node.js, Python, and cloud infrastructure. From concept to deployment.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>Frontend Engineering</h3>
+                    <p>Pixel-perfect, responsive interfaces with modern frameworks, animations, and optimal performance.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3>Backend &amp; APIs</h3>
+                    <p>Scalable REST and GraphQL APIs, database design, authentication systems, and microservices architecture.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">☁️</div>
+                    <h3>Cloud &amp; DevOps</h3>
+                    <p>AWS/Azure deployment, CI/CD pipelines, Docker containerization, and Kubernetes orchestration.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🤖</div>
+                    <h3>AI Integration</h3>
+                    <p>OpenAI, LLM integration, chatbots, content generation tools, and intelligent automation solutions.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>Progressive Web Apps</h3>
+                    <p>Offline-ready, installable web apps with push notifications, caching strategies, and native-like experiences.</p>
+                </div>
+            </div>
+
+            <div class="availability-banner">
+                <div class="availability-pulse"></div>
+                <div class="availability-content">
+                    <h3>🟢 Currently Available</h3>
+                    <p>Open to new opportunities and ready to jump in</p>
+                    <div class="availability-tags">
+                        <span class="availability-tag">⚡ Fast-Turnaround Projects</span>
+                        <span class="availability-tag">🔄 Overflow &amp; Surge Work</span>
+                        <span class="availability-tag">🤝 Team Augmentation</span>
+                        <span class="availability-tag">🔧 Bug Fixes &amp; Maintenance</span>
+                        <span class="availability-tag">📋 Code Reviews &amp; Consulting</span>
+                        <span class="availability-tag">🏗️ MVP Development</span>
+                    </div>
+                    <a href="#contact" class="btn btn-primary services-cta">
+                        <span>Let's Talk</span>
+                        <div class="btn-glitch"></div>
+                    </a>
                 </div>
             </div>
         </div>
