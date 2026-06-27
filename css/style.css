@@ -939,11 +939,17 @@ section.active {
     align-items: center;
     justify-content: center;
     opacity: 0;
+    pointer-events: none;
     transition: opacity 0.3s;
 }
 
 .project-card:hover .project-overlay {
     opacity: 1;
+    pointer-events: all;
+}
+
+.project-card {
+    cursor: pointer;
 }
 
 .project-links {

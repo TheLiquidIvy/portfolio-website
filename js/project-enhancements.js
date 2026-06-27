@@ -435,6 +435,14 @@ class ProjectEnhancements {
             
             // Replace tech tags with icons
             this.replaceTechTags(card, project.tech);
+
+            // Make the whole card navigate to the demo on click
+            card.addEventListener('click', (e) => {
+                // Don't intercept clicks on buttons, anchors, or the favorite/quickview controls
+                if (e.target.closest('a, button, .favorite-btn, .quick-view-btn')) return;
+                const demoLink = card.querySelector('.project-link');
+                if (demoLink) window.location.href = demoLink.href;
+            });
         });
     }
 
