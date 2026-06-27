@@ -118,7 +118,13 @@ class ResumeGenerator {
     }
 
     async generatePDF() {
-        this.showToast('Coming Soon', 'Resume will be available soon — check back shortly!', 'info');
+        const link = document.createElement('a');
+        link.href = '/assets/Edriena_Smith_Resume.pdf';
+        link.download = 'Edriena_Smith_Resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        this.showToast('Downloading', 'Your resume is downloading now!', 'success');
         return;
 
         // Show loading
