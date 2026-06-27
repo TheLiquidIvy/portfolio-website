@@ -202,60 +202,63 @@
                 </div>
             </div>
 
-            <div id="outline" class="project-demo project-outline">
+                        <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
                     <div class="project-detail-card">
                         <h3>Goals</h3>
                         <ul>
-                            <li>Describe the core problem you are solving.</li>
-                            <li>Define success metrics (latency, adoption, revenue).</li>
-                            <li>List the primary user personas.</li>
+                                <li>Demonstrate a full e-commerce storefront with cart, checkout, and admin workflows.</li>
+                                <li>Success metric: complete a checkout flow in under 60 seconds.</li>
+                                <li>Primary users: shoppers browsing the demo and developers studying the architecture.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Scope</h3>
                         <ul>
-                            <li>Must-have MVP features.</li>
-                            <li>Nice-to-have enhancements.</li>
-                            <li>Out-of-scope items for later.</li>
+                                <li>Product catalog with category filters and search.</li>
+                                <li>Shopping cart with quantity management and tax calculation.</li>
+                                <li>Order history, mock Stripe checkout, and admin product management.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Architecture</h3>
                         <ul>
-                            <li>Frontend stack and state management.</li>
-                            <li>Backend services and data storage.</li>
-                            <li>Integrations (payments, APIs, auth).</li>
+                                <li>Vanilla JS class-based app with localStorage persistence.</li>
+                                <li>Mock Stripe payment flow validates card format client-side.</li>
+                                <li>Admin dashboard reads and writes the same product store as the shop.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Milestones</h3>
                         <ul>
-                            <li>Discovery + wireframes.</li>
-                            <li>Build core workflows.</li>
-                            <li>Testing, QA, and launch.</li>
+                                <li>Design product schema and storefront layout.</li>
+                                <li>Build catalog, cart, and mock checkout flow.</li>
+                                <li>Add order history, admin dashboard, and mobile responsiveness.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Risks</h3>
                         <ul>
-                            <li>Performance constraints.</li>
-                            <li>Third-party dependency limits.</li>
-                            <li>Security or compliance needs.</li>
+                                <li>localStorage size limits with many orders and large product sets.</li>
+                                <li>Mock payment validation not covering all invalid card edge cases.</li>
+                                <li>Admin changes persisting across demo sessions confusing new visitors.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Next Steps</h3>
                         <ul>
-                            <li>Define requirements and acceptance criteria.</li>
-                            <li>Capture analytics + logging events.</li>
-                            <li>Plan roadmap for v1.1.</li>
+                                <li>Integrate real Stripe.js for payment intent flow.</li>
+                                <li>Add server-side inventory management with a PostgreSQL backend.</li>
+                                <li>Plan v1.1: discount codes, product reviews, and wishlists.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+</div>
     </section>
 
     <script src="../../js/main.js"></script>

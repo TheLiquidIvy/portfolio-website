@@ -202,18 +202,63 @@
                 </div>
             </div>
 
-            <div id="outline" class="project-demo project-outline">
+                        <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
-                    <div class="project-detail-card"><h3>Goals</h3><ul><li>Describe the core problem you are solving.</li><li>Define success metrics (latency, adoption, revenue).</li><li>List the primary user personas.</li></ul></div>
-                    <div class="project-detail-card"><h3>Scope</h3><ul><li>Must-have MVP features.</li><li>Nice-to-have enhancements.</li><li>Out-of-scope items for later.</li></ul></div>
-                    <div class="project-detail-card"><h3>Architecture</h3><ul><li>Frontend stack and state management.</li><li>Backend services and data storage.</li><li>Integrations (payments, APIs, auth).</li></ul></div>
-                    <div class="project-detail-card"><h3>Milestones</h3><ul><li>Discovery + wireframes.</li><li>Build core workflows.</li><li>Testing, QA, and launch.</li></ul></div>
-                    <div class="project-detail-card"><h3>Risks</h3><ul><li>Performance constraints.</li><li>Third-party dependency limits.</li><li>Security or compliance needs.</li></ul></div>
-                    <div class="project-detail-card"><h3>Next Steps</h3><ul><li>Define requirements and acceptance criteria.</li><li>Capture analytics + logging events.</li><li>Plan roadmap for v1.1.</li></ul></div>
+                    <div class="project-detail-card">
+                        <h3>Goals</h3>
+                        <ul>
+                                <li>Showcase canvas-based game development with three fully playable mini-games.</li>
+                                <li>Success metric: 60 fps gameplay on mid-range mobile devices.</li>
+                                <li>Primary users: casual gamers and developers exploring Canvas API.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Scope</h3>
+                        <ul>
+                                <li>Snake, Tetris, and Memory card games with full game loops.</li>
+                                <li>High-score persistence via localStorage.</li>
+                                <li>Cyberpunk-themed HUD with sound-effect support.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Architecture</h3>
+                        <ul>
+                                <li>Vanilla JS game engine using requestAnimationFrame for each game loop.</li>
+                                <li>Canvas API for all rendering — no external game frameworks.</li>
+                                <li>Shared score manager and event bus across all three games.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Milestones</h3>
+                        <ul>
+                                <li>Design game-select UI and shared input handling.</li>
+                                <li>Implement Snake and Memory games with scoring.</li>
+                                <li>Add Tetris, sound effects, and high-score leaderboard.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Risks</h3>
+                        <ul>
+                                <li>Canvas performance degradation on low-powered devices.</li>
+                                <li>Touch input mapping conflicts between games.</li>
+                                <li>LocalStorage race conditions when saving high scores.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Next Steps</h3>
+                        <ul>
+                                <li>Add a global leaderboard backed by a serverless API.</li>
+                                <li>Introduce two more games (Breakout, Minesweeper).</li>
+                                <li>Plan v1.1: multiplayer modes via WebSockets.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+</div>
     </section>
     <script src="../../../js/main.js"></script>
     <script src="js/main.js"></script>

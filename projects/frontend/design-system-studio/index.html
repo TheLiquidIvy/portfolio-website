@@ -144,18 +144,63 @@
                     </div>
                 </div>
             </div>
-            <div id="outline" class="project-demo project-outline">
+                        <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
-                    <div class="project-detail-card"><h3>Goals</h3><ul><li>Describe the core problem you are solving.</li><li>Define success metrics (latency, adoption, revenue).</li><li>List the primary user personas.</li></ul></div>
-                    <div class="project-detail-card"><h3>Scope</h3><ul><li>Must-have MVP features.</li><li>Nice-to-have enhancements.</li><li>Out-of-scope items for later.</li></ul></div>
-                    <div class="project-detail-card"><h3>Architecture</h3><ul><li>Frontend stack and state management.</li><li>Backend services and data storage.</li><li>Integrations (payments, APIs, auth).</li></ul></div>
-                    <div class="project-detail-card"><h3>Milestones</h3><ul><li>Discovery + wireframes.</li><li>Build core workflows.</li><li>Testing, QA, and launch.</li></ul></div>
-                    <div class="project-detail-card"><h3>Risks</h3><ul><li>Performance constraints.</li><li>Third-party dependency limits.</li><li>Security or compliance needs.</li></ul></div>
-                    <div class="project-detail-card"><h3>Next Steps</h3><ul><li>Define requirements and acceptance criteria.</li><li>Capture analytics + logging events.</li><li>Plan roadmap for v1.1.</li></ul></div>
+                    <div class="project-detail-card">
+                        <h3>Goals</h3>
+                        <ul>
+                                <li>Provide a browser-based tool for generating and documenting design systems.</li>
+                                <li>Success metric: export a full token set and component library in under 5 minutes.</li>
+                                <li>Primary users: frontend engineers and product designers.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Scope</h3>
+                        <ul>
+                                <li>Color palette generator with WCAG contrast checking.</li>
+                                <li>Typography scale builder with CSS custom property output.</li>
+                                <li>Component preview panel with live theme application.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Architecture</h3>
+                        <ul>
+                                <li>Vanilla JS with CSS custom properties for live theming.</li>
+                                <li>Accessibility engine checks contrast ratios against WCAG 2.1 AA/AAA.</li>
+                                <li>Export pipeline serializes tokens to JSON, CSS, and Tailwind config.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Milestones</h3>
+                        <ul>
+                                <li>Design the token schema and component registry.</li>
+                                <li>Build color, typography, and spacing tools with live preview.</li>
+                                <li>Implement accessibility auditing and multi-format export.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Risks</h3>
+                        <ul>
+                                <li>Browser inconsistencies in CSS custom property rendering.</li>
+                                <li>Contrast algorithm edge cases for semi-transparent overlays.</li>
+                                <li>Export format compatibility with downstream design tools.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Next Steps</h3>
+                        <ul>
+                                <li>Add Figma token sync via the Design Tokens plugin.</li>
+                                <li>Build a shareable link feature for team collaboration.</li>
+                                <li>Plan v1.1: dark-mode preview toggle and brand-preset library.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+</div>
     </section>
     <script src="../../../js/main.js"></script>
     <script src="js/main.js"></script>

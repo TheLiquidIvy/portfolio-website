@@ -185,60 +185,63 @@
                 </div>
             </div>
 
-            <div id="outline" class="project-demo project-outline">
+                        <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
                     <div class="project-detail-card">
                         <h3>Goals</h3>
                         <ul>
-                            <li>Describe the core problem you are solving.</li>
-                            <li>Define success metrics (latency, adoption, revenue).</li>
-                            <li>List the primary user personas.</li>
+                                <li>Showcase a full social platform with auth, feeds, and direct messaging.</li>
+                                <li>Success metric: post, like, and reply flow completable in under 30 seconds.</li>
+                                <li>Primary users: developers studying social app architecture and recruiters.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Scope</h3>
                         <ul>
-                            <li>Must-have MVP features.</li>
-                            <li>Nice-to-have enhancements.</li>
-                            <li>Out-of-scope items for later.</li>
+                                <li>User signup/login with session persistence.</li>
+                                <li>Post feed with emoji reactions, comments, and likes.</li>
+                                <li>Direct messaging with multi-user conversation threads.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Architecture</h3>
                         <ul>
-                            <li>Frontend stack and state management.</li>
-                            <li>Backend services and data storage.</li>
-                            <li>Integrations (payments, APIs, auth).</li>
+                                <li>Vanilla JS SPA with localStorage simulating a user database and feed store.</li>
+                                <li>Auth tokens stored in sessionStorage for session lifecycle management.</li>
+                                <li>Event emitter pattern drives real-time UI updates between feed and chat.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Milestones</h3>
                         <ul>
-                            <li>Discovery + wireframes.</li>
-                            <li>Build core workflows.</li>
-                            <li>Testing, QA, and launch.</li>
+                                <li>Design user schema, auth flow, and feed data model.</li>
+                                <li>Build signup/login, post creation, and reaction system.</li>
+                                <li>Add messaging UI, conversation threads, and profile page.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Risks</h3>
                         <ul>
-                            <li>Performance constraints.</li>
-                            <li>Third-party dependency limits.</li>
-                            <li>Security or compliance needs.</li>
+                                <li>Client-side auth simulation not suitable for production security.</li>
+                                <li>Feed growing unbounded without server-side pagination.</li>
+                                <li>Real-time simulation breaking under rapid concurrent interactions.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Next Steps</h3>
                         <ul>
-                            <li>Define requirements and acceptance criteria.</li>
-                            <li>Capture analytics + logging events.</li>
-                            <li>Plan roadmap for v1.1.</li>
+                                <li>Replace localStorage auth with JWT + a Node.js backend.</li>
+                                <li>Implement Socket.io for genuine real-time messaging.</li>
+                                <li>Plan v1.1: follow graph, notifications, and content moderation tools.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+</div>
     </section>
 
     <script src="../../js/main.js"></script>

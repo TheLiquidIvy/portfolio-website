@@ -98,60 +98,63 @@
                 <div id="collab-app"></div>
             </div>
 
-            <div id="outline" class="project-demo project-outline">
+                        <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
                     <div class="project-detail-card">
                         <h3>Goals</h3>
                         <ul>
-                            <li>Describe the core problem you are solving.</li>
-                            <li>Define success metrics (latency, adoption, revenue).</li>
-                            <li>List the primary user personas.</li>
+                                <li>Build a mini Notion+Slack hybrid with chat, kanban, and a collaborative whiteboard.</li>
+                                <li>Success metric: team can plan, track, and discuss a sprint without leaving the tool.</li>
+                                <li>Primary users: small engineering teams and project managers.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Scope</h3>
                         <ul>
-                            <li>Must-have MVP features.</li>
-                            <li>Nice-to-have enhancements.</li>
-                            <li>Out-of-scope items for later.</li>
+                                <li>Group chat with threaded replies and emoji reactions.</li>
+                                <li>Kanban task board shared across the team workspace.</li>
+                                <li>HTML5 Canvas whiteboard with pen, shapes, and sticky-note tools.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Architecture</h3>
                         <ul>
-                            <li>Frontend stack and state management.</li>
-                            <li>Backend services and data storage.</li>
-                            <li>Integrations (payments, APIs, auth).</li>
+                                <li>Vanilla JS with a simulated broadcast channel for cross-tab sync.</li>
+                                <li>Canvas API whiteboard with object serialization for undo/redo.</li>
+                                <li>Shared localStorage workspace store acts as the collaboration backend.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Milestones</h3>
                         <ul>
-                            <li>Discovery + wireframes.</li>
-                            <li>Build core workflows.</li>
-                            <li>Testing, QA, and launch.</li>
+                                <li>Design workspace data model and navigation shell.</li>
+                                <li>Build chat system, kanban board, and basic whiteboard.</li>
+                                <li>Add threaded replies, shared task state, and whiteboard shapes.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Risks</h3>
                         <ul>
-                            <li>Performance constraints.</li>
-                            <li>Third-party dependency limits.</li>
-                            <li>Security or compliance needs.</li>
+                                <li>Cross-tab sync using BroadcastChannel having limited browser support.</li>
+                                <li>Whiteboard canvas performance degrading with many objects.</li>
+                                <li>Concurrent kanban edits causing state conflicts without a server lock.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Next Steps</h3>
                         <ul>
-                            <li>Define requirements and acceptance criteria.</li>
-                            <li>Capture analytics + logging events.</li>
-                            <li>Plan roadmap for v1.1.</li>
+                                <li>Replace localStorage sync with a Yjs CRDT for real collaboration.</li>
+                                <li>Add video-call integration via the WebRTC API.</li>
+                                <li>Plan v1.1: document editor, file attachments, and meeting notes.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+</div>
     </section>
 
     <link rel="stylesheet" href="css/style.css">

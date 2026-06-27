@@ -175,60 +175,63 @@
                 </div>
             </div>
 
-            <div id="outline" class="project-demo project-outline">
+                        <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
                     <div class="project-detail-card">
                         <h3>Goals</h3>
                         <ul>
-                            <li>Describe the core problem you are solving.</li>
-                            <li>Define success metrics (latency, adoption, revenue).</li>
-                            <li>List the primary user personas.</li>
+                                <li>Replicate the core UX of a cloud file storage service entirely in the browser.</li>
+                                <li>Success metric: upload, preview, and organize 100 files with zero latency.</li>
+                                <li>Primary users: developers evaluating file-management UX patterns.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Scope</h3>
                         <ul>
-                            <li>Must-have MVP features.</li>
-                            <li>Nice-to-have enhancements.</li>
-                            <li>Out-of-scope items for later.</li>
+                                <li>Folder tree navigation with create, rename, and delete operations.</li>
+                                <li>File upload simulation with progress bars and MIME-type previews.</li>
+                                <li>Search, sort, and starred-files quick access.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Architecture</h3>
                         <ul>
-                            <li>Frontend stack and state management.</li>
-                            <li>Backend services and data storage.</li>
-                            <li>Integrations (payments, APIs, auth).</li>
+                                <li>Vanilla JS virtual filesystem tree stored in localStorage.</li>
+                                <li>Blob URL API for in-browser file preview without a server.</li>
+                                <li>Event-driven folder/file state management with undo stack.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Milestones</h3>
                         <ul>
-                            <li>Discovery + wireframes.</li>
-                            <li>Build core workflows.</li>
-                            <li>Testing, QA, and launch.</li>
+                                <li>Design filesystem data model and folder-tree component.</li>
+                                <li>Build file upload simulation, progress bars, and previews.</li>
+                                <li>Add search, sort, starred files, and keyboard shortcuts.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Risks</h3>
                         <ul>
-                            <li>Performance constraints.</li>
-                            <li>Third-party dependency limits.</li>
-                            <li>Security or compliance needs.</li>
+                                <li>localStorage quota exhausted by large file metadata payloads.</li>
+                                <li>Browser memory pressure when previewing many large images.</li>
+                                <li>Undo stack becoming stale after page reload.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Next Steps</h3>
                         <ul>
-                            <li>Define requirements and acceptance criteria.</li>
-                            <li>Capture analytics + logging events.</li>
-                            <li>Plan roadmap for v1.1.</li>
+                                <li>Back the filesystem with Supabase Storage or S3.</li>
+                                <li>Add real-time collaboration via shared folder links.</li>
+                                <li>Plan v1.1: version history and file-change diff viewer.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+</div>
     </section>
 
     <script src="../../js/main.js"></script>

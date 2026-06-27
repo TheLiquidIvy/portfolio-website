@@ -98,60 +98,63 @@
                 <div id="devops-app"></div>
             </div>
 
-            <div id="outline" class="project-demo project-outline">
+                        <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
                     <div class="project-detail-card">
                         <h3>Goals</h3>
                         <ul>
-                            <li>Describe the core problem you are solving.</li>
-                            <li>Define success metrics (latency, adoption, revenue).</li>
-                            <li>List the primary user personas.</li>
+                                <li>Visualize deployment pipelines, server health, and log streams in one dashboard.</li>
+                                <li>Success metric: pipeline stage updates appear within 500ms of a trigger.</li>
+                                <li>Primary users: DevOps engineers, SREs, and platform teams.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Scope</h3>
                         <ul>
-                            <li>Must-have MVP features.</li>
-                            <li>Nice-to-have enhancements.</li>
-                            <li>Out-of-scope items for later.</li>
+                                <li>Deployment pipeline visualization with stage-by-stage status.</li>
+                                <li>CPU/memory/disk metrics with animated sparklines.</li>
+                                <li>Filterable log stream with ERROR/WARN/INFO level badges.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Architecture</h3>
                         <ul>
-                            <li>Frontend stack and state management.</li>
-                            <li>Backend services and data storage.</li>
-                            <li>Integrations (payments, APIs, auth).</li>
+                                <li>Vanilla JS with setInterval-driven metric simulation.</li>
+                                <li>Pipeline state machine transitions stages with configurable delays.</li>
+                                <li>Log ring-buffer capped at 500 entries to avoid memory leaks.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Milestones</h3>
                         <ul>
-                            <li>Discovery + wireframes.</li>
-                            <li>Build core workflows.</li>
-                            <li>Testing, QA, and launch.</li>
+                                <li>Define pipeline schema and metric data shapes.</li>
+                                <li>Build pipeline visualizer and animated metric cards.</li>
+                                <li>Add live log stream, level filters, and alert banners.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Risks</h3>
                         <ul>
-                            <li>Performance constraints.</li>
-                            <li>Third-party dependency limits.</li>
-                            <li>Security or compliance needs.</li>
+                                <li>Simulated metrics not reflecting real deployment variance.</li>
+                                <li>Log volume overwhelming DOM with thousands of entries.</li>
+                                <li>Pipeline state machine getting out of sync on tab backgrounding.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Next Steps</h3>
                         <ul>
-                            <li>Define requirements and acceptance criteria.</li>
-                            <li>Capture analytics + logging events.</li>
-                            <li>Plan roadmap for v1.1.</li>
+                                <li>Connect to a real CI provider (GitHub Actions / CircleCI) via webhooks.</li>
+                                <li>Add deployment rollback button with confirmation modal.</li>
+                                <li>Plan v1.1: multi-environment view and SLA uptime tracking.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+</div>
     </section>
 
     <link rel="stylesheet" href="css/style.css">

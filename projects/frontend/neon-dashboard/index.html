@@ -737,60 +737,63 @@
                 </div>
             </div>
 
-            <div id="outline" class="project-demo project-outline">
+                        <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
                     <div class="project-detail-card">
                         <h3>Goals</h3>
                         <ul>
-                            <li>Describe the core problem you are solving.</li>
-                            <li>Define success metrics (latency, adoption, revenue).</li>
-                            <li>List the primary user personas.</li>
+                                <li>Deliver a real-time analytics dashboard showcasing KPIs and business metrics.</li>
+                                <li>Success metric: all charts update within 1 second of new data arriving.</li>
+                                <li>Primary users: product managers, growth teams, and executives.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Scope</h3>
                         <ul>
-                            <li>Must-have MVP features.</li>
-                            <li>Nice-to-have enhancements.</li>
-                            <li>Out-of-scope items for later.</li>
+                                <li>Revenue, user, and conversion charts with date-range filters.</li>
+                                <li>Animated stat cards with trend indicators.</li>
+                                <li>Alert banner system for metric threshold breaches.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Architecture</h3>
                         <ul>
-                            <li>Frontend stack and state management.</li>
-                            <li>Backend services and data storage.</li>
-                            <li>Integrations (payments, APIs, auth).</li>
+                                <li>Chart.js for line, bar, and doughnut chart rendering.</li>
+                                <li>Simulated WebSocket event bus for live data injection.</li>
+                                <li>Modular widget system allowing drag-to-reorder dashboard layout.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Milestones</h3>
                         <ul>
-                            <li>Discovery + wireframes.</li>
-                            <li>Build core workflows.</li>
-                            <li>Testing, QA, and launch.</li>
+                                <li>Define KPI taxonomy and chart layout grid.</li>
+                                <li>Build animated stat cards and Chart.js integration.</li>
+                                <li>Add live data simulation, filters, and alert system.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Risks</h3>
                         <ul>
-                            <li>Performance constraints.</li>
-                            <li>Third-party dependency limits.</li>
-                            <li>Security or compliance needs.</li>
+                                <li>Chart.js bundle size impacting Time to Interactive.</li>
+                                <li>Real-time polling overhead on high-traffic deployments.</li>
+                                <li>Dashboard layout breaking on narrow mobile viewports.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Next Steps</h3>
                         <ul>
-                            <li>Define requirements and acceptance criteria.</li>
-                            <li>Capture analytics + logging events.</li>
-                            <li>Plan roadmap for v1.1.</li>
+                                <li>Connect to a real metrics backend (Mixpanel / PostHog).</li>
+                                <li>Add dashboard snapshot export to PDF.</li>
+                                <li>Plan v1.1 roadmap: user-defined metric widgets and goal tracking.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+</div>
     </section>
 
     <script src="../../../js/main.js"></script>

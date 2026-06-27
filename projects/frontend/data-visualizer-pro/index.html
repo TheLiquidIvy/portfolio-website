@@ -103,18 +103,63 @@
                     </table>
                 </div>
             </div>
-            <div id="outline" class="project-demo project-outline">
+                        <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
-                    <div class="project-detail-card"><h3>Goals</h3><ul><li>Describe the core problem you are solving.</li><li>Define success metrics (latency, adoption, revenue).</li><li>List the primary user personas.</li></ul></div>
-                    <div class="project-detail-card"><h3>Scope</h3><ul><li>Must-have MVP features.</li><li>Nice-to-have enhancements.</li><li>Out-of-scope items for later.</li></ul></div>
-                    <div class="project-detail-card"><h3>Architecture</h3><ul><li>Frontend stack and state management.</li><li>Backend services and data storage.</li><li>Integrations (payments, APIs, auth).</li></ul></div>
-                    <div class="project-detail-card"><h3>Milestones</h3><ul><li>Discovery + wireframes.</li><li>Build core workflows.</li><li>Testing, QA, and launch.</li></ul></div>
-                    <div class="project-detail-card"><h3>Risks</h3><ul><li>Performance constraints.</li><li>Third-party dependency limits.</li><li>Security or compliance needs.</li></ul></div>
-                    <div class="project-detail-card"><h3>Next Steps</h3><ul><li>Define requirements and acceptance criteria.</li><li>Capture analytics + logging events.</li><li>Plan roadmap for v1.1.</li></ul></div>
+                    <div class="project-detail-card">
+                        <h3>Goals</h3>
+                        <ul>
+                                <li>Create an advanced charting suite that transforms raw data into interactive visuals.</li>
+                                <li>Success metric: render 10,000-row datasets in under 200ms.</li>
+                                <li>Primary users: analysts, data scientists, and engineering teams.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Scope</h3>
+                        <ul>
+                                <li>3D bar charts, donut charts, heatmaps, and scatter plots.</li>
+                                <li>CSV/JSON file import with automatic column detection.</li>
+                                <li>Chart export to PNG/SVG and shareable URL config.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Architecture</h3>
+                        <ul>
+                                <li>Custom WebGL renderer built on Canvas API for 3D visuals.</li>
+                                <li>Vanilla JS data-processing pipeline with typed arrays for speed.</li>
+                                <li>No dependencies — all chart types coded from scratch.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Milestones</h3>
+                        <ul>
+                                <li>Define chart taxonomy and design the rendering engine API.</li>
+                                <li>Implement 3D bar, donut, and heatmap renderers.</li>
+                                <li>Add file import, export, and accessibility keyboard controls.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Risks</h3>
+                        <ul>
+                                <li>WebGL context limits on low-end mobile devices.</li>
+                                <li>Large dataset rendering blocking the main thread.</li>
+                                <li>Color-blindness accessibility gaps in default palettes.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Next Steps</h3>
+                        <ul>
+                                <li>Offload heavy computation to a Web Worker.</li>
+                                <li>Add animated transitions between chart types.</li>
+                                <li>Plan v1.1 roadmap: real-time streaming charts and drag-to-zoom.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+</div>
     </section>
     <script src="../../../js/main.js"></script>
     <script src="js/main.js"></script>

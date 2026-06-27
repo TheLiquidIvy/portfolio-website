@@ -584,60 +584,63 @@
             </div>
 
 
-            <div id="outline" class="project-demo project-outline">
+                        <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
                     <div class="project-detail-card">
                         <h3>Goals</h3>
                         <ul>
-                            <li>Describe the core problem you are solving.</li>
-                            <li>Define success metrics (latency, adoption, revenue).</li>
-                            <li>List the primary user personas.</li>
+                                <li>Build a real-time crypto price tracker with live charts and portfolio management.</li>
+                                <li>Success metric: sub-second data refresh and accurate P&L calculations.</li>
+                                <li>Primary users: retail crypto investors and curious developers.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Scope</h3>
                         <ul>
-                            <li>Must-have MVP features.</li>
-                            <li>Nice-to-have enhancements.</li>
-                            <li>Out-of-scope items for later.</li>
+                                <li>Live price tiles for 20+ coins with sparkline charts.</li>
+                                <li>Portfolio tracker with cost-basis and gain/loss calculations.</li>
+                                <li>Price-alert notifications and market cap rankings.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Architecture</h3>
                         <ul>
-                            <li>Frontend stack and state management.</li>
-                            <li>Backend services and data storage.</li>
-                            <li>Integrations (payments, APIs, auth).</li>
+                                <li>Vanilla JS with Canvas API for sparklines and animations.</li>
+                                <li>CoinGecko REST API with client-side polling and local caching.</li>
+                                <li>localStorage for portfolio positions and alert preferences.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Milestones</h3>
                         <ul>
-                            <li>Discovery + wireframes.</li>
-                            <li>Build core workflows.</li>
-                            <li>Testing, QA, and launch.</li>
+                                <li>Design wireframes and select data provider API.</li>
+                                <li>Build price-tile grid, sparklines, and live-refresh loop.</li>
+                                <li>Add portfolio tracker, alerts, and cross-browser QA.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Risks</h3>
                         <ul>
-                            <li>Performance constraints.</li>
-                            <li>Third-party dependency limits.</li>
-                            <li>Security or compliance needs.</li>
+                                <li>API rate limits throttling frequent polling cycles.</li>
+                                <li>Price data latency causing stale displays during volatility.</li>
+                                <li>localStorage size limits if tracking large coin lists.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Next Steps</h3>
                         <ul>
-                            <li>Define requirements and acceptance criteria.</li>
-                            <li>Capture analytics + logging events.</li>
-                            <li>Plan roadmap for v1.1.</li>
+                                <li>Add WebSocket streaming for true real-time updates.</li>
+                                <li>Integrate historical charting with date-range selectors.</li>
+                                <li>Build a v1.1 roadmap including watchlists and export to CSV.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+</div>
     </section>
 
     <script src="../../../js/main.js"></script>

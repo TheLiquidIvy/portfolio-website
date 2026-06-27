@@ -189,18 +189,63 @@
                 </div>
             </div>
 
-            <div id="outline" class="project-demo project-outline">
+                        <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
-                    <div class="project-detail-card"><h3>Goals</h3><ul><li>Describe the core problem you are solving.</li><li>Define success metrics (latency, adoption, revenue).</li><li>List the primary user personas.</li></ul></div>
-                    <div class="project-detail-card"><h3>Scope</h3><ul><li>Must-have MVP features.</li><li>Nice-to-have enhancements.</li><li>Out-of-scope items for later.</li></ul></div>
-                    <div class="project-detail-card"><h3>Architecture</h3><ul><li>Frontend stack and state management.</li><li>Backend services and data storage.</li><li>Integrations (payments, APIs, auth).</li></ul></div>
-                    <div class="project-detail-card"><h3>Milestones</h3><ul><li>Discovery + wireframes.</li><li>Build core workflows.</li><li>Testing, QA, and launch.</li></ul></div>
-                    <div class="project-detail-card"><h3>Risks</h3><ul><li>Performance constraints.</li><li>Third-party dependency limits.</li><li>Security or compliance needs.</li></ul></div>
-                    <div class="project-detail-card"><h3>Next Steps</h3><ul><li>Define requirements and acceptance criteria.</li><li>Capture analytics + logging events.</li><li>Plan roadmap for v1.1.</li></ul></div>
+                    <div class="project-detail-card">
+                        <h3>Goals</h3>
+                        <ul>
+                                <li>Provide a Kanban-style task board for visual work management.</li>
+                                <li>Success metric: full board with 50 tasks renders and responds in under 100ms.</li>
+                                <li>Primary users: solo developers and small agile teams.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Scope</h3>
+                        <ul>
+                                <li>Four swimlanes: Backlog, In Progress, Review, Done.</li>
+                                <li>Task cards with title, priority label, and due date.</li>
+                                <li>Drag-and-drop between columns with progress summary.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Architecture</h3>
+                        <ul>
+                                <li>Vanilla JS with the HTML5 Drag-and-Drop API.</li>
+                                <li>Board state persisted to localStorage with JSON serialization.</li>
+                                <li>Event-driven architecture — card actions dispatch to a central store.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Milestones</h3>
+                        <ul>
+                                <li>Design board layout and card data model.</li>
+                                <li>Implement drag-and-drop columns and card creation.</li>
+                                <li>Add filters, due-date sorting, and progress dashboard.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Risks</h3>
+                        <ul>
+                                <li>Drag-and-drop touch support issues on iOS Safari.</li>
+                                <li>localStorage limits with large numbers of rich task cards.</li>
+                                <li>Concurrent edits if the board is shared across browser tabs.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Next Steps</h3>
+                        <ul>
+                                <li>Add due-date reminders via the Notifications API.</li>
+                                <li>Build a shared-board mode with Conflict-free Replicated Data Types.</li>
+                                <li>Plan v1.1: GitHub Issues sync and sprint velocity charts.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+</div>
     </section>
 
     <script src="../../../js/main.js"></script>

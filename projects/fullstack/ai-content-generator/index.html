@@ -162,60 +162,63 @@
                 </div>
             </div>
 
-            <div id="outline" class="project-demo project-outline">
+                        <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
                     <div class="project-detail-card">
                         <h3>Goals</h3>
                         <ul>
-                            <li>Describe the core problem you are solving.</li>
-                            <li>Define success metrics (latency, adoption, revenue).</li>
-                            <li>List the primary user personas.</li>
+                                <li>Simulate an AI content pipeline for blog posts, social captions, and emails.</li>
+                                <li>Success metric: generate and display polished content in under 2 seconds.</li>
+                                <li>Primary users: marketers, founders, and content creators.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Scope</h3>
                         <ul>
-                            <li>Must-have MVP features.</li>
-                            <li>Nice-to-have enhancements.</li>
-                            <li>Out-of-scope items for later.</li>
+                                <li>Three content types: blog post, social media, and email campaign.</li>
+                                <li>Tone selector (professional, casual, humorous) and length controls.</li>
+                                <li>Generation history panel with copy-to-clipboard and export.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Architecture</h3>
                         <ul>
-                            <li>Frontend stack and state management.</li>
-                            <li>Backend services and data storage.</li>
-                            <li>Integrations (payments, APIs, auth).</li>
+                                <li>Vanilla JS template engine simulates LLM output with structured patterns.</li>
+                                <li>Prompt-to-template mapping with token-streaming animation.</li>
+                                <li>IndexedDB for persistent generation history across sessions.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Milestones</h3>
                         <ul>
-                            <li>Discovery + wireframes.</li>
-                            <li>Build core workflows.</li>
-                            <li>Testing, QA, and launch.</li>
+                                <li>Define content schemas and prompt-to-template mapping.</li>
+                                <li>Build generation UI, streaming animation, and tone selector.</li>
+                                <li>Add history panel, export, and accessibility review.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Risks</h3>
                         <ul>
-                            <li>Performance constraints.</li>
-                            <li>Third-party dependency limits.</li>
-                            <li>Security or compliance needs.</li>
+                                <li>Template outputs feeling repetitive without enough variation.</li>
+                                <li>Streaming animation causing layout shift on slower devices.</li>
+                                <li>History storage growing unbounded without a retention policy.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Next Steps</h3>
                         <ul>
-                            <li>Define requirements and acceptance criteria.</li>
-                            <li>Capture analytics + logging events.</li>
-                            <li>Plan roadmap for v1.1.</li>
+                                <li>Replace mock templates with a real LLM API (OpenAI / Anthropic).</li>
+                                <li>Add brand-voice fine-tuning and custom style guides.</li>
+                                <li>Plan v1.1: scheduled content calendar and batch generation.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+</div>
     </section>
 
     <script src="../../js/main.js"></script>

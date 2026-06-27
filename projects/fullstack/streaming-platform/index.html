@@ -98,60 +98,63 @@
                 <div id="streaming-app"></div>
             </div>
 
-            <div id="outline" class="project-demo project-outline">
+                        <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
                     <div class="project-detail-card">
                         <h3>Goals</h3>
                         <ul>
-                            <li>Describe the core problem you are solving.</li>
-                            <li>Define success metrics (latency, adoption, revenue).</li>
-                            <li>List the primary user personas.</li>
+                                <li>Recreate the core UX of a music streaming service entirely in the browser.</li>
+                                <li>Success metric: browse, queue, and play tracks with under 200ms UI response.</li>
+                                <li>Primary users: developers studying streaming UX patterns and music fans.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Scope</h3>
                         <ul>
-                            <li>Must-have MVP features.</li>
-                            <li>Nice-to-have enhancements.</li>
-                            <li>Out-of-scope items for later.</li>
+                                <li>Genre browsing with artist and album cards.</li>
+                                <li>Queue management with shuffle, repeat, and skip controls.</li>
+                                <li>Audio visualizer and now-playing bar with progress scrubbing.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Architecture</h3>
                         <ul>
-                            <li>Frontend stack and state management.</li>
-                            <li>Backend services and data storage.</li>
-                            <li>Integrations (payments, APIs, auth).</li>
+                                <li>Web Audio API powers the visualizer and audio routing graph.</li>
+                                <li>Vanilla JS track store with playlist state managed in memory.</li>
+                                <li>CSS animations and Canvas for the frequency-bar visualizer.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Milestones</h3>
                         <ul>
-                            <li>Discovery + wireframes.</li>
-                            <li>Build core workflows.</li>
-                            <li>Testing, QA, and launch.</li>
+                                <li>Design track schema and player state machine.</li>
+                                <li>Build genre browser, track list, and playback controls.</li>
+                                <li>Add queue management, visualizer, and keyboard media-key support.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Risks</h3>
                         <ul>
-                            <li>Performance constraints.</li>
-                            <li>Third-party dependency limits.</li>
-                            <li>Security or compliance needs.</li>
+                                <li>Autoplay policy blocking audio on first user interaction.</li>
+                                <li>Web Audio context limits on mobile browsers.</li>
+                                <li>Canvas visualizer dropping frames on low-end devices.</li>
                         </ul>
                     </div>
                     <div class="project-detail-card">
                         <h3>Next Steps</h3>
                         <ul>
-                            <li>Define requirements and acceptance criteria.</li>
-                            <li>Capture analytics + logging events.</li>
-                            <li>Plan roadmap for v1.1.</li>
+                                <li>Integrate a real audio streaming backend (Cloudflare R2 + signed URLs).</li>
+                                <li>Add user playlists, collaborative queues, and lyrics sync.</li>
+                                <li>Plan v1.1: podcast support and offline listening via Service Worker.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+</div>
     </section>
 
     <link rel="stylesheet" href="css/style.css">

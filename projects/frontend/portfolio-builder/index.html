@@ -163,18 +163,63 @@
                 </div>
             </div>
 
-            <div id="outline" class="project-demo project-outline">
+                        <div id="outline" class="project-demo project-outline">
                 <h2 class="section-title glitch" data-text="PROJECT OUTLINE">PROJECT OUTLINE</h2>
                 <div class="project-detail-grid">
-                    <div class="project-detail-card"><h3>Goals</h3><ul><li>Describe the core problem you are solving.</li><li>Define success metrics (latency, adoption, revenue).</li><li>List the primary user personas.</li></ul></div>
-                    <div class="project-detail-card"><h3>Scope</h3><ul><li>Must-have MVP features.</li><li>Nice-to-have enhancements.</li><li>Out-of-scope items for later.</li></ul></div>
-                    <div class="project-detail-card"><h3>Architecture</h3><ul><li>Frontend stack and state management.</li><li>Backend services and data storage.</li><li>Integrations (payments, APIs, auth).</li></ul></div>
-                    <div class="project-detail-card"><h3>Milestones</h3><ul><li>Discovery + wireframes.</li><li>Build core workflows.</li><li>Testing, QA, and launch.</li></ul></div>
-                    <div class="project-detail-card"><h3>Risks</h3><ul><li>Performance constraints.</li><li>Third-party dependency limits.</li><li>Security or compliance needs.</li></ul></div>
-                    <div class="project-detail-card"><h3>Next Steps</h3><ul><li>Define requirements and acceptance criteria.</li><li>Capture analytics + logging events.</li><li>Plan roadmap for v1.1.</li></ul></div>
+                    <div class="project-detail-card">
+                        <h3>Goals</h3>
+                        <ul>
+                                <li>Let users drag-and-drop components to assemble a portfolio page visually.</li>
+                                <li>Success metric: a complete portfolio layout buildable in under 10 minutes.</li>
+                                <li>Primary users: developers and creatives who want a quick portfolio presence.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Scope</h3>
+                        <ul>
+                                <li>Component library: hero, about, skills, projects, and contact blocks.</li>
+                                <li>Drag-and-drop layout grid with reorder and delete.</li>
+                                <li>Live preview mode and HTML/CSS code export.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Architecture</h3>
+                        <ul>
+                                <li>Vanilla JS with the HTML5 Drag-and-Drop API.</li>
+                                <li>Component registry stores template HTML and default props.</li>
+                                <li>CSS Grid layout engine with serializable state saved to localStorage.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Milestones</h3>
+                        <ul>
+                                <li>Define component schema and grid layout system.</li>
+                                <li>Build drag-and-drop canvas and component sidebar.</li>
+                                <li>Add live preview, property editor, and HTML export.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Risks</h3>
+                        <ul>
+                                <li>Mobile drag-and-drop UX being significantly worse than desktop.</li>
+                                <li>Generated HTML quality and CSS specificity conflicts.</li>
+                                <li>State serialization growing stale with schema updates.</li>
+                        </ul>
+                    </div>
+                    <div class="project-detail-card">
+                        <h3>Next Steps</h3>
+                        <ul>
+                                <li>Add a template gallery with one-click starter layouts.</li>
+                                <li>Support image uploads and custom color schemes.</li>
+                                <li>Plan v1.1 roadmap: publish-to-Replit integration.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+</div>
     </section>
     <script src="../../../js/main.js"></script>
     <script src="js/main.js"></script>
