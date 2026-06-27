@@ -72,22 +72,58 @@ class AIContentGenerator {
         outputDiv.innerHTML = `
             <div class="generating">
                 <div class="generating-spinner"></div>
-                <div class="generating-text">Generating content...</div>
+                <div class="generating-text">Connecting to AI pipeline...</div>
             </div>
         `;
 
-        // Simulate AI generation delay
-        await this.delay(2000);
+        // Try the live n8n pipeline first; fall back to local templates if unavailable
+        let content;
+        const liveContent = await this.callN8nWebhook(prompt, 'professional', this.currentTemplate);
 
-        // Generate content based on template
-        const content = this.generateContent(prompt);
+        if (liveContent) {
+            // Wrap plain-text response in a content section
+            const escaped = liveContent.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            const formatted = escaped.replace(/\n/g, '<br>');
+            content = `<div class="content-section"><p>${formatted}</p></div>`;
+        } else {
+            // Local template fallback
+            await this.delay(800);
+            content = this.generateContent(prompt);
+        }
+
         this.currentContent = content;
-
-        // Display content
         outputDiv.innerHTML = `<div class="generated-content">${content}</div>`;
-
-        // Save to history
         this.saveToHistory(prompt, content);
+    }
+
+    async callN8nWebhook(topic, tone, channel) {
+        const n8nWebhookUrl = 'https://smithedriena123.app.n8n.cloud/webhook-test/51843bf3-1584-4494-826f-fc64d8f40bf9';
+
+        try {
+            const response = await fetch(n8nWebhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ topic, tone, channel })
+            });
+
+            if (!response.ok) return null;
+
+            const result = await response.json();
+
+            if (result.success && result.data && result.data.content) {
+                console.log('Live n8n Output:', result.data.content);
+                return result.data.content;
+            }
+
+            // Some n8n workflows return the content directly at the top level
+            if (result.content) return result.content;
+            if (typeof result === 'string') return result;
+
+            return null;
+        } catch (error) {
+            console.error('n8n pipeline unavailable, using local templates:', error.message);
+            return null;
+        }
     }
 
     generateContent(prompt) {
