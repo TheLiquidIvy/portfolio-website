@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behind the Build — Edriena Maya Smith</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ffff;
+            --secondary: #ff00ff;
+            --accent: #ffff00;
+            --neon-green: #00ff41;
+            --neon-purple: #9d00ff;
+            --bg-dark: #0a0a0f;
+            --bg-darker: #050508;
+            --bg-card: rgba(0, 255, 255, 0.03);
+            --text: #ffffff;
+            --text-dim: #a0a0b0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-darker);
+            color: var(--text);
+            line-height: 1.7;
+            cursor: none;
+        }
+
+        @media (hover: none) { body { cursor: auto; } }
+
+        .cursor-ring {
+            position: fixed; top: -20px; left: -20px;
+            width: 40px; height: 40px;
+            border: 2px solid var(--primary); border-radius: 50%;
+            pointer-events: none; z-index: 99999;
+            will-change: transform;
+            transition: width 0.2s, height 0.2s, border-color 0.2s, opacity 0.3s;
+            box-shadow: 0 0 8px var(--primary);
+        }
+        .cursor-ring.active { width: 56px; height: 56px; top: -28px; left: -28px; border-color: var(--secondary); box-shadow: 0 0 16px var(--secondary); }
+        .cursor-dot {
+            position: fixed; top: -4px; left: -4px;
+            width: 8px; height: 8px;
+            background: var(--primary); border-radius: 50%;
+            pointer-events: none; z-index: 100000;
+            will-change: transform;
+            box-shadow: 0 0 6px var(--primary);
+            transition: opacity 0.3s;
+        }
+
+        /* Grid background */
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background-image:
+                linear-gradient(rgba(0,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,255,0.04) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none; z-index: 0;
+        }
+
+        /* Nav */
+        .navbar {
+            position: sticky; top: 0;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1rem 2rem;
+            background: rgba(5,5,8,0.9);
+            border-bottom: 1px solid rgba(0,255,255,0.2);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+        }
+        .nav-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem; font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            text-shadow: 0 0 10px var(--primary);
+        }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            color: var(--text-dim); text-decoration: none;
+            font-family: 'Orbitron', sans-serif; font-size: 0.75rem;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); text-shadow: 0 0 8px var(--primary); }
+
+        /* Page wrapper */
+        .page { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+        /* Hero banner */
+        .page-hero { text-align: center; padding: 3rem 0 4rem; border-bottom: 1px solid rgba(0,255,255,0.15); margin-bottom: 4rem; }
+        .page-hero .label {
+            display: inline-block;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem; color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            padding: 0.3rem 1rem; border-radius: 2px;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 8px var(--neon-green);
+            box-shadow: 0 0 8px rgba(0,255,65,0.2);
+        }
+        .page-hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary), 0 0 60px rgba(0,255,255,0.3);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        .page-hero p {
+            font-size: 1.2rem; color: var(--text-dim);
+            max-width: 620px; margin: 0 auto;
+        }
+
+        /* Section headings */
+        .section { margin-bottom: 4rem; }
+        .section-header {
+            display: flex; align-items: center; gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .section-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem; font-weight: 700;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+            white-space: nowrap;
+        }
+        .section-header .line {
+            flex: 1; height: 1px;
+            background: linear-gradient(to right, rgba(0,255,255,0.5), transparent);
+        }
+        .section-tag {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem; color: var(--secondary);
+            border: 1px solid var(--secondary);
+            padding: 0.2rem 0.6rem; border-radius: 2px;
+            white-space: nowrap;
+        }
+
+        /* Cards grid */
+        .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(0,255,255,0.15);
+            border-radius: 4px;
+            padding: 1.5rem;
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+        }
+        .card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0,255,255,0.1);
+            transform: translateY(-2px);
+        }
+        .card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem; color: var(--primary);
+            margin-bottom: 0.75rem; text-transform: uppercase;
+        }
+        .card p { font-size: 0.95rem; color: var(--text-dim); }
+        .card ul { list-style: none; padding: 0; }
+        .card ul li { color: var(--text-dim); font-size: 0.95rem; padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .card ul li:last-child { border-bottom: none; }
+        .card ul li::before { content: '▸ '; color: var(--primary); }
+
+        /* Tag pill */
+        .pill {
+            display: inline-block;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2px;
+            margin: 0.25rem 0.2rem;
+        }
+        .pill-cyan   { background: rgba(0,255,255,0.1);  color: var(--primary);    border: 1px solid rgba(0,255,255,0.3); }
+        .pill-pink   { background: rgba(255,0,255,0.1);  color: var(--secondary);  border: 1px solid rgba(255,0,255,0.3); }
+        .pill-green  { background: rgba(0,255,65,0.1);   color: var(--neon-green); border: 1px solid rgba(0,255,65,0.3); }
+        .pill-purple { background: rgba(157,0,255,0.1);  color: var(--neon-purple);border: 1px solid rgba(157,0,255,0.3); }
+        .pill-yellow { background: rgba(255,255,0,0.08); color: var(--accent);     border: 1px solid rgba(255,255,0,0.25); }
+
+        /* Terminal block */
+        .terminal {
+            background: rgba(0,0,0,0.7);
+            border: 1px solid rgba(0,255,255,0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        .terminal-header {
+            background: rgba(0,255,255,0.08);
+            padding: 0.6rem 1rem;
+            display: flex; align-items: center; gap: 0.5rem;
+            border-bottom: 1px solid rgba(0,255,255,0.2);
+        }
+        .tb { width: 12px; height: 12px; border-radius: 50%; }
+        .tb-r { background: #ff5f57; }
+        .tb-y { background: #ffbd2e; }
+        .tb-g { background: #28ca41; }
+        .terminal-title { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--text-dim); margin-left: auto; }
+        .terminal-body { padding: 1.25rem 1.5rem; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; line-height: 2; }
+        .terminal-body .prompt { color: var(--neon-green); }
+        .terminal-body .out { color: var(--text-dim); margin-left: 1rem; }
+        .terminal-body .val { color: var(--primary); }
+        .terminal-body .comment { color: #555; }
+
+        /* Feature list */
+        .feature-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+        .feature-item {
+            display: flex; gap: 1rem; align-items: flex-start;
+            background: var(--bg-card);
+            border: 1px solid rgba(0,255,255,0.1);
+            border-radius: 4px; padding: 1rem;
+            transition: border-color 0.3s;
+        }
+        .feature-item:hover { border-color: rgba(0,255,255,0.4); }
+        .feature-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+        .feature-item h4 { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: var(--primary); margin-bottom: 0.4rem; }
+        .feature-item p { font-size: 0.85rem; color: var(--text-dim); }
+
+        /* Stat row */
+        .stat-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+        .stat-pill {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 4px; padding: 1.2rem 2rem; flex: 1; min-width: 130px;
+            text-align: center; transition: border-color 0.3s;
+        }
+        .stat-pill:hover { border-color: var(--primary); }
+        .stat-pill .num { font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900; color: var(--primary); line-height: 1; }
+        .stat-pill .lbl { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.4rem; }
+
+        /* Easter eggs table */
+        .ee-table { width: 100%; border-collapse: collapse; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; }
+        .ee-table th { text-align: left; color: var(--primary); font-family: 'Orbitron', sans-serif; font-size: 0.75rem; padding: 0.75rem 1rem; border-bottom: 1px solid rgba(0,255,255,0.3); }
+        .ee-table td { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-dim); }
+        .ee-table td:first-child { color: var(--accent); white-space: nowrap; }
+        .ee-table tr:last-child td { border-bottom: none; }
+
+        /* Back link */
+        .back-link {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-family: 'Orbitron', sans-serif; font-size: 0.75rem;
+            color: var(--primary); text-decoration: none;
+            border: 1px solid rgba(0,255,255,0.3); padding: 0.6rem 1.2rem; border-radius: 2px;
+            transition: all 0.3s; margin-bottom: 4rem;
+        }
+        .back-link:hover { background: rgba(0,255,255,0.08); box-shadow: 0 0 12px rgba(0,255,255,0.2); }
+
+        /* Footer */
+        .page-footer {
+            text-align: center; padding: 2rem;
+            border-top: 1px solid rgba(0,255,255,0.1);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem; color: var(--text-dim);
+        }
+        .page-footer a { color: var(--primary); text-decoration: none; }
+        .page-footer a:hover { text-shadow: 0 0 8px var(--primary); }
+
+        @media (max-width: 600px) {
+            .navbar { flex-direction: column; gap: 1rem; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+            .page { padding: 2rem 1rem 4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-ring"></div>
+    <div class="cursor-dot"></div>
+
+    <nav class="navbar">
+        <a href="/" class="nav-logo">&lt;Edriena Maya Smith/&gt;</a>
+        <ul class="nav-links">
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#projects">Projects</a></li>
+            <li><a href="/#contact">Contact</a></li>
+            <li><a href="/behind-the-build.html">Behind the Build</a></li>
+        </ul>
+    </nav>
+
+    <div class="page">
+
+        <a href="/" class="back-link">← Back to Portfolio</a>
+
+        <div class="page-hero">
+            <div class="label">// DOCUMENTATION</div>
+            <h1>Behind the Build</h1>
+            <p>A transparent look at every technical decision, system, and trick that makes this portfolio work the way it does.</p>
+        </div>
+
+        <!-- Stack at a glance -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Stack at a Glance</h2>
+                <div class="line"></div>
+                <span class="section-tag">no build step</span>
+            </div>
+
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="tb tb-r"></span>
+                    <span class="tb tb-y"></span>
+                    <span class="tb tb-g"></span>
+                    <span class="terminal-title">stack.sh</span>
+                </div>
+                <div class="terminal-body">
+                    <p><span class="prompt">$</span> cat package.json</p>
+                    <p class="out"><span class="val">{</span></p>
+                    <p class="out">&nbsp;&nbsp;<span class="comment">// no frameworks. no bundlers. no build step.</span></p>
+                    <p class="out">&nbsp;&nbsp;"runtime": <span class="val">"vanilla JS (ES6+)"</span>,</p>
+                    <p class="out">&nbsp;&nbsp;"styling": <span class="val">"CSS3 + custom properties"</span>,</p>
+                    <p class="out">&nbsp;&nbsp;"server": <span class="val">"python3 -m http.server 5000"</span>,</p>
+                    <p class="out">&nbsp;&nbsp;"3d": <span class="val">"Three.js (CDN)"</span>,</p>
+                    <p class="out">&nbsp;&nbsp;"charts": <span class="val">"Chart.js (CDN, project demos only)"</span>,</p>
+                    <p class="out">&nbsp;&nbsp;"fonts": <span class="val">"Google Fonts — Orbitron, Rajdhani, Share Tech Mono"</span>,</p>
+                    <p class="out">&nbsp;&nbsp;"dependencies": <span class="val">0</span> <span class="comment">// zero npm packages on main site</span></p>
+                    <p class="out"><span class="val">}</span></p>
+                </div>
+            </div>
+
+            <div style="margin-top:1rem;">
+                <span class="pill pill-cyan">Vanilla JS</span>
+                <span class="pill pill-cyan">CSS Custom Properties</span>
+                <span class="pill pill-cyan">Canvas API</span>
+                <span class="pill pill-cyan">Web Audio API</span>
+                <span class="pill pill-cyan">Intersection Observer</span>
+                <span class="pill pill-pink">Service Worker</span>
+                <span class="pill pill-pink">PWA Manifest</span>
+                <span class="pill pill-pink">IndexedDB / localStorage</span>
+                <span class="pill pill-green">Three.js (CDN)</span>
+                <span class="pill pill-green">Chart.js (CDN, demos)</span>
+                <span class="pill pill-purple">WCAG 2.1 AA</span>
+                <span class="pill pill-purple">Schema.org JSON-LD</span>
+                <span class="pill pill-yellow">Zero npm dependencies</span>
+            </div>
+        </section>
+
+        <!-- Architecture -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Architecture</h2>
+                <div class="line"></div>
+                <span class="section-tag">file structure</span>
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="tb tb-r"></span><span class="tb tb-y"></span><span class="tb tb-g"></span>
+                    <span class="terminal-title">tree .</span>
+                </div>
+                <div class="terminal-body">
+                    <p class="out"><span class="val">portfolio/</span></p>
+                    <p class="out">├── <span class="val">index.html</span>         <span class="comment">// single-page main site (~1 500 lines)</span></p>
+                    <p class="out">├── <span class="val">behind-the-build.html</span> <span class="comment">// this page</span></p>
+                    <p class="out">├── <span class="val">offline.html</span>       <span class="comment">// service worker fallback</span></p>
+                    <p class="out">├── <span class="val">sw.js</span>              <span class="comment">// service worker — cache-first strategy</span></p>
+                    <p class="out">├── <span class="val">manifest.json</span>      <span class="comment">// PWA install config</span></p>
+                    <p class="out">├── css/               <span class="comment">// 20+ modular stylesheets, all linked from index</span></p>
+                    <p class="out">│   ├── style.css      <span class="comment">// base variables, reset, core layout</span></p>
+                    <p class="out">│   ├── themes.css     <span class="comment">// 5 colour themes (cyan / pink / green / purple / amber)</span></p>
+                    <p class="out">│   └── ...</p>
+                    <p class="out">├── js/                <span class="comment">// 28 independent JS modules, all loaded deferred</span></p>
+                    <p class="out">│   ├── cursor.js      <span class="comment">// canvas particle trail (section-colour aware)</span></p>
+                    <p class="out">│   ├── enhanced-interactions.js <span class="comment">// magnetic cursor + scroll progress</span></p>
+                    <p class="out">│   ├── main.js        <span class="comment">// nav, scroll, mobile menu</span></p>
+                    <p class="out">│   └── ...</p>
+                    <p class="out">├── api/               <span class="comment">// static JSON data files</span></p>
+                    <p class="out">│   ├── portfolio.json <span class="comment">// profile, skills, contact</span></p>
+                    <p class="out">│   ├── projects.json  <span class="comment">// 14 project cards</span></p>
+                    <p class="out">│   └── ...</p>
+                    <p class="out">└── projects/          <span class="comment">// 14 self-contained interactive demos</span></p>
+                    <p class="out">&nbsp;&nbsp;&nbsp;&nbsp;├── frontend/  <span class="comment">// 7 demos</span></p>
+                    <p class="out">&nbsp;&nbsp;&nbsp;&nbsp;└── fullstack/ <span class="comment">// 7 demos</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- By the numbers -->
+        <section class="section">
+            <div class="section-header">
+                <h2>By the Numbers</h2>
+                <div class="line"></div>
+                <span class="section-tag">stats</span>
+            </div>
+            <div class="stat-row">
+                <div class="stat-pill"><span class="num">14</span><span class="lbl">Live project demos</span></div>
+                <div class="stat-pill"><span class="num">28</span><span class="lbl">JS modules</span></div>
+                <div class="stat-pill"><span class="num">20+</span><span class="lbl">CSS stylesheets</span></div>
+                <div class="stat-pill"><span class="num">0</span><span class="lbl">npm dependencies</span></div>
+                <div class="stat-pill"><span class="num">5</span><span class="lbl">colour themes</span></div>
+                <div class="stat-pill"><span class="num">PWA</span><span class="lbl">Offline capable</span></div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Features &amp; Systems</h2>
+                <div class="line"></div>
+                <span class="section-tag">implementation notes</span>
+            </div>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">🖱️</div>
+                    <div>
+                        <h4>Dual Cursor System</h4>
+                        <p>A neon ring + dot follow the mouse via <code>requestAnimationFrame</code> with lerp smoothing. A separate canvas layer paints section-colour-matched particle trails at every mousemove.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div>
+                        <h4>Service Worker + PWA</h4>
+                        <p>A cache-first service worker pre-caches all assets on install. The site works fully offline. Includes a Web App Manifest for add-to-home-screen on mobile.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <div>
+                        <h4>5 Live Colour Themes</h4>
+                        <p>CSS custom properties power five themes (Cyan, Magenta, Green, Purple, Amber) that swap site-wide instantly without a page reload or any JS framework.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌐</div>
+                    <div>
+                        <h4>Static JSON API</h4>
+                        <p>All dynamic content (skills, projects, blog, stats) is fetched from local JSON files in <code>/api/</code>. This mirrors a real API contract without requiring a backend.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">♿</div>
+                    <div>
+                        <h4>Accessibility First</h4>
+                        <p>WCAG 2.1 AA colour contrast, skip-to-content link, semantic HTML5, ARIA roles and labels, keyboard navigation, and <code>prefers-reduced-motion</code> support throughout.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📐</div>
+                    <div>
+                        <h4>Three.js Hero</h4>
+                        <p>The hero section renders an animated 3D particle field via Three.js loaded from CDN. Automatically disabled on mobile to preserve performance and battery.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <div>
+                        <h4>Global Search</h4>
+                        <p>A keyboard-triggered search overlay (press <kbd>/</kbd>) indexes all sections, projects, and skills client-side — no backend required.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div>
+                        <h4>GitHub Stats Dashboard</h4>
+                        <p>A live stats panel fetches public data from the GitHub REST API to display contributions, top languages, and repository counts in real time.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎭</div>
+                    <div>
+                        <h4>Glitch Effects</h4>
+                        <p>CSS <code>clip-path</code> and <code>@keyframes</code> animate the RGB-shift glitch on headings. Scroll-triggered variants fire when sections enter the viewport via Intersection Observer.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💬</div>
+                    <div>
+                        <h4>Interactive Terminal</h4>
+                        <p>Press <kbd>~</kbd> to open a full terminal emulator. Supports commands like <code>help</code>, <code>projects</code>, <code>skills</code>, <code>matrix</code>, and several hidden ones.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎵</div>
+                    <div>
+                        <h4>Ambient Music Player</h4>
+                        <p>A floating music player runs synth-wave ambience using the Web Audio API — oscillators and filters only, no audio files required.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🚀</div>
+                    <div>
+                        <h4>Performance Optimisation</h4>
+                        <p>All scripts load with <code>defer</code>. Images use <code>loading="lazy"</code>. An IntersectionObserver drives scroll animations instead of scroll event listeners to avoid jank.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project demos -->
+        <section class="section">
+            <div class="section-header">
+                <h2>The 14 Project Demos</h2>
+                <div class="line"></div>
+                <span class="section-tag">fully interactive</span>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <h3>Frontend (7)</h3>
+                    <ul>
+                        <li>Crypto Tracker — live Canvas sparklines + mock prices</li>
+                        <li>Data Visualizer Pro — custom 3D chart renderer, no libs</li>
+                        <li>Design System Studio — WCAG contrast checker + CSS export</li>
+                        <li>Neon Dashboard — Chart.js KPI widgets + live data sim</li>
+                        <li>Neural Game Hub — Snake, Tetris &amp; Memory in Canvas</li>
+                        <li>Portfolio Builder — HTML5 drag-and-drop layout composer</li>
+                        <li>Task Matrix — Kanban board with localStorage persistence</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Full Stack (7)</h3>
+                    <ul>
+                        <li>AI Content Generator — streaming token animation + history</li>
+                        <li>Cloud Storage Pro — virtual filesystem in localStorage</li>
+                        <li>DevOps Dashboard — pipeline state machine + log stream</li>
+                        <li>E-Commerce Engine — cart, checkout &amp; admin dashboard</li>
+                        <li>Social Nexus — auth flow, post feed &amp; DM threads</li>
+                        <li>Streaming Platform — Web Audio visualizer + queue manager</li>
+                        <li>Team Collaboration Hub — chat, kanban &amp; Canvas whiteboard</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Easter eggs -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Easter Eggs</h2>
+                <div class="line"></div>
+                <span class="section-tag">find them all</span>
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="tb tb-r"></span><span class="tb tb-y"></span><span class="tb tb-g"></span>
+                    <span class="terminal-title">easter-eggs.log</span>
+                </div>
+                <div class="terminal-body">
+                    <table class="ee-table">
+                        <thead>
+                            <tr><th>Trigger</th><th>What happens</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>↑ ↑ ↓ ↓ ← → ← → B A</td><td>Konami Code — full-screen matrix rain mode</td></tr>
+                            <tr><td>Press <kbd style="color:#fff">~</kbd></td><td>Opens the interactive terminal emulator</td></tr>
+                            <tr><td>Type <code>matrix</code> in terminal</td><td>Activates matrix rain effect</td></tr>
+                            <tr><td>CTRL + P</td><td>Toggles cursor particle trail on / off</td></tr>
+                            <tr><td>CTRL + SHIFT + P</td><td>Shows the performance monitor overlay</td></tr>
+                            <tr><td>Click the logo 10× </td><td>Surprise animation fires</td></tr>
+                            <tr><td>Open DevTools console</td><td>Full ASCII art banner + hidden commands</td></tr>
+                            <tr><td><code>portfolioCommands.help()</code></td><td>Lists all console API commands</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design decisions -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Design Decisions</h2>
+                <div class="line"></div>
+                <span class="section-tag">why we built it this way</span>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <h3>No Framework</h3>
+                    <p>Vanilla JS keeps the site zero-dependency and instantly deployable anywhere. It also demonstrates that impressive interactivity doesn't require React — a deliberate statement as a full-stack dev.</p>
+                </div>
+                <div class="card">
+                    <h3>Cyberpunk Aesthetic</h3>
+                    <p>The neon-on-black palette, glitch text, and CRT-grid background signal a developer who sweats the details. The theme is memorable and fully ownable — not a Bootstrap template.</p>
+                </div>
+                <div class="card">
+                    <h3>Static JSON as API</h3>
+                    <p>All content lives in <code>/api/*.json</code>. This means updating a project card, skill bar, or blog post is a one-line JSON edit — no CMS login, no database migration.</p>
+                </div>
+                <div class="card">
+                    <h3>Modular CSS Files</h3>
+                    <p>Each feature (music player, certifications, timeline, etc.) has its own stylesheet. This means any section can be removed with a single line delete — no cascade side-effects.</p>
+                </div>
+                <div class="card">
+                    <h3>Self-Contained Demos</h3>
+                    <p>Every project demo is a standalone HTML/CSS/JS page inside <code>/projects/</code>. They share nothing with the main site, making them easy to update, link, or remove independently.</p>
+                </div>
+                <div class="card">
+                    <h3>PWA from Day One</h3>
+                    <p>The service worker and manifest were built in at the start, not bolted on. This means the portfolio installs to the home screen on mobile and works on a plane — a nice flex.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="page-footer">
+        <p>Built with zero npm packages and too much caffeine &mdash; <a href="/">Edriena Maya Smith</a> &copy; 2024</p>
+    </footer>
+
+    <script>
+        // Cursor
+        const ring = document.querySelector('.cursor-ring');
+        const dot = document.querySelector('.cursor-dot');
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        if (!isMobile && ring && dot) {
+            let x = 0, y = 0, tx = 0, ty = 0;
+
+            document.addEventListener('mousemove', e => {
+                x = e.clientX; y = e.clientY;
+                dot.style.transform = `translate(${x}px,${y}px)`;
+            });
+
+            (function loop() {
+                tx += (x - tx) * 0.12;
+                ty += (y - ty) * 0.12;
+                ring.style.transform = `translate(${tx}px,${ty}px)`;
+                requestAnimationFrame(loop);
+            })();
+
+            document.querySelectorAll('a, button').forEach(el => {
+                el.addEventListener('mouseenter', () => ring.classList.add('active'));
+                el.addEventListener('mouseleave', () => ring.classList.remove('active'));
+            });
+
+            document.addEventListener('mouseleave', () => { ring.style.opacity='0'; dot.style.opacity='0'; });
+            document.addEventListener('mouseenter', () => { ring.style.opacity='1'; dot.style.opacity='1'; });
+        }
+    </script>
+</body>
+</html>

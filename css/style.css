@@ -38,6 +38,55 @@ body {
     color: var(--text);
     overflow-x: hidden;
     line-height: 1.6;
+    cursor: none;
+}
+
+@media (hover: none) {
+    body { cursor: auto; }
+}
+
+/* ==================== CUSTOM CURSOR ==================== */
+.cursor-ring {
+    position: fixed;
+    top: -20px;
+    left: -20px;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(0, 0);
+    transform-origin: center center;
+    will-change: transform;
+    transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, opacity 0.3s ease;
+    box-shadow: 0 0 8px var(--primary);
+}
+
+.cursor-ring.active {
+    width: 56px;
+    height: 56px;
+    border-color: var(--secondary);
+    box-shadow: 0 0 16px var(--secondary);
+    top: -28px;
+    left: -28px;
+}
+
+.cursor-dot {
+    position: fixed;
+    top: -4px;
+    left: -4px;
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 100000;
+    transform: translate(0, 0);
+    transform-origin: center center;
+    will-change: transform;
+    box-shadow: 0 0 6px var(--primary);
+    transition: opacity 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {

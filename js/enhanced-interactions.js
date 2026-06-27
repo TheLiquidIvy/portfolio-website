@@ -1,61 +1,73 @@
 // ==================== ADVANCED CURSOR EFFECTS ====================
 class MagneticCursor {
     constructor() {
-        this.cursor = document.querySelector('.cursor');
-        this.cursorinner = document.querySelector('.cursor-inner');
+        this.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (this.isMobile) return;
+
+        this.cursor = document.querySelector('.cursor-ring');
+        this.cursorinner = document.querySelector('.cursor-dot');
         this.magneticElements = document.querySelectorAll('[data-magnetic]');
         
         if (!this.cursor || !this.cursorinner) return;
+
+        this.x = 0;
+        this.y = 0;
+        this.targetX = 0;
+        this.targetY = 0;
+        this.raf = null;
         
         this.setupCursor();
+        this.loop();
     }
     
     setupCursor() {
-        let x = 0, y = 0;
-        let targetX = 0, targetY = 0;
-        
         document.addEventListener('mousemove', (e) => {
-            x = e.clientX;
-            y = e.clientY;
-            
-            this.cursor.style.left = x + 'px';
-            this.cursor.style.top = y + 'px';
-            
-            // Smooth inner cursor
-            targetX += (x - targetX) * 0.3;
-            targetY += (y - targetY) * 0.3;
-            this.cursorinner.style.left = targetX + 'px';
-            this.cursorinner.style.top = targetY + 'px';
-            
-            // Magnetic effect on hover
+            this.x = e.clientX;
+            this.y = e.clientY;
+
+            // Dot follows instantly
+            this.cursorinner.style.transform = `translate(${this.x}px, ${this.y}px)`;
+
+            // Magnetic effect on nearby elements
             this.magneticElements.forEach(el => {
                 const rect = el.getBoundingClientRect();
                 const elCenterX = rect.left + rect.width / 2;
                 const elCenterY = rect.top + rect.height / 2;
-                const distance = Math.sqrt((x - elCenterX) ** 2 + (y - elCenterY) ** 2);
+                const distance = Math.sqrt((this.x - elCenterX) ** 2 + (this.y - elCenterY) ** 2);
                 
                 if (distance < 100) {
-                    const angle = Math.atan2(y - elCenterY, x - elCenterX);
+                    const angle = Math.atan2(this.y - elCenterY, this.x - elCenterX);
                     const tx = Math.cos(angle) * (100 - distance);
                     const ty = Math.sin(angle) * (100 - distance);
-                    
                     el.style.transform = `translate(${-tx * 0.2}px, ${-ty * 0.2}px)`;
                 } else {
                     el.style.transform = 'translate(0, 0)';
                 }
             });
         });
-        
-        // Scale cursor on hover
-        document.addEventListener('mouseenter', () => {
-            this.cursor.classList.add('active');
-            this.cursorinner.classList.add('active');
+
+        // Grow ring on any interactive element
+        document.querySelectorAll('a, button, [role="button"], input, textarea, select').forEach(el => {
+            el.addEventListener('mouseenter', () => this.cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => this.cursor.classList.remove('active'));
         });
-        
+
         document.addEventListener('mouseleave', () => {
-            this.cursor.classList.remove('active');
-            this.cursorinner.classList.remove('active');
+            this.cursor.style.opacity = '0';
+            this.cursorinner.style.opacity = '0';
         });
+        document.addEventListener('mouseenter', () => {
+            this.cursor.style.opacity = '1';
+            this.cursorinner.style.opacity = '1';
+        });
+    }
+
+    loop() {
+        // Ring lerps smoothly toward mouse
+        this.targetX += (this.x - this.targetX) * 0.12;
+        this.targetY += (this.y - this.targetY) * 0.12;
+        this.cursor.style.transform = `translate(${this.targetX}px, ${this.targetY}px)`;
+        this.raf = requestAnimationFrame(() => this.loop());
     }
 }
 
