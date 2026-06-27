@@ -327,42 +327,6 @@ if (contactForm) {
     });
 }
 
-// ==================== CURSOR EFFECTS ====================
-document.addEventListener('mousemove', (e) => {
-    const cursor = document.createElement('div');
-    cursor.className = 'cursor-trail';
-    cursor.style.cssText = `
-        position: fixed;
-        width: 5px;
-        height: 5px;
-        background: var(--primary);
-        border-radius: 50%;
-        pointer-events: none;
-        left: ${e.clientX}px;
-        top: ${e.clientY}px;
-        animation: fadeOut 1s forwards;
-        box-shadow: 0 0 10px var(--primary);
-        z-index: 9999;
-    `;
-    
-    document.body.appendChild(cursor);
-    
-    setTimeout(() => {
-        cursor.remove();
-    }, 1000);
-});
-
-// Add fadeOut animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fadeOut {
-        to {
-            opacity: 0;
-            transform: scale(2);
-        }
-    }
-`;
-document.head.appendChild(style);
 
 // ==================== PARALLAX EFFECT ====================
 window.addEventListener('scroll', () => {

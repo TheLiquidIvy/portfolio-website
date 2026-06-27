@@ -4,7 +4,7 @@
 class ResumeDownload {
     constructor() {
         this.resumeData = {
-            name: 'Maya Smith',
+            name: 'Edriena Maya Smith',
             title: 'Full Stack Developer',
             email: 'TheLiquidIvy@gmail.com',
             phone: '+27 123 456 789',

@@ -11,7 +11,7 @@
         '║     WELCOME TO THE CYBERPUNK         ║\n' +
         '║          PORTFOLIO MATRIX            ║\n' +
         '║                                       ║\n' +
-        '║   Built with ❤️  by Maya Smith       ║\n' +
+        '║   Built with ❤️  by Edriena Maya Smith       ║\n' +
         '║                                       ║\n' +
         '╚═══════════════════════════════════════╝',
         'color: #00f3ff; font-family: monospace; font-size: 14px; font-weight: bold; text-shadow: 0 0 10px #00f3ff;'
@@ -135,7 +135,7 @@
             );
             console.table({
                 'portfolioCommands.help()': 'Show this help message',
-                'portfolioCommands.about()': 'About Maya Smith',
+                'portfolioCommands.about()': 'About Edriena Maya Smith',
                 'portfolioCommands.skills()': 'List technical skills',
                 'portfolioCommands.contact()': 'Contact information',
                 'portfolioCommands.projects()': 'Featured projects',
@@ -146,7 +146,7 @@
         
         about: function() {
             console.log(
-                '%cAbout Maya Smith',
+                '%cAbout Edriena Maya Smith',
                 'color: #ff00ff; font-size: 16px; font-weight: bold;'
             );
             console.log(
@@ -234,7 +234,7 @@
             );
             console.log(
                 '%c' +
-                '🎨 Design & Development: Maya Smith\n' +
+                '🎨 Design & Development: Edriena Maya Smith\n' +
                 '🎵 Music System: Web Audio API\n' +
                 '⚡ Performance: Service Workers & Lazy Loading\n' +
                 '♿ Accessibility: WCAG 2.1 AA\n' +

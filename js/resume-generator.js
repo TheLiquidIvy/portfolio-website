@@ -3,7 +3,7 @@
 class ResumeGenerator {
     constructor() {
         this.portfolioData = {
-            name: 'Maya Smith',
+            name: 'Edriena Maya Smith',
             title: 'Full Stack Developer',
             email: 'TheLiquidIvy@gmail.com',
             phone: '+1 (555) 123-4567',
@@ -11,7 +11,7 @@ class ResumeGenerator {
             website: 'https://theliquidivyfile.github.io/portfolio-website/',
             github: 'github.com/TheLiquidIvy',
             linkedin: 'linkedin.com/in/mayasmith',
-            summary: 'Passionate Full Stack Developer with 5+ years of experience building scalable web applications. Specialized in React, Node.js, Python, and cloud technologies. Strong problem-solver with a focus on clean code and user experience.',
+            summary: 'Passionate Full Stack Developer with 8+ years of experience building scalable web applications (since 2018). Specialized in React, Node.js, Python, and cloud technologies. Strong problem-solver with a focus on clean code and user experience.',
             skills: {
                 frontend: ['React', 'Vue.js', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'Tailwind'],
                 backend: ['Node.js', 'Python', 'Express', 'Django', 'RESTful APIs', 'GraphQL'],
@@ -118,11 +118,8 @@ class ResumeGenerator {
     }
 
     async generatePDF() {
-        if (typeof jsPDF === 'undefined') {
-            console.error('[Resume] jsPDF library not loaded');
-            this.showToast('Error', 'PDF library not loaded', 'error');
-            return;
-        }
+        this.showToast('Coming Soon', 'Resume will be available soon — check back shortly!', 'info');
+        return;
 
         // Show loading
         this.showLoading();
