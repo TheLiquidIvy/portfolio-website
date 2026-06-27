@@ -75,34 +75,57 @@ class AIContentGenerator {
                 <div class="generating-text">Connecting to AI pipeline...</div>
             </div>
         `;
+        
+/ Try the live n8n pipeline first; fall back to local templates if unavailable
+        let content;
+        const liveContent = await this.callN8nWebhook(prompt, 'professional', this.currentTemplate);
 
-       // Try the live n8n pipeline first; fall back to local templates if unavailable
-let rawTextContent;
+        if (liveContent) {
+            // Wrap plain-text response in a content section
+            const escaped = liveContent.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            const formatted = escaped.replace(/\n/g, '<br>');
+            content = `<div class="content-section"><p>${formatted}</p></div>`;
+        } else {
+            // Local template fallback
+            await this.delay(800);
+            content = this.generateContent(prompt);
+        }
 
-// FIX: Passing the correct variable names matching your webhook's arguments
-const liveContent = await this.callN8nWebhook(prompt, 'professional', this.currentTemplate);
+        this.currentContent = content;
+        outputDiv.innerHTML = `<div class="generated-content">${content}</div>`;
+        this.saveToHistory(prompt, content);
+    }
 
-if (liveContent) {
-    rawTextContent = liveContent;
-} else {
-    // Local template fallback
-    await this.delay(800);
-    rawTextContent = this.generateContent(prompt); 
-}
+    async callN8nWebhook(topic, tone, channel) {
+        const n8nWebhookUrl = 'https://smithedriena123.app.n8n.cloud/webhook-test/51843bf3-1584-4494-826f-fc64d8f40bf9';
 
-// Escape characters safely to prevent layout breaks
-const escapedText = rawTextContent.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        try {
+            const response = await fetch(n8nWebhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ topic, tone, channel })
+            });
 
-this.currentContent = escapedText;
-this.saveToHistory(prompt, escapedText);
+            if (!response.ok) return null;
 
-// Pass it cleanly to your token streaming handler
-if (this.streamTextAnimation) {
-    this.streamTextAnimation(outputDiv, escapedText);
-} else {
-    const formattedHTML = escapedText.replace(/\n/g, '<br>');
-    outputDiv.innerHTML = `<div class="generated-content"><p>${formattedHTML}</p></div>`;
-}
+            const result = await response.json();
+
+            if (result.success && result.data && result.data.content) {
+                console.log('Live n8n Output:', result.data.content);
+                return result.data.content;
+            }
+
+            // Some n8n workflows return the content directly at the top level
+            if (result.content) return result.content;
+            if (typeof result === 'string') return result;
+
+            return null;
+        } catch (error) {
+            console.error('n8n pipeline unavailable, using local templates:', error.message);
+            return null;
+        }
+    } 
+
     generateContent(prompt) {
         const templates = {
             blog: this.generateBlogPost(prompt),
